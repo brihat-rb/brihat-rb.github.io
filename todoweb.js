@@ -215,6 +215,9 @@ function showtodo(sh) {
             // if there are no more cursor items to iterate through, say so
             console.log('Notes all displayed');
         }
+        if(filter_state == "0") {
+            document.getElementById("filter").selectedIndex = 0;
+        }
         countall();
     };
 } //showtodo close
