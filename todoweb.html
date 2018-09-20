@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Todo with web_store</title>
+    <link href="./todoweb.css" rel="stylesheet">
+    <script type="text/javascript" src="./todoweb.js" defer ></script>
+  </head>
+  <body>
+    <center>
+      <!-- <button onclick="count();">count</button> -->
+
+
+      <i id="datetime" class="gbold"></i>
+      <h2>Todo Using <font color="green">Java<font color="maroon">Script</font></font> Only (v3.0_webStorage)</h2>
+      <div>
+          <input id="title" type="text" placeholder="Enter new task to do..." autofocus/>
+          <button id="btn" onclick="addtodo();">Create</button>
+          <input type="text" id="find" placeholder="Search task . . ." />
+          <button id ="s" onclick="search();">Search</button>
+          Filter
+          <select id="filter" onchange="showtodo(this.value);">
+            <option value="0" selected></option>
+            <option value="1" class="gbold">DONE</option>
+            <option value="2" class="rbold">NOT DONE</option>
+          </select>
+          <button onclick="showtodo('0');">Clear filter</button>
+      </div>
+      <br /><hr />
+      <div>
+        <h3>TASKS<div class="black"><a onclick="delall(0);">.:<b id='count'></b>:.</a></div></h3>
+
+        <b class="rbold">TODO <a onclick="delall(1);">.:<b  id='ttd'></b>:.</a></b>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <b class="gbold">DONE <a onclick="delall(2);">.:<b  id="td"></b>:.</a></b>
+        <br /><br />
+      </div>
+    </center>
+
+    <!-- main content goes here -->
+    <div id="todos">
+    </div>
+
+    <!-- optional features -->
+    <!-- enter triggers Create button -->
+    <script type="text/javascript">
+        var input = document.getElementById("title");
+        input.addEventListener("keyup", function(event) {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                document.getElementById("btn").click();
+            }
+        });
+        var src = document.getElementById("find");
+        src.addEventListener("keyup", function(event) {
+          event.preventDefault();
+          if (event.keyCode === 13) {
+              document.getElementById("s").click();
+          }
+      });
+    </script>
+
+    <!-- for topmost date display -->
+    <script>
+        function showtime() {
+            var dt = new Date();
+            document.getElementById("datetime").innerHTML = dt.toLocaleTimeString();
+            setTimeout("showtime()", 500);
+          }
+          showtime();
+    </script>
+
+    <br /><br /><br /><br /><br />
+
+    <footer>
+      <br />&spades; Brihat &spades;<br />
+      <br />
+      <b>Features: </b><br />
+        Filter TASK to do and TASK done
+        | Activities are logged to console
+        | Search Tasks
+        | Task counter
+        | Web Store
+        <br /><br /><br />
+    </footer>
+    <!-- optional features ends here -->
+  </body>
+</html>
