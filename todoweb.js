@@ -1,4 +1,5 @@
 // todo using indexeddb
+// supports add edit delete filter search
 "use strict";
 
 // global variables
