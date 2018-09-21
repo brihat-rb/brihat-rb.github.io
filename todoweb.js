@@ -1,16 +1,19 @@
-// webstore integrated with todo
-// indentation required
+// todo using indexeddb
+"use strict";
 
-// global variables, to be changed to const
-var todolist = document.getElementById("todos");
-var todo = document.getElementById("title");
+// global variables
+const todolist = document.getElementById("todos");
+const todo = document.getElementById("title");
+const sv = document.getElementById("for_search");
 
-// initial state not done by default, change this to done or use this variable to do otherwise
+// initial state of todo (not done by default)
+// change this to done or use this variable to do otherwise
 var state = "ndone";
+
 // to store filter state
 var filter_state = "0";
 
-var db; //global
+var db;
 
 window.onload = function() {
     //get database
@@ -29,7 +32,6 @@ window.onload = function() {
     };
 
     // Setup the database tables if this has not already been done
-    // copied
     request.onupgradeneeded = function(e) {
         // Grab a reference to the opened database
         var db = e.target.result;
@@ -39,12 +41,12 @@ window.onload = function() {
         var objectStore = db.createObjectStore('todos', { keyPath: 'id', autoIncrement:true });
 
         // Define what data items the objectStore will contain
-        objectStore.createIndex('title', 'title', { unique: false });
+        objectStore.createIndex('title', 'title', { unique: true });
         objectStore.createIndex('state', 'state', { unique: false });
 
         console.log('Database setup complete');
     };
-}; //window onload close;
+}; //window onload close
 
 // adds new task
 function addtodo() {
@@ -63,33 +65,39 @@ function addtodo() {
 
     // Make a request to add our newItem object to the object store
     var request = objectStore.add(newtodo);
+
     request.onsuccess = function() {
         // Clear the form, ready for adding the next entry
         todo.value = '';
     };
 
+    // checks unique title in todos
+    request.onerror = function() {
+      alert("Two tasks cannot have same name");
+    }
+
     // Report on the success of the transaction completing, when everything is done
     transaction.oncomplete = function() {
-        console.log('Transaction completed: database modification finished.');
+        console.log('NEW TASK ADDED');
 
         // update the display of data to show the newly added item, by running displayData() again.
         showtodo(filter_state);
     };
 
     transaction.onerror = function() {
-        console.log('Transaction not opened due to error');
+        console.log('AN ERROR OCCURED');
     };
-
 } // addtodo close
 
 // display todos
 function showtodo(sh) {
-    //lets modify a bit
-    // arg 0 = all
-    // arg 1 = done only
-    // arg 2 = ndone only
+    // sh == 0  no filter
+    // sh == 1  done filter
+    // sh == 2  not done filter
+
     filter_state = sh;
     var filterstate;
+    var scount = 0;
 
     if(sh == 0 || sh == "0") {
         filterstate = "all";
@@ -107,96 +115,107 @@ function showtodo(sh) {
         todolist.removeChild(todolist.firstChild);
     }
 
-    // -- count
-    // Open our object store and then get a cursor - which iterates through all the
-    // different data items in the store
     var objectStore = db.transaction('todos').objectStore('todos');
-    var count;
-    var countRequest = objectStore.count();
 
-    countRequest.onsuccess = function() {
-        count = countRequest.result;
-        var abc = "count = " + count;
-        document.getElementById("count").innerHTML = abc;
-    }
-    // -- count end
+    // get value from search box
+    var query = document.getElementById("find").value;
 
+    scount = 0;
     objectStore.openCursor().onsuccess = function(e) {
-
         // Get a reference to the cursor
         var cursor = e.target.result;
 
         // If there is still another data item to iterate through, keep running this code
         if(cursor) {
             if(cursor.value.state == filterstate || filterstate == "all") {
-                // Create a list item, h3, and p to put each data item inside when displaying it
-                // structure the HTML fragment, and append it inside the list
-                var pdiv = document.createElement('div');
-                var ndiv = document.createElement('div');
-                var tdiv = document.createElement('div');
-                var bdiv = document.createElement('div');
+                if(cursor.value.title.toLowerCase().startsWith(query.toLowerCase())) {
+                    // increase search count by one;
+                    scount++;
 
-                var content = document.createElement('label');
-                var edit = document.createElement('button');
-                var del = document.createElement('button');
-                var tstate = document.createElement('button');
+                    // display search count
+                    if(query != "") {
+                      sv.innerHTML = "<hr width='20%'>SEARCH RESULT (<b style='color:blue'>" + scount + "</b>)<hr width='20%'/>";
+                    }
+                    else {
+                      sv.innerHTML ="";
+                    }
 
-                content.id = cursor.value.id + "_l";
-                content.innerHTML = cursor.value.title;
+                    // construct HTML structure for todos
+                    var pdiv = document.createElement('div');
+                    var ndiv = document.createElement('div');
+                    var tdiv = document.createElement('div');
+                    var bdiv = document.createElement('div');
 
-                edit.textContent = 'Edit';
-                edit.style="color:blue";
-                edit.id = "edit_" + cursor.value.id;
-                edit.setAttribute("onclick","editname(this.id)");
+                    var content = document.createElement('label');
+                    var edit = document.createElement('button');
+                    var del = document.createElement('button');
+                    var tstate = document.createElement('button');
 
-                tstate.id = "state_" + cursor.value.id;
-                tstate.setAttribute("onclick","toggle(this.id)");
+                    content.id = cursor.value.id + "_l";
+                    content.innerHTML = cursor.value.title;
 
-                if(cursor.value.state == "done") {
-                    pdiv.setAttribute("class","tdone");
-                    tstate.textContent = ' Not Done';
-                    tstate.style="color:maroon";
+                    edit.textContent = 'Edit';
+                    edit.style="color:blue";
+                    edit.id = "edit_" + cursor.value.id;
+                    edit.setAttribute("onclick","editname(this.id)");
+
+                    tstate.id = "state_" + cursor.value.id;
+                    tstate.setAttribute("onclick","toggle(this.id)");
+
+                    if(cursor.value.state == "done") {
+                        pdiv.setAttribute("class","tdone");
+                        tstate.textContent = ' Not Done';
+                        tstate.style="color:maroon";
+                    }
+                    else {
+                        pdiv.setAttribute("class","tndone");
+                        tstate.textContent = 'Done';
+                        tstate.style="color:green";
+                    }
+
+                    del.id = "del_" + cursor.value.id;
+                    del.textContent = 'Delete';
+                    del.style="color:red";
+                    del.setAttribute("onclick","deltodo(this.id);");
+
+                    bdiv.appendChild(edit);
+                    bdiv.appendChild(del);
+                    bdiv.appendChild(tstate);
+                    bdiv.setAttribute("class","column");
+
+                    tdiv.appendChild(content);
+                    tdiv.setAttribute("class","column");
+
+                    ndiv.setAttribute("class","margin");
+
+                    pdiv.appendChild(ndiv);
+                    pdiv.appendChild(tdiv);
+                    pdiv.appendChild(bdiv);
+
+                    // Store the ID of the data item inside an attribute on the listItem, so we know
+                    // which item it corresponds to. This will be useful later when we want to delete items
+                    pdiv.setAttribute('id', cursor.value.id);
+                    pdiv.setAttribute("state",cursor.value.state);
+                    pdiv.classList.add("row");
+
+                    todolist.appendChild(pdiv);
                 }
-                else {
-                    pdiv.setAttribute("class","tndone");
-                    tstate.textContent = 'Done';
-                    tstate.style="color:green";
-                }
-
-                del.id = "del_" + cursor.value.id;
-                del.textContent = 'Delete';
-                del.style="color:red";
-                del.setAttribute("onclick","deltodo(this.id);");
-
-                bdiv.appendChild(edit);
-                bdiv.appendChild(del);
-                bdiv.appendChild(tstate);
-                bdiv.setAttribute("class","column");
-
-                tdiv.appendChild(content);
-                tdiv.setAttribute("class","column");
-
-                ndiv.setAttribute("class","margin");
-
-                pdiv.appendChild(ndiv);
-                pdiv.appendChild(tdiv);
-                pdiv.appendChild(bdiv);
-
-                // Store the ID of the data item inside an attribute on the listItem, so we know
-                // which item it corresponds to. This will be useful later when we want to delete items
-                pdiv.setAttribute('id', cursor.value.id);
-                pdiv.setAttribute("state",cursor.value.state);
-                pdiv.classList.add("row");
-
-                todolist.appendChild(pdiv);
             }
             // Iterate to the next item in the cursor
             cursor.continue();
         }
 
-        // list is empty cursor points to null
+        // if cursor points to null (no todos)
         else {
-            // Again, if list item is empty, display a 'No notes stored' message
+            // added for search function
+            if(query != "") {
+              sv.innerHTML = "<hr width='20%'>SEARCH RESULT (<b style='color:blue'>" + scount + "</b>)<hr width='20%'/>";
+            }
+            else {
+              sv.innerHTML = "";
+            }
+
+            // Again, if no todos is found, display message
             if(!todolist.firstChild) {
                 var pdiv = document.createElement('div');
 
@@ -209,30 +228,32 @@ function showtodo(sh) {
                 else {
                     pdiv.innerHTML = '<h3 class="green">HURRAY! NO TASKS PENDING</h3>';
                 }
+
                 pdiv.setAttribute("class","rbold");
                 todolist.appendChild(pdiv);
             }
             // if there are no more cursor items to iterate through, say so
-            console.log('Notes all displayed');
+            console.log('ALL TODOS DISPLAYED');
         }
+
+        // update filter dropdown in HTML
         if(filter_state == "0") {
             document.getElementById("filter").selectedIndex = 0;
         }
+
+        //count all todos
         countall();
     };
 } //showtodo close
 
+// delete particular todo that calls this method
 function deltodo(did) {
-    // retrieve the name of the task we want to delete. We need
-    // to convert it to a number before trying it use it with IDB; IDB key
-    // values are type-sensitive.
-    // var todoid = Number(e.target.parentNode.getAttribute('data-note-id'));
+    // convert delete id to id
     var id = Number(did.substring(4,did.length));
 
-    // open a database transaction and delete the task, finding it using the id we retrieved above
+    // open a database transaction and delete the task, finding it using the id above
     var transaction = db.transaction(['todos'], 'readwrite');
     var objectStore = transaction.objectStore('todos');
-
     objectStore.delete(id);
 
     showtodo(filter_state);
@@ -247,6 +268,11 @@ function editname(eid) {
 
     var id = eid.substring(5,eid.length);
 
+    if(document.getElementById(id+"_l").textContent == nname) {
+      alert("No changes made");
+      return;
+    }
+
     var transaction = db.transaction(['todos'], 'readwrite');
     var objectStore = transaction.objectStore('todos');
 
@@ -260,8 +286,11 @@ function editname(eid) {
 
                 var request = cursor.update(updateData);
                 request.onsuccess = function() {
-                    console.log('success');
+                    console.log('TASK RENAMED');
                 };
+                request.onerror = function() {
+                  alert("TASK WITH ENTERED NAME ALREADY EXIST");
+                }
             }
             cursor.continue();
         }
@@ -269,7 +298,7 @@ function editname(eid) {
     showtodo(filter_state);
 } // end editname
 
-// toggle done
+// toggle task state (done or not done)
 function toggle(tid) {
     var id = tid.substring(6,tid.length);
     var pid = document.getElementById(id);
@@ -285,7 +314,6 @@ function toggle(tid) {
                 var updateData = cursor.value;
 
                 if (pid.getAttribute("state") == "done") {
-                    console.log(cursor.value.state);
                     updateData.state = "ndone";
                 }
                 else if (pid.getAttribute("state") == "ndone") {
@@ -294,7 +322,7 @@ function toggle(tid) {
 
                 var request = cursor.update(updateData);
                 request.onsuccess = function() {
-                    console.log('toggle success');
+                    console.log('TASK STATE CHANGE SUCCESSFUL');
                 };
             }
             cursor.continue();
@@ -303,7 +331,7 @@ function toggle(tid) {
     showtodo(filter_state);
 } // toggle ends
 
-// counts tasks to be done and task done
+// counts tasks to be done and task done and total
 function countall() {
     var done_counter = 0;
     var not_done_counter = 0;
@@ -326,26 +354,17 @@ function countall() {
         document.getElementById("ttd").innerHTML = not_done_counter;
         document.getElementById("td").innerHTML = done_counter;
         document.getElementById("count").innerHTML = done_counter+not_done_counter;
-
-        console.log("INFO:",not_done_counter,"TASK TO DO and",done_counter,"TASK DONE");
+        console.log(not_done_counter + " TASKS PENDING AND " + done_counter + " TASKS DONE");
     };
 } // count function ends
 
 // delete all tasks
 function delall(sid) {
-    // open a read/write db transaction, ready for clearing the data
+    // sid == 0  delete all TASKS
+    // sid == 1  delete all to do TASKS
+    // sid == 2  delete all done TASKS
+
     var transaction = db.transaction(["todos"], "readwrite");
-
-    // report on the success of the transaction completing, when everything is done
-    transaction.oncomplete = function(event) {
-        console.log('Transaction completed');
-    };
-
-    transaction.onerror = function(event) {
-        console.log('Transaction not opened due to error: ' + transaction.error);
-    };
-
-    // create an object store on the transaction
     var objectStore = transaction.objectStore("todos");
 
     if(sid == 0) {
@@ -353,12 +372,11 @@ function delall(sid) {
         var objectStoreRequest = objectStore.clear();
 
         objectStoreRequest.onsuccess = function(event) {
-            // report the success of our request
+            console.log("ALL TASKS DELETED");
             showtodo(filter_state);
         };
     }
     else if(sid == 1) {
-        //del to do
         objectStore.openCursor().onsuccess = function(event) {
             var cursor = event.target.result;
             if(cursor) {
@@ -371,7 +389,6 @@ function delall(sid) {
         showtodo(filter_state);
     }
     else {
-        //del done
         objectStore.openCursor().onsuccess = function(event) {
             var cursor = event.target.result;
             if(cursor) {
@@ -385,36 +402,12 @@ function delall(sid) {
     }
 } // delete all tasks ends
 
-// Search tasks
+// helper functions for searching tasks to preserve filterstate
 function search() {
-    var query = document.getElementById("find").value;
-    if(query=="") {
-        alert("Nothing to search.");
-        return;
-    }
+    showtodo(filter_state);
+}
 
-    var transaction = db.transaction(['todos'], 'readwrite');
-    var objectStore = transaction.objectStore('todos');
-
-    objectStore.openCursor().onsuccess = function(event) {
-        var cursor = event.target.result;
-
-        if (cursor) {
-            if (cursor.value.title.toLowerCase() == query.toLowerCase()) {
-                if(cursor.value.state == "done") {
-                    alert(query+" is already done");
-                    return;
-                }
-                else {
-                    alert(query+" is not done yet");
-                    return;
-                }
-            }
-            cursor.continue();
-        }
-        else {
-            alert(query+" is not found");
-        }
-    };
-    document.getElementById("find").value="";
-} // search close
+function clearsearch() {
+  document.getElementById("find").value="";
+  showtodo(filter_state);
+}
