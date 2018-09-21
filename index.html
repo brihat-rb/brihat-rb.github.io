@@ -1,22 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <title>Todo with web_store</title>
+    <title>TODO Using IndexedDB</title>
     <link href="./todoweb.css" rel="stylesheet">
     <script type="text/javascript" src="./todoweb.js" defer ></script>
   </head>
+
   <body>
     <center>
-      <!-- <button onclick="count();">count</button> -->
-
-
       <i id="datetime" class="gbold"></i>
-      <h2>Todo Using <font color="green">Java<font color="maroon">Script</font></font> Only (v3.0_webStorage)</h2>
+      <h2>Todo Using <font color="green">Java<font color="maroon">Script</font></font> Only (v3.1_webStorage)</h2>
       <div>
           <input id="title" type="text" placeholder="Enter new task to do..." autofocus/>
           <button id="btn" onclick="addtodo();">Create</button>
-          <input type="text" id="find" placeholder="Search task . . ." />
-          <button id ="s" onclick="search();">Search</button>
+          <input type="text" id="find" placeholder="Search task . . ." onkeyup="search();" onblur="clearsearch();"/>
           Filter
           <select id="filter" onchange="showtodo(this.value);">
             <option value="0" selected></option>
@@ -25,14 +22,18 @@
           </select>
           <button onclick="showtodo('0');">Clear filter</button>
       </div>
+
       <br /><hr />
+
       <div>
         <h3>TASKS<div class="black"><a onclick="delall(0);">.:<b id='count'></b>:.</a></div></h3>
-
         <b class="rbold">TODO <a onclick="delall(1);">.:<b  id='ttd'></b>:.</a></b>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <b class="gbold">DONE <a onclick="delall(2);">.:<b  id="td"></b>:.</a></b>
         <br /><br />
+
+        <!-- search related info display -->
+        <b class="gbold" id="for_search"></b>
       </div>
     </center>
 
@@ -41,8 +42,8 @@
     </div>
 
     <!-- optional features -->
-    <!-- enter triggers Create button -->
     <script type="text/javascript">
+        <!-- ENTER triggers 'Create' button -->
         var input = document.getElementById("title");
         input.addEventListener("keyup", function(event) {
             event.preventDefault();
@@ -50,13 +51,6 @@
                 document.getElementById("btn").click();
             }
         });
-        var src = document.getElementById("find");
-        src.addEventListener("keyup", function(event) {
-          event.preventDefault();
-          if (event.keyCode === 13) {
-              document.getElementById("s").click();
-          }
-      });
     </script>
 
     <!-- for topmost date display -->
@@ -79,7 +73,7 @@
         | Activities are logged to console
         | Search Tasks
         | Task counter
-        | Web Store
+        | IndexedDB
         <br /><br /><br />
     </footer>
     <!-- optional features ends here -->
