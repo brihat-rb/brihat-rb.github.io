@@ -1,3 +1,5 @@
 # brihat-rb.github.io
 
-SIMPLE TODO IMPLEMENTATION USING INDEXEDDB
+Simple TODO using HTML and JS (Browser Store using Indexeddb)
+
+Go to https://brihat-rb.github.io
