@@ -210,29 +210,30 @@ function showtodo(sh) {
         else {
             // added for search function
             if(query != "") {
-              sv.innerHTML = "<hr width='20%'>SEARCH RESULT (<b style='color:blue'>" + scount + "</b>)<hr width='20%'/>";
+                sv.innerHTML = "<hr width='20%'>SEARCH RESULT (<b style='color:blue'>" + scount + "</b>)<hr width='20%'/>";
             }
             else {
-              sv.innerHTML = "";
+                sv.innerHTML = "";
+            `   
+                // if no todos are found and search is not active, display message
+                if(!todolist.firstChild) {
+                    var pdiv = document.createElement('div');
+
+                    if(filter_state=="0") {
+                        pdiv.innerHTML = '<h3>NO TASKS</h3>';
+                    }
+                    else if (filter_state=="1") {
+                        pdiv.innerHTML = '<h3>NO TASKS DONE</h3>';
+                    }
+                    else {
+                        pdiv.innerHTML = '<h3 class="green">HURRAY! NO TASKS PENDING</h3>';
+                    }
+
+                    pdiv.setAttribute("class","rbold");
+                    todolist.appendChild(pdiv);
+                }
             }
 
-            // Again, if no todos is found, display message
-            if(!todolist.firstChild) {
-                var pdiv = document.createElement('div');
-
-                if(filter_state=="0") {
-                    pdiv.innerHTML = '<h3>NO TASKS</h3>';
-                }
-                else if (filter_state=="1") {
-                    pdiv.innerHTML = '<h3>NO TASKS DONE</h3>';
-                }
-                else {
-                    pdiv.innerHTML = '<h3 class="green">HURRAY! NO TASKS PENDING</h3>';
-                }
-
-                pdiv.setAttribute("class","rbold");
-                todolist.appendChild(pdiv);
-            }
             // if there are no more cursor items to iterate through, say so
             console.log('ALL TODOS DISPLAYED');
         }
