@@ -214,7 +214,7 @@ function showtodo(sh) {
             }
             else {
                 sv.innerHTML = "";
-            `   
+               
                 // if no todos are found and search is not active, display message
                 if(!todolist.firstChild) {
                     var pdiv = document.createElement('div');
