@@ -259,6 +259,7 @@ function deltodo(did) {
     var transaction = db.transaction(['todos'], 'readwrite');
     var objectStore = transaction.objectStore('todos');
     objectStore.delete(id);
+    countall();
 } //deltodo close
 
 // edit task name
