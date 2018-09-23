@@ -264,7 +264,7 @@ function deltodo(did) {
 // edit task name
 function editname(eid) {
     var nname = prompt("Enter new name:");
-    if(nname == "") {
+    if(nname == "" || nname == null) {
         return;
     }
 
@@ -297,31 +297,40 @@ function editname(eid) {
             cursor.continue();
         }
     };
-    showtodo(filter_state);
+    document.getElementById(id+"_l").textContent = nname;
 } // end editname
 
 // toggle task state (done or not done)
 function toggle(tid) {
+    var toset;
     var id = tid.substring(6,tid.length);
     var pid = document.getElementById(id);
-
+    var sbtn = document.getElementById("state_"+id);
+    
     var transaction = db.transaction(['todos'], 'readwrite');
     var objectStore = transaction.objectStore('todos');
 
+    if (sbtn.innerText == "Done") {
+        sbtn.innerText = "Not Done";
+        sbtn.setAttribute("style","color:maroon");
+        pid.classList.remove("tndone");
+        pid.classList.add("tdone");
+        toset = "done";
+    }
+    else if (sbtn.innerText == "Not Done") {
+        sbtn.innerText = "Done";
+        sbtn.setAttribute("style","color:green");
+        pid.classList.remove("tdone");
+        pid.classList.add("tndone");
+        toset = "ndone";
+    }
+    
     objectStore.openCursor().onsuccess = function(event) {
         var cursor = event.target.result;
-
         if (cursor) {
             if (cursor.value.id == id) {
                 var updateData = cursor.value;
-
-                if (pid.getAttribute("state") == "done") {
-                    updateData.state = "ndone";
-                }
-                else if (pid.getAttribute("state") == "ndone") {
-                    updateData.state = "done";
-                }
-
+                updateData.state = toset;
                 var request = cursor.update(updateData);
                 request.onsuccess = function() {
                     console.log('TASK STATE CHANGE SUCCESSFUL');
@@ -330,7 +339,6 @@ function toggle(tid) {
             cursor.continue();
         }
     };
-    showtodo(filter_state);
 } // toggle ends
 
 // counts tasks to be done and task done and total
