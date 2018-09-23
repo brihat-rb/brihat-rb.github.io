@@ -340,6 +340,7 @@ function toggle(tid) {
             cursor.continue();
         }
     };
+    countall();
 } // toggle ends
 
 // counts tasks to be done and task done and total
