@@ -252,13 +252,13 @@ function showtodo(sh) {
 function deltodo(did) {
     // convert delete id to id
     var id = Number(did.substring(4,did.length));
-
+    var pdiv = document.getElementById(id);
+    pdiv.setAttribute("style","display:none;");
+    
     // open a database transaction and delete the task, finding it using the id above
     var transaction = db.transaction(['todos'], 'readwrite');
     var objectStore = transaction.objectStore('todos');
     objectStore.delete(id);
-
-    showtodo(filter_state);
 } //deltodo close
 
 // edit task name
@@ -387,37 +387,35 @@ function delall(sid) {
         };
     }
     else if(sid == 1) {
-        objectStore.openCursor().onsuccess = function(event) {
-            var cursor = event.target.result;
-            if(cursor) {
-                if(cursor.value.state == "ndone") {
-                    objectStore.delete(cursor.value.id);
-                }
-                cursor.continue();
-            }
-        };
-        showtodo(filter_state);
+        var dndone = document.getElementsByClassName("tndone");
+        for(var i = 0; i < dndone.length; i++) {
+            deltodo("del_"+dndone[i].id);
+        }
     }
     else {
-        objectStore.openCursor().onsuccess = function(event) {
-            var cursor = event.target.result;
-            if(cursor) {
-                if(cursor.value.state == "done") {
-                    objectStore.delete(cursor.value.id);
-                }
-                cursor.continue();
-            }
-        };
-        showtodo(filter_state);
+        var ddone = document.getElementsByClassName("tdone");
+        for(var i = 0; i < ddone.length; i++) {
+            deltodo("del_"+ddone[i].id);
+        }
     }
 } // delete all tasks ends
 
-// helper functions for searching tasks to preserve filterstate
+// functions for searching tasks and clearing search on blur
 function search() {
-    showtodo(filter_state);
+    var query = document.getElementById("find").value;
+    var all = document.getElementsByTagName("label");
+    for(var i = 0; i < all.length; i++) {
+        var pdiv = all[i].parentNode.parentNode;
+        if(!(all[i].textContent.toLowerCase().startsWith(query.toLowerCase()))) {
+            pdiv.setAttribute("style","display:none");
+        }
+        else {
+            pdiv.removeAttribute("style");
+        }
+    }
 }
 
 function clearsearch() {
-  document.getElementById("find").value="";
-  showtodo(filter_state);
+    document.getElementById("find").value="";
+    search();
 }
