@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8" />
+        <title>JSDict v1.0</title>
+        <link href="./JSDict.css" rel="stylesheet">
+        <script type="text/javascript" src="./JSDict.js" defer ></script>
+        <script type="text/javascript" src="./JSDict-helper.js" defer ></script>
+    </head>
+
+    <body>
+        <center>
+            <i id="datetime" class="gbold"></i>
+            <div>
+                <b>DICTIONARY</b><br />
+                <input type="text" id="find" placeholder="Search word . . ." onkeyup="search();"/>
+                <input class="red" type="button" id="test" onclick="delall();" value="RESET DICT"  />
+            </div>
+
+            <hr />
+
+            <div>
+                <h4>WORD COUNT
+                    <div class="black">.:<b id='count'></b>:.</div>
+                </h4>
+
+                <button class="btnc" onclick="change('a');">A</button>
+                <button class="btnc" onclick="change('b');">B</button>
+                <button class="btnc" onclick="change('c');">C</button>
+                <button class="btnc" onclick="change('d');">D</button>
+                <button class="btnc" onclick="change('e');">E</button>
+                <button class="btnc" onclick="change('f');">F</button>
+                <button class="btnc" onclick="change('g');">G</button>
+                <button class="btnc" onclick="change('h');">H</button>
+                <button class="btnc" onclick="change('i');">I</button>
+                <button class="btnc" onclick="change('j');">J</button>
+                <button class="btnc" onclick="change('k');">K</button>
+                <button class="btnc" onclick="change('l');">L</button>
+                <button class="btnc" onclick="change('m');">M</button>
+                <button class="btnc" onclick="change('n');">N</button>
+                <button class="btnc" onclick="change('o');">O</button>
+                <button class="btnc" onclick="change('p');">P</button>
+                <button class="btnc" onclick="change('q');">Q</button>
+                <button class="btnc" onclick="change('r');">R</button>
+                <button class="btnc" onclick="change('s');">S</button>
+                <button class="btnc" onclick="change('t');">T</button>
+                <button class="btnc" onclick="change('u');">U</button>
+                <button class="btnc" onclick="change('v');">V</button>
+                <button class="btnc" onclick="change('w');">W</button>
+                <button class="btnc" onclick="change('x');">X</button>
+                <button class="btnc" onclick="change('y');">Y</button>
+                <button class="btnc" onclick="change('z');">Z</button>
+                <button class="btnc" onclick="change('-');">#</button>
+
+                <br />
+
+                <!-- search related info display -->
+                <b class="green" id="for_search"></b>
+                <b class="green" id="processing"></b>
+            </div>
+        </center>
+
+        <br />
+
+        <!-- main content goes here -->
+        <div id="dict" style="word-break: break-all;"></div>
+
+        <!-- for topmost date display -->
+        <script>
+            function showtime() {
+                var dt = new Date();
+                document.getElementById("datetime").innerHTML = dt.toLocaleTimeString();
+                setTimeout("showtime()", 500);
+            }
+            showtime();
+        </script>
+
+        <br /><br /><br /><br />
+
+        <footer>
+              <b><br />&spades; Brihat &spades;<br />
+              Click on an alphabet to see words staring from that alphabet.
+              <br />Click on any word and wait for few moment. Its meaning will be displayed in dialog.</b>
+              <br /><br />
+        </footer>
+    </body>
+</html>

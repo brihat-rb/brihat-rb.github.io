@@ -1,0 +1,92 @@
+/* minimalistic styling for totoweb */
+
+span {
+  color: black;
+}
+
+code {
+  color:red ;
+}
+
+a:hover {
+  background-color: black;
+  color: white;
+  /* font-family: monospace; */
+  /* font-weight: bold; */
+}
+
+button:hover {
+  background-color: green;
+  color: white;
+  font-family: monospace;
+  font-weight: bold;
+}
+
+button {
+  font-size: 24px;
+  margin-left: 3px;
+  margin-right: 3px;
+  border-style: none;
+  background-color: white;
+}
+
+
+.red {
+    font-size: 13px;
+    color: maroon;
+    text-align: center;
+}
+
+.rbold {
+    font-size: 14px;
+    font-family: monospace;
+    color: maroon;
+    text-align: center;
+}
+
+.gbold {
+    font-size: 12px;
+    font-family: monospace;
+    color: green;
+    font-weight: bold;
+    text-align: center;
+}
+
+.btnc {
+    font-size: 18px;
+    font-family: monospace;
+    text-align: center;
+
+}
+.btnd {
+    font-size: 18px;
+    font-family: monospace;
+    text-align: center;
+    color: red;
+    font-weight: bolder;
+
+}
+
+.green {
+    font-family: monospace;
+    color: green;
+    text-align: center;
+}
+
+.black {
+    font-family: monospace;
+    color: black;
+    text-align: center;
+}
+
+footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   text-align: center;
+   font-style: italic;
+   font-size: 14px;
+   color: gray;
+   background-color: white;
+}
