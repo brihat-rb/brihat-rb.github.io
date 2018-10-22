@@ -1,0 +1,66 @@
+/* minimalistic styling for totoweb */
+
+button {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.tdone label::before {
+  content:"\2714\0020";
+  color: green;
+}
+
+.tndone  label::before {
+  content:"\2005\2005\2004\0020";
+}
+
+.margin {
+  flex: 25%;
+}
+
+.row {
+    display: flex;
+}
+
+.column {
+    flex: 50%;
+    padding: 10px;
+}
+
+.rbold {
+    font-size: 14px;
+    font-family: monospace;
+    color: maroon;
+    text-align: center;
+}
+
+.gbold {
+    font-size: 14px;
+    font-family: monospace;
+    color: green;
+    text-align: center;
+}
+
+.black {
+    font-size: 14px;
+    font-family: monospace;
+    text-align: center;
+}
+
+.green {
+    font-family: monospace;
+    color: green;
+    text-align: center;
+}
+
+footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   text-align: center;
+   font-style: italic;
+   font-size: 14px;
+   color: gray;
+   background-color: white;
+}
