@@ -2,4 +2,4 @@
 
 Simple TODO using HTML and JS (Browser Store using Indexeddb)
 
-Go to https://brihat-rb.github.io
+Click [here](https://brihat-rb.github.io/todoweb/todoweb.html)
