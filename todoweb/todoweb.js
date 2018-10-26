@@ -156,7 +156,6 @@ function showtodo(sh) {
                     content.innerHTML = cursor.value.title;
 
                     edit.textContent = 'Edit';
-                    edit.style="color:blue";
                     edit.id = "edit_" + cursor.value.id;
                     edit.setAttribute("onclick","editname(this.id)");
 
@@ -167,11 +166,14 @@ function showtodo(sh) {
                         pdiv.setAttribute("class","tdone");
                         tstate.textContent = ' Not Done';
                         tstate.style="color:maroon";
+                        edit.style="color:gray";
+                        edit.disabled=true;
                     }
                     else {
                         pdiv.setAttribute("class","tndone");
                         tstate.textContent = 'Done';
                         tstate.style="color:green";
+                        edit.style="color:blue";
                     }
 
                     del.id = "del_" + cursor.value.id;
