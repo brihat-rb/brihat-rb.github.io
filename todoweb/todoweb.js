@@ -214,7 +214,7 @@ function showtodo(sh) {
             }
             else {
                 sv.innerHTML = "";
-               
+
                 // if no todos are found and search is not active, display message
                 if(!todolist.firstChild) {
                     var pdiv = document.createElement('div');
@@ -254,7 +254,7 @@ function deltodo(did) {
     var id = Number(did.substring(4,did.length));
     var pdiv = document.getElementById(id);
     pdiv.setAttribute("style","display:none;");
-    
+
     // open a database transaction and delete the task, finding it using the id above
     var transaction = db.transaction(['todos'], 'readwrite');
     var objectStore = transaction.objectStore('todos');
@@ -264,14 +264,15 @@ function deltodo(did) {
 
 // edit task name
 function editname(eid) {
-    var nname = prompt("Enter new name:");
+    var id = eid.substring(5,eid.length);
+    var label = document.getElementById(id+"_l").textContent;
+
+    var nname = prompt("Enter new name:", label);
     if(nname == "" || nname == null) {
         return;
     }
 
-    var id = eid.substring(5,eid.length);
-
-    if(document.getElementById(id+"_l").textContent == nname) {
+    if(label == nname) {
       alert("No changes made");
       return;
     }
@@ -307,11 +308,14 @@ function toggle(tid) {
     var id = tid.substring(6,tid.length);
     var pid = document.getElementById(id);
     var sbtn = document.getElementById("state_"+id);
-    
+    var ebtn = document.getElementById("edit_"+id);
+
     var transaction = db.transaction(['todos'], 'readwrite');
     var objectStore = transaction.objectStore('todos');
 
     if (sbtn.innerText == "Done") {
+        ebtn.disabled = true;
+        ebtn.style="color:gray";
         sbtn.innerText = "Not Done";
         sbtn.setAttribute("style","color:maroon");
         pid.classList.remove("tndone");
@@ -319,13 +323,15 @@ function toggle(tid) {
         toset = "done";
     }
     else if (sbtn.innerText == "Not Done") {
+        ebtn.disabled = false;
+        ebtn.style="color:blue";
         sbtn.innerText = "Done";
         sbtn.setAttribute("style","color:green");
         pid.classList.remove("tdone");
         pid.classList.add("tndone");
         toset = "ndone";
     }
-    
+
     objectStore.openCursor().onsuccess = function(event) {
         var cursor = event.target.result;
         if (cursor) {
