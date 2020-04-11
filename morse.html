@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Text to Morse</title>
+    <style>
+      .gbold {
+          font-size: 14px;
+          font-family: monospace;
+          color: green;
+          text-align: center;
+      }
+
+      input[type="text"] {
+        text-align: center;
+        border-top-style: hidden;
+        border-left-style: hidden;
+        border-right-style: hidden;
+        border-bottom-style: groove;
+        border-color: lightgray;
+      }
+
+      input[type="text"]:hover {
+        border-color: red;
+      }
+
+      .column {
+        float: left;
+        width: 44.5%;
+      }
+
+      #left_column{
+        width: 1%;
+      }
+
+      #middle_column{
+        width: 10%;
+      }
+
+      a {
+        font-size: 36px;
+        float: left;
+        text-decoration: none;
+        color: beige;
+      }
+
+      a:hover {
+        color: silver;
+      }
+    </style>
+  </head>
+
+  <body>
+    <center>
+      &emsp;<i id="datetime" class="gbold"></i>
+      <br />
+      <br />
+      <div>
+        <div class="column" id="left_column">
+          <a href="https://brihat-rb.github.io/index.html">«</a>
+        </div>
+        <div class="column">
+          <h2>Morse to Text</h2>
+          <input type="text" id="morsebox" placeholder="Enter morse code here" onkeyup="get_text();"/>
+          <h2><p id='text'>hello, world!</p></h2>
+        </div>
+        <div class="column" id="middle_column">
+          <br />
+          <br />
+          <br />
+          <h2>&spades; Brihat &spades;</h2>
+        </div>
+        <div class="column">
+          <h2>Text to Morse</h2>
+          <input type="text" id="textbox" placeholder="Enter text here" onkeyup="get_morse();"/>
+          <h2><p id='morse'>.--. .-. . -.. . ... - .. -. .- - .</p></h2>
+        </div>
+      </div>
+    </center>
+
+    <!-- for topmost date display -->
+    <script>
+        function showtime() {
+            var dt = new Date();
+            document.getElementById("datetime").innerHTML = dt.toLocaleTimeString();
+            setTimeout("showtime()", 500);
+          }
+          showtime();
+    </script>
+    <script type="text/javascript" src="./morse.js">
+    </script>
+  </body>
+</html>
