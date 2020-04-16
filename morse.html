@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <title>Text to Morse</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
       .gbold {
           font-size: 14px;
@@ -25,7 +26,7 @@
 
       .column {
         float: left;
-        width: 44.5%;
+        width: 43.5%;
       }
 
       #left_column{
@@ -33,7 +34,7 @@
       }
 
       #middle_column{
-        width: 10%;
+        width: 12%;
       }
 
       a {
@@ -45,6 +46,20 @@
 
       a:hover {
         color: silver;
+      }
+
+      @media only screen and (max-width: 768px) {
+        /* For mobile phones: */
+        [class*="column"] {
+          width: 100%;
+          text-align: center;
+        }
+
+        #middle_column {
+          margin: 0 auto;
+          width: 100%;
+          text-align: center;
+        }
       }
     </style>
   </head>
@@ -66,8 +81,9 @@
         <div class="column" id="middle_column">
           <br />
           <br />
-          <br />
           <h2>&spades; Brihat &spades;</h2>
+          <br />
+          <br />
         </div>
         <div class="column">
           <h2>Text to Morse</h2>

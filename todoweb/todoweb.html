@@ -4,6 +4,7 @@
     <title>TODO Using IndexedDB</title>
     <link rel="shortcut icon" href="./favicon.ico"/>
     <link rel="stylesheet" href="./todoweb.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="./todoweb.js" defer ></script>
   </head>
 
@@ -15,13 +16,15 @@
           <input id="title" type="text" placeholder="Enter new task to do..." autofocus/>
           <button id="btn" onclick="addtodo();">Create</button>
           <input type="text" id="find" placeholder="Search task . . ." onkeyup="search();" onblur="clearsearch();"/>
-          Filter
-          <select id="filter" onchange="showtodo(this.value);">
-            <option value="0" selected></option>
-            <option value="1" class="gbold">DONE</option>
-            <option value="2" class="rbold">NOT DONE</option>
-          </select>
-          <button onclick="showtodo('0');">Clear filter</button>
+          <span class="nobreak">
+            Filter
+            <select id="filter" onchange="showtodo(this.value);">
+              <option value="0" selected></option>
+              <option value="1" class="gbold">DONE</option>
+              <option value="2" class="rbold">NOT DONE</option>
+            </select>
+            <button onclick="showtodo('0');">Clear filter</button>
+          </span>
       </div>
 
       <br /><hr />

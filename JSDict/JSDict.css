@@ -35,6 +35,15 @@ button {
     font-size: 13px;
     color: maroon;
     text-align: center;
+    background-color: white;
+    border-radius: 2px;
+    border: 1px solid maroon;
+    transition-duration: 0.3s;
+}
+
+.red:hover {
+    background-color: maroon;
+    color: white;
 }
 
 .rbold {
@@ -89,4 +98,17 @@ footer {
    font-size: 14px;
    color: gray;
    background-color: white;
+}
+
+input[type="text"] {
+  text-align: center;
+  border-top-style: hidden;
+  border-left-style: hidden;
+  border-right-style: hidden;
+  border-bottom-style: groove;
+  border-color: lightgray;
+}
+
+input[type="text"]:hover {
+  border-color: red;
 }

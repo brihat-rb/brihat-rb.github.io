@@ -64,3 +64,34 @@ footer {
    color: gray;
    background-color: white;
 }
+
+.nobreak {
+  white-space: nowrap;
+}
+
+input[type="text"], select {
+  text-align: center;
+  border-top-style: hidden;
+  border-left-style: hidden;
+  border-right-style: hidden;
+  border-bottom-style: groove;
+  border-color: lightgray;
+}
+
+input[type="text"]:hover, select:hover {
+  border-color: red;
+  color: maroon;
+}
+
+button {
+  background-color: white;
+  color: green;
+  border-radius: 2px;
+  border: 1px solid green;
+  transition-duration: 0.3s;
+}
+
+button:hover {
+  background-color: green;
+  color: white;
+}
