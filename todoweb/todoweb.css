@@ -95,3 +95,30 @@ button:hover {
   background-color: green;
   color: white;
 }
+
+button[id^='edit_'] {
+  border: 1px solid blue;
+}
+
+button[id^='edit_']:hover {
+  background-color: lightblue;
+  color: white;
+}
+
+button[id^='state_'] {
+  border: 1px solid green;
+}
+
+button[id^='state_']:hover {
+  background-color: lightgreen;
+  color: white;
+}
+
+button[id^='del_'] {
+  border: 1px solid red;
+}
+
+button[id^='del_']:hover {
+  background-color: pink;
+  color: white;
+}
