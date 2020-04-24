@@ -30,7 +30,7 @@
       <i id="datetime"></i>
       <br/>
       <!-- <h2> Hello, World!</h2> -->
-	  
+
 	  <!-- brihat small logo -->
 	  <svg id="brihatlogo" width="320" height="92" viewBox="0 0 538 154" fill="white" xmlns="http://www.w3.org/2000/svg">
 		<path id="b"
@@ -52,13 +52,14 @@
 		  d="M474.945 71.3398V68.8008L475.629 67.8242C481.749 65.5456 486.697 63.4297 490.473 61.4766C490.473 44.4844 490.277 34.5885 489.887 31.7891C496.592 29.4453 502.094 26.9388 506.391 24.2695L508.734 26.2227C508.083 30.3242 507.302 42.2383 506.391 61.9648C509.646 62.0299 513.161 62.0625 516.938 62.0625C524.62 62.0625 530.121 61.8672 533.441 61.4766L534.125 62.1602L532.27 70.3633L531.488 71.2422C528.168 71.1771 524.49 71.1445 520.453 71.1445C516.807 71.1445 512.12 71.1771 506.391 71.2422L505.805 110.988C505.805 120.168 506 126.19 506.391 129.055C506.846 131.854 508.018 134.068 509.906 135.695C511.859 137.258 514.724 138.039 518.5 138.039C522.862 138.039 526.898 136.9 530.609 134.621L532.953 138.137C531.391 139.243 527.647 142.499 521.723 147.902C518.337 149.465 514.887 150.246 511.371 150.246C496.723 150.246 489.398 143.15 489.398 128.957C489.398 123.749 489.529 119.322 489.789 115.676C489.854 114.569 489.887 113.43 489.887 112.258V71.7305H485.883C482.953 71.7305 479.6 71.8607 475.824 72.1211L474.945 71.3398Z"
 		  stroke="teal" stroke-width="2" mask="url(#path-1-outside-1)" />
 	  </svg>
-		
+
       <!-- <br /><a href="https://brihat9.github.io" style="color: black;">&spades; Brihat &spades;</a><br /> -->
       <div class="show_on_hover">
         <a href="https://brihat-rb.github.io/todoweb/todoweb.html">TodoWeb (JS)</a>&emsp;
         <a href="https://brihat-rb.github.io/JSDict/JSDict.html">JSDict</a>&emsp;
         <a href="https://brihat-rb.github.io/react-todo">React Todo</a>&emsp;
         <a href="https://brihat-rb.github.io/morse.html">Morse Code</a>
+        <a href="https://brihat-rb.github.io/weather.html">Weather</a>
       </div>
     </center>
 
@@ -71,14 +72,14 @@
       }
       showtime();
     </script>
-	
+
 	<script>
 	  const logo = document.querySelectorAll("#brihatlogo path");
 	  for (let i = 0; i < logo.length; i++) {
 		console.log('Letter ' + i + ' has length: ' + logo[i].getTotalLength());
 	  }
 	</script>
-	
+
 	<script>
 	  var paths = document.getElementsByTagName('path');
 	  for (var i = 0; i < paths.length; i++) {
@@ -88,7 +89,7 @@
 		  color = '#'+color;
 		  this.style['stroke'] = color;
 		  console.log("Letter " + this.id + " is color: " + color);
-		}  
+		}
 	  }
 	</script>
   </body>

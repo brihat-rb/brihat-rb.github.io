@@ -1,0 +1,42 @@
+<html lang="en-US" dir="ltr">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+	  <link rel="stylesheet" href="./weather.css" />
+  </head>
+  <div id="datetime"></div>
+  <body>
+    <div id="div_content">
+      <center><img id="weather_icon"></img></center>
+      <input id="city" type="text" placeholder="Enter city (eg. Bhaktapur)" autofocus />
+      <button id="btn" onclick="get_weather();">Go</button><br />
+      <span id="info"></span>
+      Place: <span id="location"></span><br />
+      Weather: <span id="weather_main"></span><br />
+      Current Temperature: <span id="temp"></span> &deg;C<br />
+      Feels Like: <span id="feels_like"></span> &deg;C<br />
+      Min Temp: <span id="min_temp"></span> &deg;C<br />
+      Max Temp: <span id="max_temp"></span> &deg;C<br />
+      <span id="rain_parent">Rain: <span id="rain"></span> mm</span>
+      <span id="snow_parent">Snow: <span id="snow"></span> mm</span>
+      Pressure: <span id="pressure"></span> hpa<br />
+      Humidity: <span id="humidity"></span> %<br />
+      Sunrise: <span id="sunrise"></span><br />
+      Sunset: <span id="sunset"></span><br />
+      Wind: <span id="wind"></span><br />
+      <i>Updated: <span id="last_update"></span> (<a href="https://openweathermap.org/" style="text-decoration: none">OpenWeatherMap</a>)</i><br />
+    </div>
+
+    <!-- for topmost date display -->
+    <script>
+        function showtime() {
+            var dt = new Date();
+            document.getElementById("datetime").innerHTML = dt.toLocaleTimeString();
+            setTimeout("showtime()", 500);
+          }
+          showtime();
+    </script>
+    <script type="text/javascript" src="./weather.js"></script>
+  </body>
+  <br/><div id="footer">&spades; <a href="https://brihat-rb.github.io/">Brihat</a> &spades;</div>
+</html>
