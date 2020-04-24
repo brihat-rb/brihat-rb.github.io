@@ -1,14 +1,14 @@
 function get_weather() {
-  city = document.getElementById("city").value;
-  if(!city) {
-    city = "Bhaktapur";
+  city_name = document.getElementById("city").value;
+  if(!city_name) {
+    city_name = "Bhaktapur";
   }
 
   // Create a request variable and assign a new XMLHttpRequest object to it.
   var request = new XMLHttpRequest();
 
   // Open a new connection, using the GET request on the URL endpoint
-  url = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + APPID + '&mode=' + MODE + '&units=metric';
+  url = 'https://api.openweathermap.org/data/2.5/weather?q=' + city_name + '&appid=' + APPID + '&mode=' + MODE + '&units=metric';
   request.open('GET', url, true);
 
   request.onload = function() {
@@ -17,7 +17,7 @@ function get_weather() {
     if(weather_data["cod"] == 200) {
       document.getElementById("info").style = "display: none;";
       document.getElementById("location").innerHTML = weather_data["name"] + " (" + weather_data["sys"]["country"] +")";
-      document.getElementById("weather_icon").src = "http://openweathermap.org/img/wn/" + weather_data["weather"][0]["icon"] + "@2x.png";
+      document.getElementById("weather_icon").src = "https://openweathermap.org/img/wn/" + weather_data["weather"][0]["icon"] + "@2x.png";
       document.getElementById("weather_main").innerHTML = weather_data["weather"][0]["main"] + " (" + weather_data["weather"][0]["description"] + ")";
       document.getElementById("temp").innerHTML = weather_data["main"]["temp"];
       document.getElementById("feels_like").innerHTML = weather_data["main"]["feels_like"];
@@ -27,7 +27,6 @@ function get_weather() {
       if (weather_data.hasOwnProperty("rain")) {
         document.getElementById("rain").innerHTML = weather_data["rain"]["1h"];
         document.getElementById("rain_parent").style = "display: block;";
-        document.getElementById("rain_parent").insertAfter("<br />");
       }
       else {
         document.getElementById("rain_parent").style = "display: none;";
@@ -36,10 +35,11 @@ function get_weather() {
       if (weather_data.hasOwnProperty("snow")) {
         document.getElementById("snow").innerHTML = weather_data["snow"]["1h"];
         document.getElementById("snow_parent").style = "display: block;";
-        document.getElementById("snow_parent").insertAfter("<br />");
+        document.getElementById("optbr").style = "display: block;";
       }
       else {
         document.getElementById("snow_parent").style = "display: none;";
+        document.getElementById("optbr").style = "display: none;";
       }
 
       document.getElementById("pressure").innerHTML = weather_data["main"]["pressure"];
@@ -65,12 +65,19 @@ function get_weather() {
 
   // Send request
   request.send();
+  localStorage.saved_city = city_name;
 }
 
 MODE = "json";
 APPID = "efb37b9787edd737e3dcfd9e3b47c747";
 
-document.getElementById("city").value = "Bhaktapur";
+saved_city = localStorage.getItem("saved_city");
+if(!saved_city) {
+  document.getElementById("city").value = "Bhaktapur";
+}
+else {
+  document.getElementById("city").value = saved_city;
+}
 get_weather();
 document.getElementById("city").value = "";
 
