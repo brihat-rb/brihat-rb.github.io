@@ -141,7 +141,7 @@ button:hover {
 .close {
   color: #aaaaaa;
   float: right;
-  font-size: 32px;
+  font-size: 28px;
   font-weight: bold;
 }
 
@@ -165,9 +165,10 @@ button:hover {
   font-size: 13px;
   font-weight: bold;
   font-family: sans-serif;
-  line-height: 25px;
+  line-height: 24px;
   white-space: nowrap;
-  color: gray;
+  color: dimgray;
+  font-stretch: condensed;
 }
 
 #ftitle {
@@ -183,4 +184,23 @@ button:hover {
   font-family: monospace;
   color: darkgray;
   font-size: 12px;
+}
+
+#wforecast img{
+  height: 48px;
+  width: 50px;
+  float: right;
+}
+
+#credit, #credit a {
+  text-decoration: none;
+  font-size: 10px;
+  font-family: sans-serif;
+  white-space: nowrap;
+  color: lightgray;
+  text-align: right;
+}
+
+#credit:hover, #credit a:hover {
+  color: dimgray;
 }

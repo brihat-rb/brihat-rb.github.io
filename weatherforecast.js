@@ -43,8 +43,10 @@ function forecast() {
       time[i] = resp["list"][i]["dt_txt"];
       temp[i] = resp["list"][i]["main"]["temp"];
       forecast[i] = resp["list"][i]["weather"][0]["main"] + " (" + resp["list"][i]["weather"][0]["description"] + ")";
-      weather_forecast_DOM += '<span class="ftime">' + time[i] + ':</span><br />&emsp;<span class="fdata">' + temp[i] + " &deg;C - " + forecast[i] + "</span><hr />";
+      weather_forecast_DOM += '<img src="https://openweathermap.org/img/wn/' + resp["list"][i]["weather"][0]["icon"] + '@2x.png"></img>';
+      weather_forecast_DOM += '<span class="ftime">' + time[i] + '</span><br />&ensp;<span class="fdata">' + temp[i] + " &deg;C - " + forecast[i] + "</span><hr />";
     }
+    weather_forecast_DOM += '<div id="credit"><a href="https://openweathermap.org/">OpenWeather</a></div>';
     document.getElementById("wforecast").innerHTML = weather_forecast_DOM;
   }
   // Send request
