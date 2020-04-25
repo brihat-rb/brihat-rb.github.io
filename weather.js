@@ -16,7 +16,7 @@ function get_weather() {
     weather_data = JSON.parse(this.response);
     if(weather_data["cod"] == 200) {
       document.getElementById("info").style = "display: none;";
-      document.getElementById("location").innerHTML = weather_data["name"] + " (" + weather_data["sys"]["country"] +")";
+      document.getElementById("location").innerHTML = weather_data["name"] + " (" + weather_data["sys"]["country"] + ")";
       document.getElementById("weather_icon").src = "https://openweathermap.org/img/wn/" + weather_data["weather"][0]["icon"] + "@2x.png";
       document.getElementById("weather_main").innerHTML = weather_data["weather"][0]["main"] + " (" + weather_data["weather"][0]["description"] + ")";
       document.getElementById("temp").innerHTML = weather_data["main"]["temp"];
@@ -29,7 +29,7 @@ function get_weather() {
         fresponse = JSON.parse(this.response);
         var data_min = [];
         var data_max = [];
-        for(var i=0; i<8; i++) {
+        for(var i = 0; i < 8; i++) {
           data_min[i] = fresponse["list"][i]["main"]["temp_min"];
           data_max[i] = fresponse["list"][i]["main"]["temp_max"];
         }
@@ -38,8 +38,13 @@ function get_weather() {
       }
       frequest.send();
 
-      if (weather_data.hasOwnProperty("rain")) {
-        document.getElementById("rain").innerHTML = weather_data["rain"]["1h"];
+      if(weather_data.hasOwnProperty("rain")) {
+        if(weather_data["rain"].hasOwnProperty("1h"))
+          document.getElementById("rain").innerHTML = weather_data["rain"]["1h"];
+        else if (weather_data["rain"].hasOwnProperty("3h"))
+          document.getElementById("rain").innerHTML = weather_data["rain"]["3h"];
+        else
+          document.getElementById("rain").innerHTML = "n/a";
         document.getElementById("rain_parent").style = "display: block;";
       }
       else {
@@ -47,7 +52,12 @@ function get_weather() {
       }
 
       if (weather_data.hasOwnProperty("snow")) {
-        document.getElementById("snow").innerHTML = weather_data["snow"]["1h"];
+        if (weather_data["snow"].hasOwnProperty("1h"))
+          document.getElementById("snow").innerHTML = weather_data["snow"]["1h"];
+        else if (weather_data["snow"].hasOwnProperty("3h"))
+          document.getElementById("snow").innerHTML = weather_data["snow"]["3h"];
+        else
+          document.getElementById("snow").innerHTML = "n/a";
         document.getElementById("snow_parent").style = "display: block;";
         document.getElementById("optbr").style = "display: block;";
       }
@@ -58,18 +68,16 @@ function get_weather() {
 
       document.getElementById("pressure").innerHTML = weather_data["main"]["pressure"];
       document.getElementById("humidity").innerHTML = weather_data["main"]["humidity"];
-      document.getElementById("sunrise").innerHTML =  new Date(weather_data["sys"]["sunrise"]*1000).toLocaleString();
-      document.getElementById("sunset").innerHTML = new Date(weather_data["sys"]["sunset"]*1000).toLocaleString();
+      document.getElementById("sunrise").innerHTML = new Date(weather_data["sys"]["sunrise"] * 1000).toLocaleString();
+      document.getElementById("sunset").innerHTML = new Date(weather_data["sys"]["sunset"] * 1000).toLocaleString();
 
       let compassSector = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N"];
-	  if ((weather_data["wind"]["deg"] / 22.5).toFixed(0) == 0) {
-		wind_direction = compassSector[0];
-	  }
-	  else {
-		wind_direction = compassSector[(weather_data["wind"]["deg"] / 22.5).toFixed(0) - 1];
-	  }
+      if((weather_data["wind"]["deg"] / 22.5).toFixed(0) == 0)
+        wind_direction = compassSector[0];
+      else
+        wind_direction = compassSector[(weather_data["wind"]["deg"] / 22.5).toFixed(0) - 1];
       document.getElementById("wind").innerHTML = weather_data["wind"]["speed"] + " m/s (" + wind_direction + ")";
-      document.getElementById("last_update").innerHTML = new Date(weather_data["dt"]*1000).toLocaleString();
+      document.getElementById("last_update").innerHTML = new Date(weather_data["dt"] * 1000).toLocaleString();
     }
 
     else if (weather_data["cod"] == 404) {
@@ -102,8 +110,8 @@ document.getElementById("city").value = "";
 // ENTER triggers 'Go' button
 var city = document.getElementById("city");
 city.addEventListener("keyup", function(event) {
-    event.preventDefault();
-    if (event.keyCode === 13) {
-        document.getElementById("btn").click();
-    }
+  event.preventDefault();
+  if(event.keyCode === 13) {
+    document.getElementById("btn").click();
+  }
 });
