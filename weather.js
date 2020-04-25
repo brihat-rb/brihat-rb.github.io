@@ -62,8 +62,12 @@ function get_weather() {
       document.getElementById("sunset").innerHTML = new Date(weather_data["sys"]["sunset"]*1000).toLocaleString();
 
       let compassSector = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N"];
-      wind_direction = compassSector[(weather_data["wind"]["deg"] / 22.5).toFixed(0) - 1];
-
+	  if ((weather_data["wind"]["deg"] / 22.5).toFixed(0) == 0) {
+		wind_direction = compassSector[0];
+	  }
+	  else {
+		wind_direction = compassSector[(weather_data["wind"]["deg"] / 22.5).toFixed(0) - 1];
+	  }
       document.getElementById("wind").innerHTML = weather_data["wind"]["speed"] + " m/s (" + wind_direction + ")";
       document.getElementById("last_update").innerHTML = new Date(weather_data["dt"]*1000).toLocaleString();
     }
