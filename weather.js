@@ -21,8 +21,22 @@ function get_weather() {
       document.getElementById("weather_main").innerHTML = weather_data["weather"][0]["main"] + " (" + weather_data["weather"][0]["description"] + ")";
       document.getElementById("temp").innerHTML = weather_data["main"]["temp"];
       document.getElementById("feels_like").innerHTML = weather_data["main"]["feels_like"];
-      document.getElementById("min_temp").innerHTML = weather_data["main"]["temp_min"];
-      document.getElementById("max_temp").innerHTML = weather_data["main"]["temp_max"];
+
+      var frequest = new XMLHttpRequest();
+      furl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city_name + '&appid=' + APPID + '&mode=' + MODE + '&units=metric';
+      frequest.open('GET', furl, true);
+      frequest.onload = function() {
+        fresponse = JSON.parse(this.response);
+        var data_min = [];
+        var data_max = [];
+        for(var i=0; i<8; i++) {
+          data_min[i] = fresponse["list"][i]["main"]["temp_min"];
+          data_max[i] = fresponse["list"][i]["main"]["temp_max"];
+        }
+        document.getElementById("min_temp").innerHTML = Math.min(...data_min);
+        document.getElementById("max_temp").innerHTML = Math.max(...data_max);
+      }
+      frequest.send();
 
       if (weather_data.hasOwnProperty("rain")) {
         document.getElementById("rain").innerHTML = weather_data["rain"]["1h"];

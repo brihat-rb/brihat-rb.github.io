@@ -10,7 +10,8 @@
     <div id="div_content">
       <center><img id="weather_icon"></img></center>
       <input id="city" type="text" placeholder="Enter city (eg. Bhaktapur)" autofocus />
-      <button id="btn" onclick="get_weather();">Go</button><br />
+      <button id="btn" onclick="get_weather();">Go</button>
+      <button id="btnforecast" onclick="forecast();">Forecast</button><br />
       <span id="info"></span>
       Place: <span id="location"></span><br />
       Weather: <span id="weather_main"></span><br />
@@ -29,6 +30,15 @@
       <i>Updated: <span id="last_update"></span> (<a href="https://openweathermap.org/" style="text-decoration: none">OpenWeatherMap</a>)</i><br />
     </div>
 
+    <!-- for weather forecast -->
+    <div id="popup" class="forecast">
+      <!-- Modal content -->
+      <div class="forecast-content">
+        <span class="close">&times;</span>
+        <div id="wforecast"></div>
+      </div>
+    </div>
+
     <!-- for topmost date display -->
     <script>
         function showtime() {
@@ -39,6 +49,7 @@
           showtime();
     </script>
     <script type="text/javascript" src="./weather.js"></script>
+    <script type="text/javascript" src="./weatherforecast.js"></script>
   </body>
   <br/><div id="footer">&spades; <a href="https://brihat-rb.github.io/">Brihat</a> &spades;</div>
 </html>
