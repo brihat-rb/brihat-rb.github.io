@@ -169,6 +169,7 @@ button:hover {
   white-space: nowrap;
   color: dimgray;
   font-stretch: condensed;
+  padding-left: 15px;
 }
 
 #ftitle {
