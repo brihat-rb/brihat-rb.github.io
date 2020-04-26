@@ -68,8 +68,8 @@ function get_weather() {
 
       document.getElementById("pressure").innerHTML = weather_data["main"]["pressure"];
       document.getElementById("humidity").innerHTML = weather_data["main"]["humidity"];
-      document.getElementById("sunrise").innerHTML = new Date(weather_data["sys"]["sunrise"] * 1000).toLocaleString();
-      document.getElementById("sunset").innerHTML = new Date(weather_data["sys"]["sunset"] * 1000).toLocaleString();
+      document.getElementById("sunrise").innerHTML = new Date((weather_data["sys"]["sunrise"] + weather_data["timezone"] + new Date().getTimezoneOffset() * 60) * 1000).toLocaleString();
+      document.getElementById("sunset").innerHTML = new Date((weather_data["sys"]["sunset"] + weather_data["timezone"] + new Date().getTimezoneOffset() * 60) * 1000).toLocaleString();
 
       let compassSector = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N"];
       if((weather_data["wind"]["deg"] / 22.5).toFixed(0) == 0)
@@ -77,7 +77,7 @@ function get_weather() {
       else
         wind_direction = compassSector[(weather_data["wind"]["deg"] / 22.5).toFixed(0) - 1];
       document.getElementById("wind").innerHTML = weather_data["wind"]["speed"] + " m/s (" + wind_direction + ")";
-      document.getElementById("last_update").innerHTML = new Date(weather_data["dt"] * 1000).toLocaleString();
+      document.getElementById("last_update").innerHTML = new Date((weather_data["dt"] + weather_data["timezone"] + new Date().getTimezoneOffset() * 60) * 1000).toLocaleString();
     }
 
     else if (weather_data["cod"] == 404) {
