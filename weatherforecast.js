@@ -38,15 +38,16 @@ function forecast() {
     var time = [];
     var temp = [];
     var forecast = [];
-    var weather_forecast_DOM = '<div id="ftitle">24 hr forecast</div><div id="flocation">' + fcity + '</div>';
+    var weather_forecast_DOM = '<div id="fheader"><div id="ftitle">24 hr forecast</div><div id="flocation">' + fcity + '</div></div>';
+    weather_forecast_DOM += '<div id="fcontent">'
     for (var i = 0; i < 8; i++) {
       time[i] = resp["list"][i]["dt_txt"];
       temp[i] = resp["list"][i]["main"]["temp"];
       forecast[i] = resp["list"][i]["weather"][0]["main"] + " (" + resp["list"][i]["weather"][0]["description"] + ")";
-      weather_forecast_DOM += '<div id="forecas_data_' + i + '"><img src="https://openweathermap.org/img/wn/' + resp["list"][i]["weather"][0]["icon"] + '@2x.png"></img>';
+      weather_forecast_DOM += '<div id="forecast_data_' + i + '"><img src="https://openweathermap.org/img/wn/' + resp["list"][i]["weather"][0]["icon"] + '@2x.png"></img>';
       weather_forecast_DOM += '<div class="ftime">' + time[i] + '</div><div class="fdata">' + temp[i] + " &deg;C - " + forecast[i] + "</div></div><hr />";
     }
-    weather_forecast_DOM += '<div id="credit"><a href="https://openweathermap.org/">OpenWeather</a></div>';
+    weather_forecast_DOM += '<div id="credit"><a href="https://openweathermap.org/">OpenWeather</a></div></div>';
     document.getElementById("wforecast").innerHTML = weather_forecast_DOM;
   }
   // Send request

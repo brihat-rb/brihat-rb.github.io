@@ -5,16 +5,25 @@
 }
 
 #datetime {
-  margin-top: 15px;
+  position: fixed;
+  top: 0;
+  padding-top: 10px;
   font-size: 14px;
   font-family: monospace;
   color: green;
   text-align: center;
+  width: 100%;
+  background-color: white;
+  z-index: 10;
 }
 
 body {
+  overflow: auto;
+}
+
+#div_content {
   position: absolute;
-  height: 100%;
+  height: 80%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -96,6 +105,10 @@ button:hover {
 #footer {
   text-align: center;
   font-family: monospace;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
 }
 
 #footer a {
@@ -107,34 +120,27 @@ button:hover {
 /* The popup (background) */
 .forecast {
   display: none;
-  /* Hidden by default */
   position: fixed;
-  /* Stay in place */
   z-index: 1;
-  /* Sit on top */
-  padding-top: 60px;
-  /* Location of the box */
+  padding-top: 40px;
   left: 0;
-  top: 0;
+  top: 50px;
   width: 100%;
-  /* Full width */
-  height: 100%;
-  /* Full height */
+  height: 500px;
   overflow: auto;
-  /* Enable scroll if needed */
   background-color: rgb(0, 0, 0);
-  /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4);
-  /* Black w/ opacity */
 }
 
 /* popup content */
 .forecast-content {
   background-color: #fefefe;
   margin: auto;
-  padding: 10px;
+  padding: 0 10px 10px 10px;
   border: 1px solid #888;
   width: 90%;
+  height: 90%;
+  overflow: auto;
 }
 
 /* close Button */
@@ -143,6 +149,9 @@ button:hover {
   float: right;
   font-size: 26px;
   font-weight: bold;
+  position: sticky;
+  top: 0;
+  z-index: 5;
 }
 
 .close:hover,
@@ -150,6 +159,19 @@ button:hover {
   color: red;
   text-decoration: none;
   cursor: pointer;
+}
+
+#fheader {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+#fcontent {
+  overflow: auto;
+  top: 500px;
 }
 
 .ftime {
@@ -168,7 +190,6 @@ button:hover {
   line-height: 24px;
   white-space: nowrap;
   color: dimgray;
-  font-stretch: condensed;
   padding-left: 15px;
 }
 
@@ -177,7 +198,6 @@ button:hover {
   font-family: sans-serif;
   color: green;
   text-transform: uppercase;
-  font-weight: bolder;
 }
 
 #flocation {
@@ -188,7 +208,7 @@ button:hover {
 }
 
 #wforecast img{
-  height: 48px;
+  height: 49px;
   width: 50px;
   float: right;
 }
@@ -204,4 +224,12 @@ button:hover {
 
 #credit:hover, #credit a:hover {
   color: dimgray;
+}
+
+hr {
+  height: 2px;
+  width: 100%;
+  color: gray;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
