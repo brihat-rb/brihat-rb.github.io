@@ -6,21 +6,33 @@
     <style>
       .show_on_hover {
         position: fixed;
-        bottom: 15px;
+        bottom: 25px;
         width: 100%;
       }
       a {
         text-decoration: none;
-        color: beige;
+        color: darkseagreen;
+        opacity: 0.6;
+        white-space: nowrap;
       }
       a:hover {
         color: silver;
       }
-	  #datetime {
-		color: teal;
-		font-family: monospace;
-		font-size: 18px;
-	  }
+  	  #datetime {
+    		color: teal;
+    		font-family: monospace;
+    		font-size: 16px;
+  	  }
+      #user_info {
+        width: 100%;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        font-family: serif;
+        font-size: 12px;
+        color: lightgray;
+        user-select: none;
+      }
     </style>
 	<link rel="stylesheet" href="./brihat.css" />
   </head>
@@ -58,8 +70,13 @@
         <a href="https://brihat-rb.github.io/todoweb/todoweb.html">TodoWeb (JS)</a>&emsp;
         <a href="https://brihat-rb.github.io/JSDict/JSDict.html">JSDict</a>&emsp;
         <a href="https://brihat-rb.github.io/react-todo">React Todo</a>&emsp;
-        <a href="https://brihat-rb.github.io/morse.html">Morse Code</a>
+        <a href="https://brihat-rb.github.io/morse.html">Morse Code</a>&emsp;
         <a href="https://brihat-rb.github.io/weather.html">Weather</a>
+      </div>
+
+      <div id="user_info">
+        <span id="user_ip"></span> -
+        <span id="user_geolocation"></span>
       </div>
     </center>
 
@@ -73,24 +90,36 @@
       showtime();
     </script>
 
-	<script>
-	  const logo = document.querySelectorAll("#brihatlogo path");
-	  for (let i = 0; i < logo.length; i++) {
-		console.log('Letter ' + i + ' has length: ' + logo[i].getTotalLength());
-	  }
-	</script>
+  	<script>
+  	  const logo = document.querySelectorAll("#brihatlogo path");
+  	  for (let i = 0; i < logo.length; i++) {
+  		console.log('Letter ' + i + ' has length: ' + logo[i].getTotalLength());
+  	  }
+  	</script>
 
-	<script>
-	  var paths = document.getElementsByTagName('path');
-	  for (var i = 0; i < paths.length; i++) {
-		paths[i].onmouseover = function(e) {
-		  var color = Math.floor(Math.random()*16777215)
-		  color = Math.round(Math.min(Math.max(0, color + (color * (-0.3))), 16777215)).toString(16);
-		  color = '#'+color;
-		  this.style['stroke'] = color;
-		  console.log("Letter " + this.id + " is color: " + color);
-		}
-	  }
-	</script>
+  	<script>
+  	  var paths = document.getElementsByTagName('path');
+  	  for (var i = 0; i < paths.length; i++) {
+    		paths[i].onmouseover = function(e) {
+    		  var color = Math.floor(Math.random()*16777215)
+    		  color = Math.round(Math.min(Math.max(0, color + (color * (-0.3))), 16777215)).toString(16);
+    		  color = '#'+color;
+    		  this.style['stroke'] = color;
+    		  console.log("Letter " + this.id + " is color: " + color);
+    		}
+  	  }
+  	</script>
+
+    <script>
+      var request = new XMLHttpRequest();
+      url = 'https://ipinfo.io/?token=6630ba13ce995d';
+      request.open('GET', url, true);
+      request.onload = function() {
+        response = JSON.parse(this.response);
+        document.getElementById("user_ip").innerHTML = response["ip"];
+        document.getElementById("user_geolocation").innerHTML = response["loc"];
+      }
+      request.send();
+    </script>
   </body>
 </html>

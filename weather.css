@@ -38,11 +38,12 @@ body {
   color: darkcyan;
 }
 
-#div_content i {
+#iupdate {
   font-size: 10px;
   font-weight: normal;
   white-space: nowrap;
   color: gray;
+  padding-bottom: 20px;
 }
 
 span {
@@ -114,6 +115,32 @@ button:hover {
 #footer a {
   text-decoration: none;
   color: teal;
+}
+
+#user_info {
+  width: 100%;
+  /* text-align: center; */
+  position: fixed;
+  bottom: 0;
+  font-family: serif;
+  font-size: 12px;
+  color: lightgray;
+  user-select: none;
+}
+
+#user_ip {
+  padding-left: 5px;
+  position: fixed;
+  bottom: 0;
+  text-align: left;
+}
+
+#user_geolocation {
+  padding-right: 5px;
+  position: fixed;
+  bottom: 0;
+  text-align: right;
+  width: 100%;
 }
 
 /* WEATHER FORECAST CSS */
