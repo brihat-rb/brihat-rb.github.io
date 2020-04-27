@@ -131,3 +131,56 @@ city.addEventListener("keyup", function(event) {
     document.getElementById("btn").click();
   }
 });
+
+function show_weather_notification() {
+  var nrequest = new XMLHttpRequest();
+  ncity_name = document.getElementById("location").innerHTML;
+  ncity_name = ncity_name.substring(0, ncity_name.length - 5);
+
+  url = 'https://api.openweathermap.org/data/2.5/weather?q=' + ncity_name + '&appid=' + APPID + '&mode=' + MODE + '&units=metric';
+  nrequest.open('GET', url, true);
+
+  nrequest.onload = function() {
+    notify_data = JSON.parse(this.response);
+
+    if (notify_data["cod"] == 200) {
+      body = notify_data["name"] + " (" + weather_data["sys"]["country"] + ")";
+      body += '\n' + notify_data["weather"][0]["main"] + " (" + notify_data["weather"][0]["description"] + ")";
+      if (notify_data.hasOwnProperty("rain")) {
+        if (notify_data["rain"].hasOwnProperty("1h"))
+          body += "\tRain: " + notify_data["rain"]["1h"] + " mm";
+        else if (notify_data["rain"].hasOwnProperty("3h"))
+          body += "\tRain: " + notify_data["rain"]["3h"] + " mm";
+      }
+      body += '\nTemperature: ' + notify_data["main"]["temp"] + " C (feels like " + notify_data["main"]["feels_like"] + " C)";
+      body += '\nHumidity: ' + notify_data["main"]["humidity"] + '% \tPressure: ' + notify_data["main"]["pressure"] + " hpa";
+      var notify = new Notification('Weather Update', {
+        body: body,
+        icon: "https://openweathermap.org/img/wn/" + notify_data["weather"][0]["icon"] + "@2x.png",
+      });
+    }
+  }
+  nrequest.send();
+}
+
+function notifyMe() {
+  if (!window.Notification)
+    console.log('This browser does not support notifications.');
+  else {
+    if (Notification.permission === 'granted')
+      show_weather_notification();
+    else {
+      Notification.requestPermission().then(function(p) {
+        if (p === 'granted')
+          show_weather_notification();
+        else
+          console.log('User blocked notifications.');
+      }).catch(function(err) {
+        console.error(err);
+      });
+    }
+  }
+  // every 15 minutes
+  setTimeout("notifyMe()", 900000);
+}
+notifyMe();
