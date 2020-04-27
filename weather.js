@@ -1,3 +1,5 @@
+TIMEZONE = "20700";
+
 function get_weather() {
   city_name = document.getElementById("city").value;
   if(!city_name) {
@@ -78,12 +80,14 @@ function get_weather() {
         wind_direction = compassSector[(weather_data["wind"]["deg"] / 22.5).toFixed(0) - 1];
       document.getElementById("wind").innerHTML = weather_data["wind"]["speed"] + " m/s (" + wind_direction + ")";
       document.getElementById("last_update").innerHTML = new Date((weather_data["dt"] + weather_data["timezone"] + new Date().getTimezoneOffset() * 60) * 1000).toLocaleString();
+      TIMEZONE = weather_data["timezone"];
     }
 
     else if (weather_data["cod"] == 404) {
       document.getElementById("info").style = "display: block;";
       document.getElementById("info").innerHTML = weather_data["message"];
     }
+
     else {
       alert("Error.");
     }
@@ -93,6 +97,18 @@ function get_weather() {
   request.send();
   localStorage.saved_city = city_name;
 }
+
+// for topmost date display
+function showtime() {
+  var dt = new Date(Date.now() + new Date().getTimezoneOffset() * 60 * 1000 + TIMEZONE * 1000)
+  current_time_city = document.getElementById("location").innerHTML;
+  datetime_div_content = document.getElementById("datetime");
+  datetime_div_content.innerHTML = "";
+  datetime_div_content.innerHTML += dt.toLocaleTimeString();
+  datetime_div_content.innerHTML += "<div id='local_city'>" + current_time_city.substring(0, current_time_city.length - 5) + "</div>";
+  setTimeout("showtime()", 500);
+}
+showtime();
 
 MODE = "json";
 APPID = "efb37b9787edd737e3dcfd9e3b47c747";

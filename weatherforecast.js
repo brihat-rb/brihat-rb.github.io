@@ -43,9 +43,39 @@ function forecast() {
     for (var i = 0; i < 8; i++) {
       time[i] = resp["list"][i]["dt_txt"];
       temp[i] = resp["list"][i]["main"]["temp"];
-      forecast[i] = resp["list"][i]["weather"][0]["main"] + " (" + resp["list"][i]["weather"][0]["description"] + ")";
+      forecast[i] = resp["list"][i]["weather"][0]["main"] + " (" + resp["list"][i]["weather"][0]["description"];
+      if (resp["list"][i].hasOwnProperty("rain")) {
+        if (resp["list"][i]["rain"].hasOwnProperty("1h")) {
+          forecast[i] += ", " + resp["list"][i]["rain"]["1h"] + " mm";
+        }
+        else if (resp["list"][i]["rain"].hasOwnProperty("3h")) {
+          forecast[i] += ", " + resp["list"][i]["rain"]["3h"] + " mm";
+        }
+      }
+
+      if (resp["list"][i].hasOwnProperty("snow")) {
+        if (resp["list"][i]["snow"].hasOwnProperty("1h")) {
+          forecast[i] += ", " + resp["list"][i]["snow"]["1h"] + " mm";
+        }
+        else if (resp["list"][i]["snow"].hasOwnProperty("3h")) {
+          forecast[i] += ", " + resp["list"][i]["snow"]["3h"] + " mm";
+        }
+      }
+      forecast[i] += ")";
+
+      let compassSector = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N"];
+      var wind_direction = "calm";
+      if((resp["list"][i]["wind"]["deg"] / 22.5).toFixed(0) == 0)
+        wind_direction = compassSector[0];
+      else
+        wind_direction = compassSector[(resp["list"][i]["wind"]["deg"] / 22.5).toFixed(0) - 1];
+
+      forecast[i] += '<span id="fwind_show"> - Wind: ' + resp["list"][i]["wind"]["speed"] + ' m/s (' + wind_direction + ')</span>';
+      forecast[i] += '<span id="fhumidity_show"> - Humidity: ' + resp["list"][0]["main"]["humidity"] + ' %</span>';
+      forecast[i] += '<span id="fpressure_show"> - Pressure: ' + resp["list"][0]["main"]["pressure"] + ' hpa</span>';
+
       weather_forecast_DOM += '<div id="forecast_data_' + i + '"><img src="https://openweathermap.org/img/wn/' + resp["list"][i]["weather"][0]["icon"] + '@2x.png"></img>';
-      weather_forecast_DOM += '<div class="ftime">' + time[i] + '</div><div class="fdata">' + temp[i] + " &deg;C - " + forecast[i] + "</div></div><hr />";
+      weather_forecast_DOM += '<div class="ftime">' + time[i] + '</div><div class="fdata">' + temp[i] + ' &deg;C - ' + forecast[i] + '</div></div><hr />';
     }
     weather_forecast_DOM += '<div id="credit"><a href="https://openweathermap.org/">OpenWeather</a></div></div>';
     document.getElementById("wforecast").innerHTML = weather_forecast_DOM;

@@ -17,6 +17,11 @@
   z-index: 10;
 }
 
+#local_city {
+  color: lightgray;
+  font-size: 10px;
+}
+
 body {
   overflow: auto;
 }
@@ -149,7 +154,7 @@ button:hover {
   display: none;
   position: fixed;
   z-index: 1;
-  padding-top: 40px;
+  padding-top: 65px;
   left: 0;
   top: 0;
   width: 100%;
@@ -259,4 +264,27 @@ hr {
   color: gray;
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+#fpressure_show, #fhumidity_show, #fwind_show {
+  display: none;
+  font-weight: bold;
+}
+
+@media only screen and (min-width: 750px) {
+  #fpressure_show {
+   display: inline;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  #fhumidity_show {
+   display: inline;
+  }
+}
+
+@media only screen and (min-width: 450px) {
+  #fwind_show {
+    display: inline;
+  }
 }

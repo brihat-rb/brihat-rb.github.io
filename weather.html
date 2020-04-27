@@ -43,16 +43,6 @@
       </div>
     </div>
 
-    <!-- for topmost date display -->
-    <script>
-      function showtime() {
-        var dt = new Date();
-        document.getElementById("datetime").innerHTML = dt.toLocaleTimeString();
-        setTimeout("showtime()", 500);
-      }
-      showtime();
-    </script>
-
     <script>
       var request = new XMLHttpRequest();
       url = 'https://ipinfo.io/?token=6630ba13ce995d';
