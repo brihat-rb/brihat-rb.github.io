@@ -164,23 +164,31 @@ function show_weather_notification() {
 }
 
 function notifyMe() {
-  if (!window.Notification)
+  if (!window.Notification) {
     console.log('This browser does not support notifications.');
+  }
   else {
-    if (Notification.permission === 'granted')
-      show_weather_notification();
+    if (Notification.permission === 'granted') {
+      if (new Date().getMinutes() % 15 == 0) {
+        show_weather_notification();
+      }
+    }
     else {
       Notification.requestPermission().then(function(p) {
-        if (p === 'granted')
-          show_weather_notification();
-        else
+        if (p === 'granted') {
+          if (new Date().getMinutes() % 15 == 0) {
+            show_weather_notification();
+          }
+        }
+        else {
           console.log('User blocked notifications.');
+        }
       }).catch(function(err) {
         console.error(err);
       });
     }
   }
-  // every 15 minutes
-  setTimeout("notifyMe()", 900000);
+  // check every minute, receive notification on every quarter of hour
+  setTimeout("notifyMe()", 60000);
 }
 notifyMe();
