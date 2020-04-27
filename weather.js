@@ -20,7 +20,7 @@ function get_weather() {
       document.getElementById("info").style = "display: none;";
       document.getElementById("location").innerHTML = weather_data["name"] + " (" + weather_data["sys"]["country"] + ")";
       document.getElementById("weather_icon").src = "https://openweathermap.org/img/wn/" + weather_data["weather"][0]["icon"] + "@2x.png";
-      document.getElementById("weather_main").innerHTML = weather_data["weather"][0]["main"] + " (" + weather_data["weather"][0]["description"] + ")";
+      document.getElementById("weather_main").innerHTML = weather_data["weather"][0]["main"] + "<span id='narrow_width'> (" + weather_data["weather"][0]["description"] + ")</span>";
       document.getElementById("temp").innerHTML = weather_data["main"]["temp"];
       document.getElementById("feels_like").innerHTML = weather_data["main"]["feels_like"];
 

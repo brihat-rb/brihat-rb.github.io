@@ -10,25 +10,30 @@
   <body>
     <div id="datetime"></div>
     <div id="div_content">
-      <center><img id="weather_icon" /></center>
-      <input id="city" type="text" placeholder="Enter city (eg. Bhaktapur)" autofocus />
-      <button id="btn" onclick="get_weather();">Go</button>
-      <button id="btnforecast" onclick="forecast();">Forecast</button><br />
-      <span id="info"></span>
-      Place: <span id="location"></span><br />
-      Weather: <span id="weather_main"></span><br />
-      Current Temperature: <span id="temp"></span> &deg;C<br />
-      Feels Like: <span id="feels_like"></span> &deg;C<br />
-      Min Temp: <span id="min_temp"></span> &deg;C<br />
-      Max Temp: <span id="max_temp"></span> &deg;C<br />
-      <span id="rain_parent">Rain: <span id="rain"></span> mm</span>
-      <span id="snow_parent">Snow: <span id="snow"></span> mm</span>
-      <br id="optbr" />
-      Pressure: <span id="pressure"></span> hpa<br />
-      Humidity: <span id="humidity"></span> %<br />
-      Sunrise: <span id="sunrise"></span><br />
-      Sunset: <span id="sunset"></span><br />
-      Wind: <span id="wind"></span>
+      <div id="wide">
+        <center><img id="weather_icon" /></center>
+        <input id="city" type="text" placeholder="Enter city (eg. Bhaktapur)" autofocus />
+        <br class="wide_screen">
+        <button id="btn" onclick="get_weather();">Go</button>
+        <button id="btnforecast" onclick="forecast();">Forecast</button><br />
+        <span id="info"></span>
+      </div>
+      <div id="weather_info">
+        Place: <span id="location"></span><br />
+        Weather: <span id="weather_main"></span><br />
+        Current Temperature: <span id="temp"></span> &deg;C<br />
+        Feels Like: <span id="feels_like"></span> &deg;C<br />
+        Min Temp: <span id="min_temp"></span> &deg;C<br />
+        Max Temp: <span id="max_temp"></span> &deg;C<br />
+        <span id="rain_parent">Rain: <span id="rain"></span> mm</span>
+        <span id="snow_parent">Snow: <span id="snow"></span> mm</span>
+        <br id="optbr" />
+        Pressure: <span id="pressure"></span> hpa<br />
+        Humidity: <span id="humidity"></span> %<br />
+        Sunrise: <span id="sunrise"></span><br />
+        Sunset: <span id="sunset"></span><br />
+        Wind: <span id="wind"></span>
+      </div>
       <div id="iupdate">
         Updated: <span id="last_update"></span> (<a href="https://openweathermap.org/" style="text-decoration: none">OpenWeather</a>)
       </div>

@@ -43,7 +43,7 @@ function forecast() {
     for (var i = 0; i < 8; i++) {
       time[i] = resp["list"][i]["dt_txt"];
       temp[i] = resp["list"][i]["main"]["temp"];
-      forecast[i] = resp["list"][i]["weather"][0]["main"] + " (" + resp["list"][i]["weather"][0]["description"];
+      forecast[i] = resp["list"][i]["weather"][0]["main"] + "<span id='narrow'> (" + resp["list"][i]["weather"][0]["description"];
       if (resp["list"][i].hasOwnProperty("rain")) {
         if (resp["list"][i]["rain"].hasOwnProperty("1h")) {
           forecast[i] += ", " + resp["list"][i]["rain"]["1h"] + " mm";
@@ -61,7 +61,7 @@ function forecast() {
           forecast[i] += ", " + resp["list"][i]["snow"]["3h"] + " mm";
         }
       }
-      forecast[i] += ")";
+      forecast[i] += ")</span>";
 
       let compassSector = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N"];
       var wind_direction = "calm";
