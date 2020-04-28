@@ -333,7 +333,7 @@ hr {
   }
 }
 
-@media only screen and (max-width: 380px) {
+@media only screen and (max-width: 359px) {
   #narrow_width {
     display: none;
   }

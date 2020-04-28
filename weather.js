@@ -158,6 +158,10 @@ function show_weather_notification() {
         body: body,
         icon: "https://openweathermap.org/img/wn/" + notify_data["weather"][0]["icon"] + "@2x.png",
       });
+
+      notify.onclick = function(event) {
+        get_weather();
+      }
     }
   }
   nrequest.send();

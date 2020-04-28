@@ -48,6 +48,9 @@
       </div>
     </div>
 
+    <div id="user_info"><div id="user_ip"></div><div id="user_geolocation"></div></div>
+    <div id="footer">&spades; <a href="https://brihat-rb.github.io/">Brihat</a> &spades;</div>
+
     <script>
       var request = new XMLHttpRequest();
       url = 'https://ipinfo.io/?token=6630ba13ce995d';
@@ -62,7 +65,15 @@
 
     <script type="text/javascript" src="./weather.js"></script>
     <script type="text/javascript" src="./weatherforecast.js"></script>
-    <div id="footer">&spades; <a href="https://brihat-rb.github.io/">Brihat</a> &spades;</div>
-    <div id="user_info"><div id="user_ip"></div><div id="user_geolocation"></div></div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163547186-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-163547186-2');
+    </script>
   </body>
   </html>
