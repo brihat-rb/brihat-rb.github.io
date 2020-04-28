@@ -356,3 +356,43 @@ hr {
     display: none;
   }
 }
+
+.width_240 {
+  color: darkcyan;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 320px) {
+  .width_240, .width_240_data {
+    display: none;
+  }
+
+  .wide_screen {
+    display: block;
+  }
+
+  #wide {
+    /* float: left; */
+    width: 100%;
+    /* padding: 50px; */
+    text-align: center;
+  }
+}
+
+@media only screen and (max-height: 350px) {
+  #weather_icon {
+    height: 75px;
+    width: auto;
+  }
+}
+
+.fwidth_240 {
+  color: darkcyan;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 200px) {
+  .fwidth_240 {
+    display: none;
+  }
+}

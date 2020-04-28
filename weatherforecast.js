@@ -75,7 +75,9 @@ function forecast() {
       forecast[i] += '<span id="fpressure_show"> - Pressure: ' + resp["list"][0]["main"]["pressure"] + ' hpa</span>';
 
       weather_forecast_DOM += '<div id="forecast_data_' + i + '"><img src="https://openweathermap.org/img/wn/' + resp["list"][i]["weather"][0]["icon"] + '@2x.png"></img>';
-      weather_forecast_DOM += '<div class="ftime">' + time[i] + '</div><div class="fdata">' + temp[i] + ' &deg;C - ' + forecast[i] + '</div></div><hr />';
+      weather_forecast_DOM += '<div class="ftime">';
+      weather_forecast_DOM += '<span class="fwidth_240">' + time[i].substring(0, 11) + '</span>' + time[i].substring(11,19);
+      weather_forecast_DOM += '</div><div class="fdata">' + temp[i] + ' &deg;C - ' + forecast[i] + '</div></div><hr />';
     }
     weather_forecast_DOM += '<div id="credit"><a href="https://openweathermap.org/">OpenWeather</a></div></div>';
     document.getElementById("wforecast").innerHTML = weather_forecast_DOM;

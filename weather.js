@@ -72,8 +72,10 @@ function get_weather() {
 
       document.getElementById("pressure").innerHTML = weather_data["main"]["pressure"];
       document.getElementById("humidity").innerHTML = weather_data["main"]["humidity"];
-      document.getElementById("sunrise").innerHTML = new Date((weather_data["sys"]["sunrise"] + weather_data["timezone"] + new Date().getTimezoneOffset() * 60) * 1000).toLocaleString();
-      document.getElementById("sunset").innerHTML = new Date((weather_data["sys"]["sunset"] + weather_data["timezone"] + new Date().getTimezoneOffset() * 60) * 1000).toLocaleString();
+      var sunrise = new Date((weather_data["sys"]["sunrise"] + weather_data["timezone"] + new Date().getTimezoneOffset() * 60) * 1000);
+      var sunset = new Date((weather_data["sys"]["sunset"] + weather_data["timezone"] + new Date().getTimezoneOffset() * 60) * 1000);
+      document.getElementById("sunrise").innerHTML = '<span class="width_240_data">' + sunrise.toLocaleDateString() + " </span>" + sunrise.toLocaleTimeString();
+      document.getElementById("sunset").innerHTML = '<span class="width_240_data">' + sunset.toLocaleDateString() + " </span>" + sunset.toLocaleTimeString();
 
       let compassSector = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N"];
       if((weather_data["wind"]["deg"] / 22.5).toFixed(0) == 0)
@@ -81,7 +83,8 @@ function get_weather() {
       else
         wind_direction = compassSector[(weather_data["wind"]["deg"] / 22.5).toFixed(0) - 1];
       document.getElementById("wind").innerHTML = weather_data["wind"]["speed"] + " m/s (" + wind_direction + ")";
-      document.getElementById("last_update").innerHTML = new Date((weather_data["dt"] + weather_data["timezone"] + new Date().getTimezoneOffset() * 60) * 1000).toLocaleString();
+      var updated_on = new Date((weather_data["dt"] + weather_data["timezone"] + new Date().getTimezoneOffset() * 60) * 1000);
+      document.getElementById("last_update").innerHTML = '<span class="width_240_data">' + updated_on.toLocaleDateString() + " </span>" + updated_on.toLocaleTimeString();
       TIMEZONE = weather_data["timezone"];
     }
 
@@ -154,7 +157,7 @@ function show_weather_notification() {
         else if (notify_data["rain"].hasOwnProperty("3h"))
           body += "\tRain: " + notify_data["rain"]["3h"] + " mm";
       }
-      body += '\nTemperature: ' + notify_data["main"]["temp"] + " C (feels like " + notify_data["main"]["feels_like"] + " C)";
+      body += '\nTemp: ' + notify_data["main"]["temp"] + " C (feels like " + notify_data["main"]["feels_like"] + " C)";
       body += '\nHumidity: ' + notify_data["main"]["humidity"] + '% \tPressure: ' + notify_data["main"]["pressure"] + " hpa";
       var notify = new Notification('Weather Update', {
         body: body,
