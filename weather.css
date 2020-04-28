@@ -52,6 +52,24 @@ body {
   padding-bottom: 20px;
 }
 
+#refresh {
+  color: darkcyan;
+  transition-duration: 0.3s;
+}
+
+#refresh:hover {
+  color: green;
+  animation: spin 1s linear;
+  cursor: pointer;
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform:rotate(360deg);
+  }
+}
+
 span {
   font-weight: normal;
   color: dimgray;

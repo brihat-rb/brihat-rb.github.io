@@ -20,7 +20,9 @@ function get_weather() {
       document.getElementById("info").style = "display: none;";
       document.getElementById("location").innerHTML = weather_data["name"] + " (" + weather_data["sys"]["country"] + ")";
       document.getElementById("weather_icon").src = "https://openweathermap.org/img/wn/" + weather_data["weather"][0]["icon"] + "@2x.png";
+      document.getElementById("favicon").href = document.getElementById("weather_icon").src;
       document.getElementById("weather_main").innerHTML = weather_data["weather"][0]["main"] + "<span id='narrow_width'> (" + weather_data["weather"][0]["description"] + ")</span>";
+      document.getElementById("weather_main").innerHTML += " <a onclick='location.reload()'><i id='refresh' class='fa fa-refresh' aria-hidden='true'></i></a>";
       document.getElementById("temp").innerHTML = weather_data["main"]["temp"];
       document.getElementById("feels_like").innerHTML = weather_data["main"]["feels_like"];
 
@@ -60,7 +62,7 @@ function get_weather() {
           document.getElementById("snow").innerHTML = weather_data["snow"]["3h"];
         else
           document.getElementById("snow").innerHTML = "n/a";
-        document.getElementById("snow_parent").style = "display: block;";
+        document.getElementById("snow_parent").style = "display: inline;";
         document.getElementById("optbr").style = "display: block;";
       }
       else {
