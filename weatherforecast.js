@@ -41,7 +41,7 @@ function forecast() {
     var weather_forecast_DOM = '<div id="fheader"><div id="ftitle">24 hr forecast</div><div id="flocation">' + fcity + '</div></div>';
     weather_forecast_DOM += '<div id="fcontent">'
     for (var i = 0; i < 8; i++) {
-      time[i] = resp["list"][i]["dt_txt"];
+      time[i] = new Date(resp["list"][i]["dt"] * 1000).toLocaleString();
       temp[i] = resp["list"][i]["main"]["temp"];
       forecast[i] = resp["list"][i]["weather"][0]["main"] + "<span id='narrow'> (" + resp["list"][i]["weather"][0]["description"];
       if (resp["list"][i].hasOwnProperty("rain")) {
@@ -76,7 +76,7 @@ function forecast() {
 
       weather_forecast_DOM += '<div id="forecast_data_' + i + '"><img src="https://openweathermap.org/img/wn/' + resp["list"][i]["weather"][0]["icon"] + '@2x.png"></img>';
       weather_forecast_DOM += '<div class="ftime">';
-      weather_forecast_DOM += '<span class="fwidth_240">' + time[i].substring(0, 11) + '</span>' + time[i].substring(11,19);
+      weather_forecast_DOM += '<span class="fwidth_240">' + time[i].substring(0, 11) + '</span>' + time[i].substring(11, time[i].length);
       weather_forecast_DOM += '</div><div class="fdata">' + temp[i] + ' &deg;C - ' + forecast[i] + '</div></div><hr />';
     }
     weather_forecast_DOM += '<div id="credit"><a href="https://openweathermap.org/">OpenWeather</a></div></div>';
