@@ -91,10 +91,9 @@ function forecast() {
   }
 
   request.onerror = function(e) {
-    alert(`Network Error`);
-    error = e;
+    document.getElementById("flocation").innerHTML = "Network Error";
   };
-  
+
   // Send request
   request.send();
 }
