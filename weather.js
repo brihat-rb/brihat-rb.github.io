@@ -1,6 +1,8 @@
 TIMEZONE = "20700";
 
 function get_weather() {
+  var load = document.getElementById("info");
+  load.innerHTML = "loading ...";
   city_name = document.getElementById("city").value;
   if(!city_name) {
     city_name = "Bhaktapur";
@@ -22,7 +24,7 @@ function get_weather() {
       document.getElementById("weather_icon").src = "https://openweathermap.org/img/wn/" + weather_data["weather"][0]["icon"] + "@2x.png";
       document.getElementById("favicon").href = document.getElementById("weather_icon").src;
       document.getElementById("weather_main").innerHTML = weather_data["weather"][0]["main"] + "<span id='narrow_width'> (" + weather_data["weather"][0]["description"] + ")</span>";
-      document.getElementById("weather_main").innerHTML += " <a onclick='location.reload()'><i id='refresh' class='fa fa-refresh' aria-hidden='true'></i></a>";
+      document.getElementById("weather_main").innerHTML += " <a onclick='get_weather()'><i id='refresh' class='fa fa-refresh' aria-hidden='true'></i></a>";
       document.getElementById("temp").innerHTML = weather_data["main"]["temp"];
       document.getElementById("feels_like").innerHTML = weather_data["main"]["feels_like"];
 
@@ -86,6 +88,7 @@ function get_weather() {
       var updated_on = new Date((weather_data["dt"] + weather_data["timezone"] + new Date().getTimezoneOffset() * 60) * 1000);
       document.getElementById("last_update").innerHTML = '<span class="width_240_data">' + updated_on.toLocaleDateString() + " </span>" + updated_on.toLocaleTimeString();
       TIMEZONE = weather_data["timezone"];
+      load.innerHTML = "";
     }
 
     else if (weather_data["cod"] == 404) {
@@ -94,8 +97,12 @@ function get_weather() {
     }
 
     else {
-      alert("Error.");
+      alert("Unexpected Error");
     }
+  }
+
+  request.onerror = function() {
+    document.getElementById("info").innerHTML = "network error";
   }
 
   // Send request
