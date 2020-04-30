@@ -174,7 +174,7 @@ function show_weather_notification() {
     let notify_data = JSON.parse(this.response);
 
     if (notify_data.cod == 200) {
-      let body = notify_data.name + " (" + weather_data.sys.country + ")";
+      let body = notify_data.name + " (" + notify_data.sys.country + ")";
       body += '\n' + notify_data.weather[0].main + " (" + notify_data.weather[0].description + ")";
       if (notify_data.hasOwnProperty("rain")) {
         if (notify_data.rain.hasOwnProperty("1h"))
