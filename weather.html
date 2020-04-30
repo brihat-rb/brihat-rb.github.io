@@ -13,7 +13,7 @@
     <div id="datetime"></div>
     <div id="div_content">
       <div id="wide">
-        <center><img id="weather_icon" /></center>
+        <center><img id="weather_icon" src="./loading.svg" /></center>
         <input id="city" type="text" placeholder="Enter city (eg. Bhaktapur)" autofocus />
         <br class="wide_screen">
         <button id="btn" onclick="get_weather();">Go</button>
@@ -21,23 +21,23 @@
         <span id="info"></span>
       </div>
       <div id="weather_info">
-        Place: <span id="location"></span><br />
-        Weather: <span id="weather_main"></span><br />
-        <span class="width_240">Current </span>Temp<span class="width_240">erature</span>: <span id="temp"></span> &deg;C<br />
-        Feels Like: <span id="feels_like"></span> &deg;C<br />
-        Min Temp: <span id="min_temp"></span> &deg;C<br />
-        Max Temp: <span id="max_temp"></span> &deg;C<br />
-        <span id="rain_parent">Rain: <span id="rain"></span> mm</span>
-        <span id="snow_parent">Snow: <span id="snow"></span> mm</span>
+        Place: <span id="location"><i class='load fa fa-refresh' aria-hidden='true'></i></span><br />
+        Weather: <span id="weather_main"><i class='load fa fa-refresh' aria-hidden='true'></i></span><br />
+        <span class="width_240">Current </span>Temp<span class="width_240">erature</span>: <span id="temp"><i class='load fa fa-refresh' aria-hidden='true'></i></span> &deg;C<br />
+        Feels Like: <span id="feels_like"><i class='load fa fa-refresh' aria-hidden='true'></i></span> &deg;C<br />
+        Min Temp: <span id="min_temp"><i class='load fa fa-refresh' aria-hidden='true'></i></span> &deg;C<br />
+        Max Temp: <span id="max_temp"><i class='load fa fa-refresh' aria-hidden='true'></i></span> &deg;C<br />
+        <span id="rain_parent">Rain: <span id="rain"><i class='load fa fa-refresh' aria-hidden='true'></i></span> mm</span>
+        <span id="snow_parent">Snow: <span id="snow"><i class='load fa fa-refresh' aria-hidden='true'></i></span> mm</span>
         <br id="optbr" />
-        Pressure: <span id="pressure"></span> hpa<br />
-        Humidity: <span id="humidity"></span> %<br />
-        Sunrise: <span id="sunrise"></span><br />
-        Sunset: <span id="sunset"></span><br />
-        Wind: <span id="wind"></span>
+        Pressure: <span id="pressure"><i class='load fa fa-refresh' aria-hidden='true'></i></span> hpa<br />
+        Humidity: <span id="humidity"><i class='load fa fa-refresh' aria-hidden='true'></i></span> %<br />
+        Sunrise: <span id="sunrise"><i class='load fa fa-refresh' aria-hidden='true'></i></span><br />
+        Sunset: <span id="sunset"><i class='load fa fa-refresh' aria-hidden='true'></i></span><br />
+        Wind: <span id="wind"><i class='load fa fa-refresh' aria-hidden='true'></i></span>
       </div>
       <div id="iupdate">
-        Updated: <span id="last_update"></span> (<a href="https://openweathermap.org/" style="text-decoration: none">OpenWeather</a>)
+        Updated: <span id="last_update"><i class='load fa fa-refresh' aria-hidden='true'></i></span> (<a href="https://openweathermap.org/" style="text-decoration: none">OpenWeather</a>)
       </div>
     </div>
 
@@ -50,7 +50,11 @@
       </div>
     </div>
 
-    <div id="user_info"><div id="user_ip"></div><div id="user_geolocation"></div></div>
+    <div id="user_info">
+      <div id="user_ip"><i class='load fa fa-refresh' aria-hidden='true'></i></div>
+      <div id="user_geolocation"><i class='load fa fa-refresh' aria-hidden='true'></i></div>
+    </div>
+
     <div id="footer">&spades; <a href="https://brihat-rb.github.io/">Brihat</a> &spades;</div>
 
     <script>
