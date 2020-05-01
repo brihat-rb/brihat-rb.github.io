@@ -44,8 +44,7 @@ function forecast() {
       let weather_forecast_DOM = '<div id="fheader"><div id="ftitle">24 hr forecast</div><div id="flocation">' + fcity + '</div></div>';
       weather_forecast_DOM += '<div id="fcontent">';
       for (let i = 0; i < 8; i++) {
-        time[i] = new Date((resp.list[i].dt + resp.city.timezone + new Date().getTimezoneOffset() * 60) * 1000).toLocaleString();;
-        // time[i] = new Date(resp.list[i].dt * 1000).toLocaleString();
+        time[i] = new Date((resp.list[i].dt + resp.city.timezone + new Date().getTimezoneOffset() * 60) * 1000).toLocaleString();
         temp[i] = resp.list[i].main.temp;
         forecast[i] = resp.list[i].weather[0].main + "<span id='narrow'> (" + resp.list[i].weather[0].description;
         if (resp.list[i].hasOwnProperty("rain")) {

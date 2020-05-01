@@ -17,6 +17,10 @@ function update_weather() {
 }
 
 function get_weather() {
+  document.getElementById("weather_icon").src = "./loading.svg";
+  let fields = ["location", "weather_main", "temp", "feels_like", "min_temp", "max_temp", "rain", "snow", "pressure", "humidity", "sunrise", "sunset", "wind", "last_update"];
+  fields.forEach(item => document.getElementById(item).innerHTML = "<i class='load fa fa-refresh' aria-hidden='true'></i>");
+
   let load = document.getElementById("info");
   load.innerHTML = "loading ...";
   let city_name = document.getElementById("city").value;

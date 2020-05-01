@@ -2,46 +2,117 @@
 <html lang="en" dir="ltr">
   <head>
     <title>brihat-rb.github.io</title>
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-      .show_on_hover {
-        position: fixed;
-        bottom: 25px;
-        width: 100%;
+      body {
+        text-align: center;
       }
+
+      #datetime {
+        color: teal;
+        font-family: monospace;
+        font-size: 14px;
+        user-select: none;
+      }
+
+      #datetime:hover {
+        letter-spacing: 1px;
+      }
+
+      ul {
+        position: fixed;
+        bottom: 20px;
+        width: 100%;
+        list-style: none;
+        display: flex;
+        justify-content: space-around;
+      }
+
       a {
         text-decoration: none;
         color: darkseagreen;
         opacity: 0.6;
         white-space: nowrap;
       }
+
       a:hover {
-        color: silver;
+        color: darkgreen;
+        letter-spacing: 0.5px;
       }
-  	  #datetime {
-    		color: teal;
-    		font-family: monospace;
-    		font-size: 16px;
-  	  }
+
       #user_info {
         width: 100%;
-        text-align: center;
         position: fixed;
         bottom: 0;
-        font-family: serif;
+        font-family: monospace;
         font-size: 12px;
         color: lightgray;
         user-select: none;
+      }
+
+      #user_ip:hover, #user_geolocation:hover {
+        color: gold;
+      }
+
+      @media only screen and (min-width: 850px) {
+        #brihatlogo {
+          width: 480px;
+          height: auto;
+        }
+      }
+
+      @media only screen and (max-width: 475px) {
+        ul {
+          position: fixed;
+          bottom: 25px;
+          width: 100%;
+          display: flex;
+          flex-direction: column
+        }
+
+        li {
+          padding: 3px;
+        }
+
+        #user_ip {
+          float: left;
+          padding-left: 10px;
+        }
+
+        #user_geolocation {
+          float: right;
+          padding-right: 10px;
+        }
+      }
+
+      @media only screen and (max-width: 320px) {
+        #brihatlogo {
+          width: 240px;
+          height: auto;
+        }
+
+        li {
+          padding: 2px;
+        }
+
+        #user_info, a {
+          font-size: 11px;
+        }
+      }
+
+      @media only screen and (max-width: 240px) {
+        #brihatlogo {
+          width: 180px;
+          height: auto;
+        }
       }
     </style>
 	<link rel="stylesheet" href="./brihat.css" />
   </head>
 
   <body>
-    <center>
-      <i id="datetime"></i>
-      <br/>
-      <!-- <h2> Hello, World!</h2> -->
+    <i id="datetime"></i>
 
 	  <!-- brihat small logo -->
 	  <svg id="brihatlogo" width="320" height="92" viewBox="0 0 538 154" fill="white" xmlns="http://www.w3.org/2000/svg">
@@ -65,20 +136,18 @@
 		  stroke="teal" stroke-width="2" mask="url(#path-1-outside-1)" />
 	  </svg>
 
-      <!-- <br /><a href="https://brihat9.github.io" style="color: black;">&spades; Brihat &spades;</a><br /> -->
-      <div class="show_on_hover">
-        <a href="https://brihat-rb.github.io/todoweb/todoweb.html">TodoWeb (JS)</a>&emsp;
-        <a href="https://brihat-rb.github.io/JSDict/JSDict.html">JSDict</a>&emsp;
-        <a href="https://brihat-rb.github.io/react-todo">React Todo</a>&emsp;
-        <a href="https://brihat-rb.github.io/morse.html">Morse Code</a>&emsp;
-        <a href="https://brihat-rb.github.io/weather.html">Weather</a>
-      </div>
+    <ul>
+      <li><a href="https://brihat-rb.github.io/todoweb/todoweb.html">TodoWeb (JS)</a></li>
+      <li><a href="https://brihat-rb.github.io/JSDict/JSDict.html">JSDict</a></li>
+      <li><a href="https://brihat-rb.github.io/react-todo">React Todo</a></li>
+      <li><a href="https://brihat-rb.github.io/morse.html">Morse Code</a></li>
+      <li><a href="https://brihat-rb.github.io/weather.html">Weather</a></li>
+    </ul>
 
-      <div id="user_info">
-        <span id="user_ip"></span> -
-        <span id="user_geolocation"></span>
-      </div>
-    </center>
+    <div id="user_info">
+      <span id="user_ip"></span>&emsp;
+      <span id="user_geolocation"></span>
+    </div>
 
     <!-- for topmost date display -->
     <script>
@@ -93,7 +162,7 @@
   	<script>
   	  const logo = document.querySelectorAll("#brihatlogo path");
   	  for (let i = 0; i < logo.length; i++) {
-  		console.log('Letter ' + i + ' has length: ' + logo[i].getTotalLength());
+  		  console.log('Letter ' + i + ' has length: ' + logo[i].getTotalLength());
   	  }
   	</script>
 
