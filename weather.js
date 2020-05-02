@@ -21,8 +21,8 @@ function get_weather() {
   let fields = ["location", "weather_main", "temp", "feels_like", "min_temp", "max_temp", "rain", "snow", "pressure", "humidity", "sunrise", "sunset", "wind", "last_update"];
   fields.forEach(item => document.getElementById(item).innerHTML = "<i class='load fa fa-refresh' aria-hidden='true'></i>");
 
-  let load = document.getElementById("info");
-  load.innerHTML = "loading ...";
+  document.getElementById("info").innerHTML = "loading ...";
+  document.getElementById("info").style = "display: block;";
   let city_name = document.getElementById("city").value;
   if(!city_name) {
     city_name = "Bhaktapur";
@@ -109,8 +109,8 @@ function get_weather() {
       document.getElementById("wind").innerHTML = weather_data.wind.speed + " m/s (" + wind_direction + ")";
       let updated_on = new Date((weather_data.dt + weather_data.timezone + new Date().getTimezoneOffset() * 60) * 1000);
       document.getElementById("last_update").innerHTML = '<span class="width_240_data">' + updated_on.toLocaleDateString() + " </span>" + updated_on.toLocaleTimeString();
+      document.getElementById("info").innerHTML = "";
       TIMEZONE = weather_data.timezone;
-      load.innerHTML = "";
     }
 
     else if (weather_data.cod == 404) {

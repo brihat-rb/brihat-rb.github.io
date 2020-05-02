@@ -20,9 +20,6 @@ window.onclick = function(event) {
   }
 };
 
-// const MODE = "json";
-// const APPID = "efb37b9787edd737e3dcfd9e3b47c747";
-
 function forecast() {
   let info_message = document.getElementById("wforecast");
   info_message.innerHTML = '<div id="fheader"><div id="ftitle">24 hr forecast</div><div id="flocation">Please Wait</div></div></div><div id="fcontent"><div id="forcasting"><i class="load fa fa-refresh" aria-hidden="true"></i></div></div>';
@@ -86,14 +83,15 @@ function forecast() {
       document.getElementById("wforecast").innerHTML = weather_forecast_DOM;
     }
     else {
-      info_message.innerHTML += "<div class='ftime'>Error Occurred</div><div class='fdata'>" + resp.cod + " (" + resp.message + ")</div>";
+      document.getElementById("flocation").innerHTML = "Error";
+      document.getElementById("fcontent").innerHTML = "<div class='ftime'>Error Occurred</div><div class='fdata'>" + resp.cod + " (" + resp.message + ")</div>";
     }
   };
 
   request.onerror = function(e) {
     document.getElementById("flocation").innerHTML = "Network Error";
+    document.getElementById("fcontent").innerHTML = "";
   };
 
-  // Send request
   request.send();
 }
