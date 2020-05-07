@@ -1,189 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <title>brihat-rb.github.io</title>
+    <title>Age Calculator | AD-BS Date Converter</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-      body {
-        text-align: center;
-      }
-
-      #datetime {
-        color: teal;
-        font-family: monospace;
-        font-size: 14px;
-        user-select: none;
-      }
-
-      #datetime:hover {
-        letter-spacing: 1px;
-      }
-
-      #user_info {
-        width: 100%;
-        position: fixed;
-        bottom: 0;
-        font-family: monospace;
-        font-size: 12px;
-        color: lightgray;
-        user-select: none;
-      }
-
-      #user_ip:hover, #user_geolocation:hover {
-        color: gold;
-      }
-
-      #age_calculator, #date_converter, #date_converter_result {
-        display: flex;
-        justify-content: space-around;
-        font-family: monospace;
-        font-size: 16px;
-        font-weight: bold;
-        padding: 5px;
-        transition-duration: 0.2s;
-      }
-
-      @media only screen and (max-width: 625px) {
-        #age_calculator, #date_converter {
-          align-items: center;
-          flex-direction: column;
-        }
-        .input {
-          padding: 3px;
-        }
-        button {
-          margin: 10px;
-        }
-        #bs_result, #ad_result {
-          padding: 10px;
-          padding-bottom: 30px;
-        }
-      }
-
-      @media only screen and (max-width: 350px) {
-        select {
-            -webkit-appearance: none;
-        }
-      }
-
-      h2 {
-        padding: 5px;
-        font-weight: bold;
-        font-family: sans-serif;
-      }
-
-      input[type="date"] {
-        text-align: center;
-        border-top-style: hidden;
-        border-left-style: hidden;
-        border-right-style: hidden;
-        border-bottom-style: groove;
-        border-color: lightgray;
-        width: 150px;
-      }
-
-      input[type="date"]:hover {
-        border-color: red;
-      }
-
-      button {
-        background-color: white;
-        color: green;
-        border-radius: 2px;
-        border: 1px solid green;
-        transition-duration: 0.2s;
-        width: 80px;
-        height: 25px;
-      }
-
-      button:hover {
-        background-color: green;
-        color: white;
-      }
-
-      select {
-        color: green;
-        border-radius: 3px;
-        border: 1px solid green;
-        width: 57px;
-        height: 25px;
-      }
-
-      #select_month {
-        width: 75px;
-      }
-
-      #select_date {
-        width: 40px;
-      }
-
-      select:hover {
-        color: maroon;
-      }
-
-      #age_result {
-        font-family: sans-serif;
-        font-weight: bold;
-        color: green;
-        letter-spacing: 1px;
-      }
-
-      .age_num {
-        color: maroon;
-      }
-
-      #user_ip {
-        padding-left: 5px;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-      }
-
-      #user_geolocation {
-        padding-right: 5px;
-        position: fixed;
-        bottom: 0;
-        right: 0;
-      }
-
-      #footer {
-        font-family: monospace;
-        position: fixed;
-        bottom: 5px;
-        width: 100%;
-        height: auto;
-        padding: 2px;
-      }
-
-      #footer a {
-        color: teal;
-        text-decoration: none;
-      }
-
-      #footer a:hover {
-        cursor: pointer;
-        letter-spacing: 1px;
-      }
-    </style>
-	<link rel="stylesheet" href="./brihat.css" />
+    <link rel="stylesheet" href="./age_date_converter.css" />
   </head>
 
   <body>
     <i id="datetime"></i>
-
     <br />
-    <h2>Age Calculator</h1>
-    <div id="age_calculator">
-      <div class="input">Birthdate: <input type="date" id="date1" /></div>
-      <div class="input">As of date: <input type="date" id="date2" /></div>
-      <button id="button" onclick="date_diff();">Calculate</button>
-    </div>
-    <span id="age_result"></span>
-
-    <br /><br /><br />
-    <h2>AD BS Date Converter</h2>
-
+    <h2 onclick="toggle_content('date_converter')" title="Click to convert date">AD BS Date Converter</h2>
     <div id="date_converter">
       <div id="ad_to_bs">
         <div class="input">AD: <input type="date" id="ad_date" />
@@ -201,6 +28,32 @@
         <div id="ad_result">AD here</div>
       </div>
     </div>
+
+    <h2 onclick="toggle_content('age_calculator')" title="Click to calculate age">Age Calculator</h1>
+    <div id="age_calculator">
+      <div id="age_calculator_ad">
+        <div class="age_header">Calculate from AD Date</div>
+        <div class="input">Birthdate: <input type="date" id="date1" /></div>
+        <div class="input">As of date: <input type="date" id="date2" /></div>
+        <button id="button" onclick="date_diff_ad();">Calculate</button>
+      </div>
+
+      <div id="age_calculator_bs">
+        <div class="age_header">Calculate from BS Date</div>
+        <div class="input">Birthdate:
+          <select id="select_birthdate_year"></select>
+          <select id="select_birthdate_month"></select>
+          <select id="select_birthdate_date"></select>
+        </div>
+        <div class="input">As of date:
+          <select id="select_asof_year"></select>
+          <select id="select_asof_month"></select>
+          <select id="select_asof_date"></select>
+        </div>
+        <button id="button" onclick="date_diff_bs();">Calculate</button>
+      </div>
+    </div>
+    <span id="age_result"></span>
 
     <div id="user_info">
       <span id="user_ip"></span>&emsp;
@@ -221,54 +74,19 @@
       request.send();
     </script>
 
-  	<script>
-      document.getElementById('date2').value = new Date().toISOString().substr(0,10);
-
-      function date_diff() {
-        if (!document.getElementById("date1").value) {
-          alert("Birthdate cannot be empty");
-          return;
+    <script>
+      function toggle_content(div_id) {
+        let div_container = document.getElementById(div_id);
+        if (div_container.style.display === "none") {
+          div_container.style.display = "flex";
         }
-        if (!document.getElementById("date2").value) {
-          document.getElementById('date2').value = new Date().toISOString().substr(0,10);
+        else if (div_container.style.display === "flex") {
+          div_container.style.display = "none";
         }
-        let date1 = new Date(document.getElementById("date1").value);
-        let date2 = new Date(document.getElementById("date2").value);
-
-        if (date1 > date2) {
-            let swap = date1;
-            date1 = date2;
-            date2 = swap;
+        else {
+          div_container.style.display = "flex";
         }
-        let date1_year = date1.getFullYear();
-        let february = (date1_year % 4 === 0 && date1_year % 100 !== 0) || date1_year % 400 === 0 ? 29 : 28;
-        let days_list = [31, february, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-        let no_of_years = date2.getFullYear() - date1_year;
-
-        let no_of_months = date2.getMonth() - date1.getMonth();
-        if (no_of_months < 0) {
-            no_of_years--;
-            no_of_months += 12;
-        }
-
-        let no_of_days = date2.getDate() - date1.getDate();
-        if (no_of_days < 0) {
-            if (no_of_months > 0) {
-                no_of_months--;
-            }
-            else {
-                no_of_years--;
-                no_of_months = 11;
-            }
-            no_of_days += days_list[date1.getMonth()];
-        }
-
-        let answer = '<span class="age_num">' + no_of_years + '</span> years';
-        answer += '&emsp;<span class="age_num">' + no_of_months + '</span> months';
-        answer += '&emsp;<span class="age_num">' + no_of_days + '</span> days';
-        document.getElementById("age_result").innerHTML = answer;
-    }
+      }
     </script>
 
     <script type="text/javascript" src="./nepali_calendar_tools.js"></script>
