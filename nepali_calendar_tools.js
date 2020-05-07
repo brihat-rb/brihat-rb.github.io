@@ -1,4 +1,7 @@
 const BS_CALENDAR_DATA = {
+    '1975': [ 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30, 365 ],
+    '1976': [ 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31, 366 ],
+    '1977': [ 30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31, 365 ],
     '1978': [ 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30, 365 ],
     '1979': [ 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30, 365 ],
     '1980': [ 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31, 366 ],
@@ -113,18 +116,26 @@ const BS_CALENDAR_DATA = {
     '2089': [ 30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 30, 30, 365 ],
     '2090': [ 30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 30, 30, 365 ],
     '2091': [ 31, 31, 32, 31, 31, 31, 30, 30, 29, 30, 30, 30, 366 ],
-    '2092': [ 31, 31, 32, 32, 31, 30, 30, 30, 29, 30, 30, 30, 366 ]
+    '2092': [ 31, 31, 32, 32, 31, 30, 30, 30, 29, 30, 30, 30, 366 ],
+    '2093': [ 30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 30, 30, 365 ],
+    '2094': [ 31, 31, 32, 31, 31, 30, 30, 30, 29, 30, 30, 30, 365 ],
+    '2095': [ 31, 31, 32, 31, 31, 31, 30, 29, 30, 30, 30, 30, 366 ],
+    '2096': [ 31, 32, 31, 32, 31, 30, 30, 29, 30, 29, 30, 30, 365 ],
+    '2097': [ 31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 30, 30, 366 ],
+    '2098': [ 31, 31, 32, 31, 31, 31, 29, 30, 29, 30, 29, 31, 365 ],
+    '2099': [ 31, 31, 32, 31, 31, 31, 30, 29, 29, 30, 30, 30, 365 ],
+    '2100': [ 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31, 366 ]
 }
 
 const LEAP_DAYS_LIST = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 const DAYS_LIST = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 // very important
-const BASE_BS_YEAR = 1978
+const BASE_BS_YEAR = 1975
 const BASE_BS_MONTH = 1
 const BASE_BS_DATE = 1
 
-const BASE_AD_YEAR = 1921
+const BASE_AD_YEAR = 1918
 const BASE_AD_MONTH = 4
 const BASE_AD_DATE = 13
 
@@ -231,12 +242,12 @@ function convert_ad_to_bs(ad_year, ad_month, ad_date) {
     // returns: tuple (bs_year, bs_month, bs_date)
 
 	if (ad_year < BASE_AD_YEAR || ad_year == BASE_AD_YEAR && ad_month < BASE_AD_MONTH || ad_year == BASE_AD_YEAR && ad_month == BASE_AD_MONTH && ad_date < BASE_BS_DATE) {
-		alert("Supported date range " + BASE_AD_YEAR + "-" + BASE_AD_MONTH + "-" + BASE_AD_DATE + " to 2036-4-14");
+		alert("Supported date range " + BASE_AD_YEAR + "-" + BASE_AD_MONTH + "-" + BASE_AD_DATE + " to 2044-4-15");
 		return;
 	}
 
-	if (ad_year > 2036 || ad_year == 2036 && ad_month > 4 || ad_year == 2036 && ad_month == 4 && ad_date > 14) {
-		alert("Date range 1921-4-13 to 2036-4-14");
+	if (ad_year > 2044 || ad_year == 2044 && ad_month > 4 || ad_year == 2044 && ad_month == 4 && ad_date > 15) {
+    alert("Supported date range " + BASE_AD_YEAR + "-" + BASE_AD_MONTH + "-" + BASE_AD_DATE + " to 2044-4-15");
 		return;
 	}
 
@@ -287,7 +298,7 @@ function convert_ad_to_bs(ad_year, ad_month, ad_date) {
 
 select_list_ids = ["_", "_birthdate_", "_asof_"];
 for(let elem = 0; elem < 3; elem++) {
-  for(let year = 1978; year <= 2092; year++) {
+  for(let year = 1975; year <= 2100; year++) {
       let select = document.getElementById("select" + select_list_ids[elem] + "year");
       let option = document.createElement("option");
       select.options.add(option);
