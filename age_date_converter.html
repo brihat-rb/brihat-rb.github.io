@@ -9,6 +9,7 @@
 
   <body>
     <i id="datetime"></i>
+    <div id="today_info"></div>
     <br />
     <h2 onclick="toggle_content('date_converter')" title="Click to convert date">AD BS Date Converter</h2>
     <div id="date_converter">
@@ -96,11 +97,38 @@
     <script>
       function showtime() {
         let dt = new Date();
-        let bs_date = get_bs_date_from_date_object(dt);
-        document.getElementById("datetime").innerHTML = bs_date + " - " + dt.toLocaleTimeString();
+        let bs_date = get_nep_bs_date_from_date_object(dt);
+        let date_content = ""
+        date_content += '<span id="nep_date">' + bs_date + '</span> ';
+        date_content += '<span id="time">' + dt.toLocaleTimeString() + '</span> ';
+        date_content += '<span id="eng_date">' + ad_string_from_date(dt) + '</span> ';
+        document.getElementById("datetime").innerHTML = date_content;
         setTimeout("showtime()", 500);
       }
       showtime();
+    </script>
+
+    <script>
+      var nepal_event_req = new XMLHttpRequest();
+      json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/2077.json';
+      nepal_event_req.open('GET', json_url, true);
+      nepal_event_req.onload = function() {
+        let events = JSON.parse(this.response);
+        let bs_today = get_bs_date_from_date_object(new Date()).split(" ");
+        let month = get_bs_month(bs_today[1]) - 1;
+        let date = bs_today[2] - 1;
+
+        let info_content = "";
+        info_content += '<div id="tithi">' + events.data[month][date].tithi + '</div>';
+        if (events.data[month][date].event_one)
+          info_content += '<div id="info1">' + events.data[month][date].event_one + '</div>';
+        if (events.data[month][date].rotate_left)
+          info_content += '<div id="info2">' + events.data[month][date].rotate_left + '</div>';
+        if (events.data[month][date].rotate_right)
+          info_content += '<div id="info3">' + events.data[month][date].rotate_right + '</div>';
+        document.getElementById("today_info").innerHTML = info_content;
+      }
+      nepal_event_req.send();
     </script>
   </body>
 </html>

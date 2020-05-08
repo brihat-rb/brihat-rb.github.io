@@ -143,6 +143,11 @@ const BASE_AD_OFFSET = 102
 
 const BS_MONTHS = ["Baisakh", "Jestha", "Ashad", "Shrawan", "Bhadra", "Ashwin", "Kartik", "Mangsir", "Poush", "Magh", "Falgun", "Chaitra"];
 const AD_MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const ENGLISH_DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+const BS_MONTHS_NEP = ["वैशाख", "ज्येष्ठ", "आषाढ़", "श्रावण", "भाद्र", "आश्विन", "कार्तिक", "मंसिर", "पौष", "माघ", "फाल्गुण", "चैत्र"];
+const NEPALI_DIGITS = ['०','१','२','३','४','५','६','७','८','९'];
+const NEPALI_DAYS = ["आइतबार", "सोमबार", "मंगलबार", "बुधबार", "बिहिबार", "शुक्रबार", "शनिबार"];
 
 
 function is_leap_year(year) {
@@ -236,6 +241,12 @@ function convert_bs_to_ad(bs_year, bs_month, bs_date) {
     return res_ad_date + " " + AD_MONTHS[res_ad_month-1] + " " + res_ad_year;
 }
 
+function ad_string_from_date(date) {
+    // return ad date string in form of 'date month(str) year'
+    let date_string = date.toLocaleDateString().split("/");
+    return date_string[1] + " " + AD_MONTHS[date_string[0]-1] + " " + date_string[2];
+}
+
 function convert_ad_to_bs(ad_year, ad_month, ad_date) {
     // this function converts AD date to BS
     // input: ad_year, ad_month, ad_date - int
@@ -296,7 +307,8 @@ function convert_ad_to_bs(ad_year, ad_month, ad_date) {
     return res_bs_year + " " + BS_MONTHS[res_bs_month - 1] + " " + res_bs_date;
 }
 
-select_list_ids = ["_", "_birthdate_", "_asof_"];
+let select_list_ids = ["_", "_birthdate_", "_asof_"];
+
 for(let elem = 0; elem < 3; elem++) {
   for(let year = 1975; year <= 2100; year++) {
       let select = document.getElementById("select" + select_list_ids[elem] + "year");
@@ -325,9 +337,10 @@ for(let elem = 0; elem < 3; elem++) {
 
 function to_bs() {
     // shows converted BS date
-    let ad_date_list = document.getElementById("ad_date").value.split("-");
+    let ad_date = document.getElementById("ad_date").value;
+    let ad_date_list = ad_date.split("-");
     let result = convert_ad_to_bs(ad_date_list[0], ad_date_list[1], ad_date_list[2]);
-    document.getElementById("bs_result").innerHTML = result;
+    document.getElementById("bs_result").innerHTML = date_string_nep(result) + " " + NEPALI_DAYS[new Date(ad_date).getDay()];
 }
 
 function to_ad() {
@@ -336,7 +349,7 @@ function to_ad() {
     let bs_month = document.getElementById("select_month").value;
     let bs_date = document.getElementById("select_date").value;
     let result = convert_bs_to_ad(bs_year, bs_month, bs_date);
-    document.getElementById("ad_result").innerHTML = result;
+    document.getElementById("ad_result").innerHTML = result + " " + ENGLISH_DAYS[new Date(get_ad_date_string(result)).getDay()];
 }
 
 function get_bs_month(month) {
@@ -349,9 +362,24 @@ function get_bs_date_from_date_object(date) {
     return convert_ad_to_bs(date.getFullYear(), date.getMonth() + 1, date.getDate());
 }
 
+function get_nep_bs_date_from_date_object(date) {
+    // convert date object to BS date string in nepali
+    let bs_date_eng = get_bs_date_from_date_object(date);
+    return date_string_nep(bs_date_eng);
+}
+
+function date_string_nep(bs_date_eng) {
+  let bs_date_eng_list = bs_date_eng.split(" ");
+  let result = "";
+  result += arabic_number_to_nepali(bs_date_eng_list[0]) + " ";
+  result += BS_MONTHS_NEP[get_bs_month(bs_date_eng_list[1]) - 1] + " ";
+  result += arabic_number_to_nepali(bs_date_eng_list[2]);
+  return result;
+}
+
 function get_ad_date_string(ad_date_result) {
-    ad_date_list = ad_date_result.split(" ");
-    ad_month = AD_MONTHS.indexOf(ad_date_list[1]) + 1
+    let ad_date_list = ad_date_result.split(" ");
+    let ad_month = AD_MONTHS.indexOf(ad_date_list[1]) + 1;
     if (ad_month < 10) {
       ad_month = "0" + ad_month;
     }
@@ -447,6 +475,15 @@ function date_diff_ad() {
     document.getElementById("select_asof_date").value = asofdate_bs_list[2];
 
     date_diff();
+}
+
+function arabic_number_to_nepali(number){
+    number = number.toString();
+    let nepali_number = "";
+    for(let i = 0; i < number.length; i++) {
+        nepali_number += NEPALI_DIGITS[parseInt(number.charAt(i))];
+    }
+    return nepali_number;
 }
 
 // default settings on page load

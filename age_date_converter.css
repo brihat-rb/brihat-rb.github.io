@@ -17,6 +17,31 @@ body {
   letter-spacing: 1px;
 }
 
+#nep_date, #time, #eng_date {
+  white-space: nowrap;
+}
+
+#nep_date, #eng_date {
+  color: lightgreen;
+}
+
+#time {
+  color: teal;
+}
+
+#today_info {
+  width: 100%;
+  display: flex;
+  color: orange;
+  font-size: 12px;
+  justify-content: space-between;
+}
+
+#tithi, #info1, #info2, #info3 {
+  flex: 1 1 0px;
+  padding: 0px 5px 0px 5px;
+}
+
 #user_info {
   width: 100%;
   position: fixed;
@@ -189,5 +214,9 @@ select:hover {
 @media only screen and (max-width: 350px) {
   select {
       -webkit-appearance: none;
+  }
+
+  #eng_date {
+    display: none;
   }
 }
