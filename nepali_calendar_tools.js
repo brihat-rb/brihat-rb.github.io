@@ -173,7 +173,7 @@ function convert_bs_to_ad(bs_year, bs_month, bs_date) {
 
     is_valid_date = verify_bs_date(bs_year, bs_month, bs_date)
     if (!is_valid_date) {
-      alert(bs_year + " " + BS_MONTHS[bs_month - 1] + " doesnot have " + bs_date + " days");
+      alert(arabic_number_to_nepali(bs_year) + " " + BS_MONTHS_NEP[bs_month - 1] + " मा " + arabic_number_to_nepali(bs_date) + " दिन छैन");
       return
     }
 
@@ -314,7 +314,7 @@ for(let elem = 0; elem < 3; elem++) {
       let select = document.getElementById("select" + select_list_ids[elem] + "year");
       let option = document.createElement("option");
       select.options.add(option);
-      option.text = year;
+      option.text = arabic_number_to_nepali(year);
       option.value = year;
   }
 
@@ -322,7 +322,7 @@ for(let elem = 0; elem < 3; elem++) {
       let select = document.getElementById("select" + select_list_ids[elem] + "month");
       let option = document.createElement("option");
       select.options.add(option);
-      option.text = BS_MONTHS[month-1];
+      option.text = BS_MONTHS_NEP[month-1];
       option.value = month;
   }
 
@@ -330,7 +330,7 @@ for(let elem = 0; elem < 3; elem++) {
       let select = document.getElementById("select" + select_list_ids[elem] + "date");
       let option = document.createElement("option");
       select.options.add(option);
-      option.text = date;
+      option.text = arabic_number_to_nepali(date);
       option.value = date;
   }
 }
