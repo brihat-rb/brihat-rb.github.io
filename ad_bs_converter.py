@@ -1,6 +1,10 @@
+import argparse
 import sys
 
 BS_CALENDAR_DATA = {
+    '1975': [ 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30, 365 ],
+    '1976': [ 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31, 366 ],
+    '1977': [ 30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31, 365 ],
     '1978': [ 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30, 365 ],
     '1979': [ 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30, 365 ],
     '1980': [ 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31, 366 ],
@@ -115,22 +119,33 @@ BS_CALENDAR_DATA = {
     '2089': [ 30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 30, 30, 365 ],
     '2090': [ 30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 30, 30, 365 ],
     '2091': [ 31, 31, 32, 31, 31, 31, 30, 30, 29, 30, 30, 30, 366 ],
-    '2092': [ 31, 31, 32, 32, 31, 30, 30, 30, 29, 30, 30, 30, 366 ]
+    '2092': [ 31, 31, 32, 32, 31, 30, 30, 30, 29, 30, 30, 30, 366 ],
+    '2093': [ 30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 30, 30, 365 ],
+    '2094': [ 31, 31, 32, 31, 31, 30, 30, 30, 29, 30, 30, 30, 365 ],
+    '2095': [ 31, 31, 32, 31, 31, 31, 30, 29, 30, 30, 30, 30, 366 ],
+    '2096': [ 31, 32, 31, 32, 31, 30, 30, 29, 30, 29, 30, 30, 365 ],
+    '2097': [ 31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 30, 30, 366 ],
+    '2098': [ 31, 31, 32, 31, 31, 31, 29, 30, 29, 30, 29, 31, 365 ],
+    '2099': [ 31, 31, 32, 31, 31, 31, 30, 29, 29, 30, 30, 30, 365 ],
+    '2100': [ 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31, 366 ]
 }
+
+BS_MONTHS = ["Baisakh", "Jestha", "Ashad", "Shrawan", "Bhadra", "Ashwin", "Kartik", "Mangsir", "Poush", "Magh", "Falgun", "Chaitra"];
+AD_MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 LEAP_DAYS_LIST = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 DAYS_LIST = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 # very important
-BASE_BS_YEAR = 2000
+BASE_BS_YEAR = 1975
 BASE_BS_MONTH = 1
 BASE_BS_DATE = 1
 
-BASE_AD_YEAR = 1943
+BASE_AD_YEAR = 1918
 BASE_AD_MONTH = 4
-BASE_AD_DATE = 14
+BASE_AD_DATE = 13
 
-BASE_AD_OFFSET = 103
+BASE_AD_OFFSET = 102
 
 
 def is_leap_year(year):
@@ -238,6 +253,56 @@ def convert_ad_to_bs(ad_year, ad_month, ad_date):
     return (res_bs_year, res_bs_month, res_bs_date)
 
 
+def is_valid_ad_date(year, month, date):
+    ''' checks validity of AD Date '''
+    if (year < BASE_AD_YEAR or (year == BASE_AD_YEAR and month < BASE_AD_MONTH) or (year == BASE_AD_YEAR and month == BASE_AD_MONTH and date < BASE_AD_DATE)):
+        print("Supported date range " + str(BASE_AD_YEAR) + "-" + str(BASE_AD_MONTH) + "-" + str(BASE_AD_DATE) + " to 2044-4-15")
+        return False
+
+    if (year > 2044 or (year == 2044 and month > 4) or (year == 2044 and month == 4 and date > 15)):
+        print("Supported date range " + str(BASE_AD_YEAR) + "-" + str(BASE_AD_MONTH) + "-" + str(BASE_AD_DATE) + " to 2044-4-15")
+        return False
+
+    if month not in range(1, 13):
+        print("Invalid Month")
+        return False
+
+    if date not in range(1, LEAP_DAYS_LIST[month-1] + 1 if is_leap_year(year) else DAYS_LIST[month-1] + 1):
+        print(str(year) + " " + AD_MONTHS[month-1] + " does not have date " + str(date))
+        return False
+
+    return True
+
+
+def is_valid_bs_date(year, month, date):
+    ''' checks validity of BS Date '''
+    if (year < BASE_BS_YEAR or (year == BASE_BS_YEAR and month < BASE_BS_MONTH) or (year == BASE_BS_YEAR and month == BASE_BS_MONTH and date < BASE_BS_DATE)):
+		print("Supported date range " + str(BASE_BS_YEAR) + "-" + str(BASE_BS_MONTH) + "-" + str(BASE_BS_DATE) + " to 2100-12-31")
+		return False
+
+    if (year > 2100 or (year == 2100 and month > 12) or (year == 2100 and month == 12 and date > 31)):
+        print("Supported date range " + str(BASE_BS_YEAR) + "-" + str(BASE_BS_MONTH) + "-" + str(BASE_BS_DATE) + " to 2100-12-31")
+        return False
+
+    if month not in range(1, 13):
+        print("Invalid Month")
+        return False
+
+    if date not in range(1, BS_CALENDAR_DATA[str(year)][month-1] + 1):
+        print(str(year) + " " + BS_MONTHS[month-1] + " does not have date " + str(date))
+        return False
+
+    return True
+
+def print_help():
+    ''' show usage help '''
+    print("usage: ad_bs_converter.py [type] [year] [month] [date]")
+    print("")
+    print("valid type [type]: to_bs | to_ad")
+    print("valid range [year] [month] [date]: 1978 1 1 to 2092 12 31 (to_bs), 1918 4 13 to 2044 4 14 (to_ad)")
+    print("")
+
+
 def main():
     # print("func to call: ", sys.argv[1])
     func = sys.argv[1]
@@ -246,15 +311,23 @@ def main():
     date = int(sys.argv[4])
 
     if(func == "to_ad"):
-        print("converting BS to AD")
-        print(convert_bs_to_ad(year, month, date))
+        if is_valid_bs_date(year, month, date):
+            print("converting BS to AD")
+            print(convert_bs_to_ad(year, month, date))
     elif(func == "to_bs"):
-        print("converting AD to BS")
-        print(convert_ad_to_bs(year, month, date))
+        if is_valid_ad_date(year, month, date):
+            print("converting AD to BS")
+            print(convert_ad_to_bs(year, month, date))
     else:
-        print("help here")
+        print("Unknown Type\n")
+        print_help()
+        return
     print("DONE")
 
 
 if __name__ == "__main__":
+    parser=argparse.ArgumentParser()
+    if len(sys.argv)!=5:
+        print_help()
+        sys.exit(1)
     main()
