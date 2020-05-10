@@ -63,7 +63,9 @@ body {
   font-size: 16px;
   font-weight: bold;
   padding: 5px;
-  transition-duration: 0.2s;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 1000ms ease-out;
 }
 
 .age_header {
@@ -191,6 +193,7 @@ select:hover {
   #age_calculator, #date_converter {
     align-items: center;
     flex-direction: column;
+    transition: max-height 500ms ease-out;
   }
 
   .input {

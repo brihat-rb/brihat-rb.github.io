@@ -86,7 +86,9 @@
       function hide_other(one_div, div_list) {
         div_list.forEach(function(div_id) {
           if (div_id != one_div) {
-              document.getElementById(div_id).style.display = "none";
+              let div_container = document.getElementById(div_id);
+              div_container.style.display = "none";
+              div_container.style.maxHeight = null;
           }
         });
       }
@@ -95,14 +97,17 @@
         let div_container = document.getElementById(div_id);
         if (div_container.style.display === "none") {
           div_container.style.display = "flex";
+          div_container.style.maxHeight = div_container.scrollHeight * 2 + "px";
         }
         else if (div_container.style.display === "flex") {
           div_container.style.display = "none";
+          div_container.style.maxHeight = null;
         }
         else {
           div_container.style.display = "flex";
+          div_container.style.maxHeight = div_container.scrollHeight * 2 + "px";
         }
-        hide_other(div_id, div_id_list)
+        hide_other(div_id, div_id_list);
       }
     </script>
 
