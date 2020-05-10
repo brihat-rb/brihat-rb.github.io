@@ -252,7 +252,7 @@ function convert_ad_to_bs(ad_year, ad_month, ad_date) {
     // input: ad_year, ad_month, ad_date - int
     // returns: tuple (bs_year, bs_month, bs_date)
 
-	if (ad_year < BASE_AD_YEAR || ad_year == BASE_AD_YEAR && ad_month < BASE_AD_MONTH || ad_year == BASE_AD_YEAR && ad_month == BASE_AD_MONTH && ad_date < BASE_BS_DATE) {
+	if (ad_year < BASE_AD_YEAR || ad_year == BASE_AD_YEAR && ad_month < BASE_AD_MONTH || ad_year == BASE_AD_YEAR && ad_month == BASE_AD_MONTH && ad_date < BASE_AD_DATE) {
 		alert("Supported date range " + BASE_AD_YEAR + "-" + BASE_AD_MONTH + "-" + BASE_AD_DATE + " to 2044-4-15");
 		return;
 	}
@@ -455,7 +455,7 @@ function date_diff_bs() {
 function date_diff_ad() {
     // helper function, calls date_diff()
     if (!document.getElementById("date1").value) {
-      alert("Birthdate cannot be empty");
+      alert("Invalid Birthdate");
       return;
     }
 
