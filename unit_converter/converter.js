@@ -3,7 +3,10 @@ var array_length = ['inch', 'foot', 'yard', 'mile', 'centimeter', 'meter', 'kilo
 var array_area = ['square_inch', 'square_foot', 'anna', 'square_centimeter', 'square_meter'];
 var array_weight = ['ounce', 'pound', 'gram', 'kilogram'];
 var array_volume = ['cubic_foot', 'litre', 'cubic_meter'];
+var array_plane_angle = ['degree', 'radian', 'gradian'];
 var array_other = ['height_inch', 'water_litre'];
+
+var PI = 3.14159265;
 
 conversion_func_dict = {
   'none': {
@@ -175,6 +178,22 @@ conversion_func_dict = {
     'litre': "func_volume_m2l",
     'cubic_meter': "func_same",
   },
+
+  'degree': {
+    'degree': "func_same",
+    'radian': "func_angle_d2r",
+    'gradian': "func_angle_d2g",
+  },
+  'radian': {
+    'degree': "func_angle_r2d",
+    'radian': "func_same",
+    'gradian': "func_angle_r2g",
+  },
+  'gradian': {
+    'degree': "func_angle_g2d",
+    'radian': "func_angle_g2r",
+    'gradian': "func_same",
+  },
 }
 
 function category_changed(selected_category) {
@@ -206,6 +225,9 @@ function category_changed(selected_category) {
       break;
     case 'volume':
       category = array_volume;
+      break;
+    case 'angle':
+      category = array_plane_angle;
       break;
     case 'other':
       category = array_other;
@@ -683,6 +705,37 @@ function func_volume_m2f(value) {
 
 function func_volume_m2l(value) {
   return value * 1000.0;
+}
+
+//-------------------------------------------------
+// PLANE ANGLE CONVERSION
+//-------------------------------------------------
+function func_angle_d2r(value) {
+  return value * (PI / 180.0);
+}
+
+function func_angle_d2g(value) {
+  return value * (10.0 / 9.0);
+}
+
+//-------------------------------------------------
+
+function func_angle_r2d(value) {
+  return value / func_angle_d2r(1.0);
+}
+
+function func_angle_r2g(value) {
+  return value * (200.0 / PI);
+}
+
+//-------------------------------------------------
+
+function func_angle_g2d(value) {
+  return value / func_angle_d2g(1.0);
+}
+
+function func_angle_g2r(value) {
+  return value / func_angle_r2g(1.0);
 }
 
 //-------------------------------------------------
