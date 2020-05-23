@@ -4,6 +4,7 @@ var array_area = ['square_inch', 'square_foot', 'anna', 'square_centimeter', 'sq
 var array_weight = ['ounce', 'pound', 'gram', 'kilogram'];
 var array_volume = ['cubic_foot', 'litre', 'cubic_meter'];
 var array_plane_angle = ['degree', 'radian', 'gradian'];
+var array_speed = ['foot_per_second', 'mile_per_hour', 'meter_per_second', 'kilometer_per_hour'];
 var array_other = ['height_inch', 'water_litre'];
 
 var PI = 3.14159265;
@@ -194,13 +195,38 @@ conversion_func_dict = {
     'radian': "func_angle_g2r",
     'gradian': "func_same",
   },
+
+  'foot_per_second': {
+    'foot_per_second': "func_same",
+    'mile_per_hour': "func_speed_f2mi",
+    'meter_per_second': "func_speed_f2me",
+    'kilometer_per_hour': "func_speed_f2k",
+  },
+  'mile_per_hour': {
+    'foot_per_second': "func_speed_mi2f",
+    'mile_per_hour': "func_same",
+    'meter_per_second': "func_speed_mi2me",
+    'kilometer_per_hour': "func_speed_mi2k",
+  },
+  'meter_per_second': {
+    'foot_per_second': "func_speed_me2f",
+    'mile_per_hour': "func_speed_me2mi",
+    'meter_per_second': "func_same",
+    'kilometer_per_hour': "func_speed_me2k",
+  },
+  'kilometer_per_hour': {
+    'foot_per_second': "func_speed_k2f",
+    'mile_per_hour': "func_speed_k2mi",
+    'meter_per_second': "func_speed_k2me",
+    'kilometer_per_hour': "func_same",
+  },
 }
 
 function category_changed(selected_category) {
   if (selected_category.value == "none") {
     document.getElementById("first_unit").innerHTML = "<option value='none'>-- empty --</option>";
     document.getElementById("second_unit").innerHTML = "<option value='none'>-- empty --</option>";
-	convert();
+    convert();
     update_local_storage();
     return;
   }
@@ -229,6 +255,9 @@ function category_changed(selected_category) {
     case 'angle':
       category = array_plane_angle;
       break;
+    case 'speed':
+      category = array_speed;
+      break;
     case 'other':
       category = array_other;
       break;
@@ -240,7 +269,7 @@ function category_changed(selected_category) {
     var select = document.getElementById("first_unit");
     var option = document.createElement("option");
     select.options.add(option);
-    option.text = category[index].replace("_"," ");
+    option.text = category[index].replace(/_/g, " ");
     option.value = category[index];
   }
 
@@ -248,7 +277,7 @@ function category_changed(selected_category) {
     var select = document.getElementById("second_unit");
     var option = document.createElement("option");
     select.options.add(option);
-    option.text = category[index].replace("_"," ");
+    option.text = category[index].replace(/_/g, " ");
     option.value = category[index];
   }
   convert();
@@ -736,6 +765,63 @@ function func_angle_g2d(value) {
 
 function func_angle_g2r(value) {
   return value / func_angle_r2g(1.0);
+}
+
+//-------------------------------------------------
+// SPEED CONVERSION
+//-------------------------------------------------
+function func_speed_f2mi(value) {
+  return value / func_speed_mi2f(1.0);
+}
+
+function func_speed_f2me(value) {
+  return value / func_speed_me2f(1.0);
+}
+
+function func_speed_f2k(value) {
+  return value * 1.09728;
+}
+
+//-------------------------------------------------
+
+function func_speed_mi2f(value) {
+  return value * 1.46667;
+}
+
+function func_speed_mi2me(value) {
+  return value / func_speed_me2mi(1.0);
+}
+
+function func_speed_mi2k(value) {
+  return value * 1.60934;
+}
+
+//-----------------------------------------------
+
+function func_speed_me2f(value) {
+  return value * 3.28084;
+}
+
+function func_speed_me2mi(value) {
+  return value * 2.23694;
+}
+
+function func_speed_me2k(value) {
+  return value * 3.6;
+}
+
+//-------------------------------------------------
+
+function func_speed_k2f(value) {
+  return value / func_speed_f2k(1.0);
+}
+
+function func_speed_k2mi(value) {
+  return value / func_speed_mi2k(1.0);
+}
+
+function func_speed_k2me(value) {
+  return value / func_speed_me2k(1.0);
 }
 
 //-------------------------------------------------
