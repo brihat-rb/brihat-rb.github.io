@@ -138,6 +138,7 @@ function category_changed(selected_category) {
   if (selected_category.value == "none") {
     document.getElementById("first_unit").innerHTML = "<option value='none'>-- empty --</option>";
     document.getElementById("second_unit").innerHTML = "<option value='none'>-- empty --</option>";
+	convert();
     update_local_storage();
     return;
   }
