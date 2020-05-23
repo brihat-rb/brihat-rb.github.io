@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Converter</title>
+    <link rel="stylesheet" href="./fa.css" />
+    <link rel="stylesheet" href="./converter.css" />
+  </head>
+
+  <body>
+    <i id="datetime"></i>
+    <h2>Unit Converter</h2>
+
+    <br />
+    <!-- <label for="category">Category:</label> -->
+    <select name="category" id="category" onchange="category_changed(this)">
+      <option value="none">-- Select Category --</option>
+      <option value="temperature">Temperature</option>
+      <option value="length">Length</option>
+      <option value="area">Area</option>
+      <!-- <option value="other">Other</option> -->
+    </select>
+
+    <br /><br /><br /><br /><br />
+
+    <div id="converter">
+      <div class="column">
+        <input type="number" name="first_value" id="first_value" value="1" onkeyup="convert()" onchange="convert()" />
+        <br />
+
+        <!-- <label for="first_unit">First Unit:</label> -->
+        <select name="first_unit" id="first_unit" onchange="convert()">
+          <option value="none">-- empty --</option>
+        </select>
+      </div>
+
+      <div class="column">
+
+        <br class="responsive"/><br class="responsive"/><br class="responsive"/>
+        <i class="fas fa-exchange-alt" onclick="exchange_units()"></i>
+        <br class="responsive"/><br class="responsive"/><br class="responsive"/>
+      </div>
+
+      <div class="column">
+        <input type="number" name="second_value" id="second_value" readonly />
+        <br />
+
+        <!-- <label for="second_unit">Second Unit:</label> -->
+        <select name="second_unit" id="second_unit" onchange="convert()">
+          <option value="none">-- empty --</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="footer">&spades; <a href="https://brihat-rb.github.io/brihat_splash.html">Brihat</a> &spades;</div>
+
+    <!-- for topmost date display -->
+    <script>
+      function showtime() {
+        var dt = new Date();
+        document.getElementById("datetime").innerHTML = dt.toLocaleTimeString();
+        setTimeout("showtime()", 500);
+      }
+      showtime();
+    </script>
+
+    <script type="text/javascript" src="./converter.js"></script>
+  </body>
+
+</html>
