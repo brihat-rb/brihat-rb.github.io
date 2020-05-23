@@ -1,7 +1,9 @@
 var array_temperature = ['kelvin', 'celsius', 'fahrenheit'];
 var array_length = ['inch', 'foot', 'yard', 'mile', 'centimeter', 'meter', 'kilometer'];
 var array_area = ['square_inch', 'square_foot', 'anna', 'square_centimeter', 'square_meter'];
-var array_other = ['height_inch', 'water_liter'];
+var array_weight = ['ounce', 'pound', 'gram', 'kilogram'];
+var array_volume = ['cubic_foot', 'litre', 'cubic_meter'];
+var array_other = ['height_inch', 'water_litre'];
 
 conversion_func_dict = {
   'none': {
@@ -126,11 +128,52 @@ conversion_func_dict = {
 
   'height_inch': {
     'height_inch': "func_same",
-    'water_liter': "func_other_i2l",
+    'water_litre': "func_other_i2l",
   },
-  'water_liter': {
+  'water_litre': {
     'height_inch': "func_other_l2i",
-    'water_liter': "func_same",
+    'water_litre': "func_same",
+  },
+
+  'ounce': {
+    'ounce': "func_same",
+    'pound': "func_weight_o2p",
+    'gram': "func_weight_o2g",
+    'kilogram': "func_weight_o2k",
+  },
+  'pound': {
+    'ounce': "func_weight_p2o",
+    'pound': "func_same",
+    'gram': "func_weight_p2g",
+    'kilogram': "func_weight_p2k",
+  },
+  'gram': {
+    'ounce': "func_weight_g2o",
+    'pound': "func_weight_g2p",
+    'gram': "func_same",
+    'kilogram': "func_weight_g2k",
+  },
+  'kilogram': {
+    'ounce': "func_weight_k2o",
+    'pound': "func_weight_k2p",
+    'gram': "func_weight_k2g",
+    'kilogram': "func_same",
+  },
+
+  'cubic_foot': {
+    'cubic_foot': "func_same",
+    'litre': "func_volume_f2l",
+    'cubic_meter': "func_volume_f2m",
+  },
+  'litre': {
+    'cubic_foot': "func_volume_l2f",
+    'litre': "func_same",
+    'cubic_meter': "func_volume_l2m",
+  },
+  'cubic_meter': {
+    'cubic_foot': "func_volume_m2f",
+    'litre': "func_volume_m2l",
+    'cubic_meter': "func_same",
   },
 }
 
@@ -157,6 +200,12 @@ function category_changed(selected_category) {
       break;
     case 'area':
       category = array_area;
+      break;
+    case 'weight':
+      category = array_weight;
+      break;
+    case 'volume':
+      category = array_volume;
       break;
     case 'other':
       category = array_other;
@@ -546,6 +595,94 @@ function func_area_m2a(value) {
 
 function func_area_m2c(value) {
   return value * 10000.0;
+}
+
+//-------------------------------------------------
+// WEIGHT CONVERSION
+//-------------------------------------------------
+function func_weight_o2p(value) {
+  return value / func_weight_p2o(1.0);
+}
+
+function func_weight_o2g(value) {
+  return value * 28.3495;
+}
+
+function func_weight_o2k(value) {
+  return value / func_weight_k2o(1.0);
+}
+
+//-------------------------------------------------
+
+function func_weight_p2o(value) {
+  return value * 16.0;
+}
+
+function func_weight_p2g(value) {
+  return value * 453.592;
+}
+
+function func_weight_p2k(value) {
+  return value / func_weight_k2p(value);
+}
+
+//-------------------------------------------------
+
+function func_weight_g2o(value) {
+  return value / func_weight_o2g(1.0);
+}
+
+function func_weight_g2p(value) {
+  return value /func_weight_p2g(1.0);
+}
+
+function func_weight_g2k(value) {
+  return value / func_weight_k2g(1.0);
+}
+
+//-------------------------------------------------
+
+function func_weight_k2o(value) {
+  return func_weight_g2o(value) * 1000.0;
+}
+
+function func_weight_k2p(value) {
+  return value * 2.20462;
+}
+
+function func_weight_k2g(value) {
+  return value * 1000.0;
+}
+
+//-------------------------------------------------
+// VOLUME CONVERSION
+//-------------------------------------------------
+function func_volume_f2l(value) {
+  return value * 28.3168;
+}
+
+function func_volume_f2m(value) {
+  return value / func_volume_m2f(1.0);
+}
+
+//-------------------------------------------------
+
+function func_volume_l2f(value) {
+  return value / func_volume_f2l(1.0);
+}
+
+function func_volume_l2m(value) {
+  return value / func_volume_m2l(1.0);
+}
+
+//-------------------------------------------------
+
+function func_volume_m2f(value) {
+  return value * 35.31467;
+}
+
+function func_volume_m2l(value) {
+  return value * 1000.0;
 }
 
 //-------------------------------------------------
