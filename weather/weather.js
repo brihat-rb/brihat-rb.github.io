@@ -105,7 +105,7 @@ function get_weather() {
       if((weather_data.wind.deg / 22.5).toFixed(0) === 0)
         wind_direction = compassSector[0];
       else
-        wind_direction = compassSector[(weather_data.wind.deg / 22.5).toFixed(0) - 1];
+        wind_direction = compassSector[(weather_data.wind.deg / 22.5).toFixed(0)];
       document.getElementById("wind").innerHTML = weather_data.wind.speed + " m/s (" + wind_direction + ")";
       let updated_on = new Date((weather_data.dt + weather_data.timezone + new Date().getTimezoneOffset() * 60) * 1000);
       document.getElementById("last_update").innerHTML = '<span class="width_240_data">' + updated_on.toLocaleDateString() + " </span>" + updated_on.toLocaleTimeString();
