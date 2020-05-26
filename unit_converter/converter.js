@@ -477,7 +477,7 @@ function func_length_mi2me(value) {
 }
 
 function func_length_mi2k(value) {
-  return 1.0 / func_length_k2mi(value);
+  return value / func_length_k2mi(1.0);
 }
 
 //-------------------------------------------------
@@ -674,7 +674,7 @@ function func_weight_p2g(value) {
 }
 
 function func_weight_p2k(value) {
-  return value / func_weight_k2p(value);
+  return value / func_weight_k2p(1.0);
 }
 
 //-------------------------------------------------
