@@ -100,7 +100,7 @@ function get_weather() {
       document.getElementById("sunrise").innerHTML = '<span class="width_240_data">' + sunrise.toLocaleDateString() + " </span>" + sunrise.toLocaleTimeString();
       document.getElementById("sunset").innerHTML = '<span class="width_240_data">' + sunset.toLocaleDateString() + " </span>" + sunset.toLocaleTimeString();
 
-      let compassSector = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N"];
+      let compassSector = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N"];
       let wind_direction = "calm";
       if((weather_data.wind.deg / 22.5).toFixed(0) === 0)
         wind_direction = compassSector[0];
