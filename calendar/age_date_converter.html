@@ -55,6 +55,19 @@
       </div>
     </div>
     <div id="age_result"></div>
+
+    <h2 onclick="toggle_content('date_event')" title="Click to get event of date">Events of the Day</h2>
+    <div class="main_div" id="date_event">
+      <div id="bs_to_ad">
+        <div class="input">BS:
+          <select id="select_event_year" disabled></select>
+          <select id="select_event_month"></select>
+          <select id="select_event_date"></select>
+          <button id="button_event" onclick="get_event();">GET EVENT</button>
+        </div>
+      </div>
+    </div>
+    <div id="event_here"></div>
     <br />
 
     <div id="user_info">
@@ -91,6 +104,8 @@
               div_container.style.maxHeight = null;
           }
         });
+        document.getElementById("age_result").innerHTML = "";
+        document.getElementById("event_here").innerHTML = "";
       }
 
       function toggle_content(div_id) {
@@ -149,6 +164,44 @@
         document.getElementById("today_info").innerHTML = info_content;
       }
       nepal_event_req.send();
+    </script>
+
+    <script>
+      function get_event() {
+        let bs_year = document.getElementById("select_event_year").value;
+        let bs_month = document.getElementById("select_event_month").value;
+        let bs_date = document.getElementById("select_event_date").value;
+
+        if (bs_year != 2077) {
+          alert("Event not available for year '" + bs_year + "' BS");
+        }
+
+        var nepal_event_req = new XMLHttpRequest();
+        json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/' + bs_year + '.json';
+        nepal_event_req.open('GET', json_url, true);
+        nepal_event_req.onload = function() {
+          let events = JSON.parse(this.response);
+
+          let nepali_date = "<br />";
+          nepali_date += '<div id="date"><b><u>' + arabic_number_to_nepali(bs_year) + " ";
+          nepali_date += BS_MONTHS_NEP[bs_month-1] + " ";
+          nepali_date += arabic_number_to_nepali(bs_date) + ", ";
+          nepali_date += NEPALI_DAYS[new Date(convert_bs_to_ad(bs_year, bs_month, bs_date)).getDay()] + ' </u></b></div><br />';
+
+          let info_content = nepali_date;
+          info_content += '<div id="tithi">' + events.data[bs_month - 1][bs_date - 1].tithi + '</div>';
+          if (events.data[bs_month - 1][bs_date - 1].event_one)
+            info_content += '<div id="info1">' + events.data[bs_month - 1][bs_date - 1].event_one + '</div>';
+          if (events.data[bs_month - 1][bs_date - 1].rotate_left)
+            info_content += '<div id="info2">' + events.data[bs_month - 1][bs_date - 1].rotate_left + '</div>';
+          if (events.data[bs_month - 1][bs_date - 1].rotate_right)
+            info_content += '<div id="info3">' + events.data[bs_month - 1][bs_date - 1].rotate_right + '</div>';
+          document.getElementById("event_here").innerHTML = info_content;
+        }
+        nepal_event_req.send();
+      }
+      get_event();
+      toggle_content('date_event');
     </script>
   </body>
 </html>

@@ -56,7 +56,7 @@ body {
   color: gold;
 }
 
-#age_calculator, #date_converter {
+#age_calculator, #date_converter, #date_event {
   display: none;
   justify-content: space-around;
   font-family: monospace;
@@ -104,7 +104,7 @@ input[type="date"]:hover {
   border-color: red;
 }
 
-button {
+button, #button_event {
   background-color: white;
   color: green;
   border-radius: 2px;
@@ -115,7 +115,11 @@ button {
   margin-top: 10px;
 }
 
-button:hover {
+#button_event {
+  width: 100px;
+}
+
+button:hover, #button_event:hover {
   background-color: green;
   color: white;
 }
@@ -190,7 +194,7 @@ select:hover {
 
 
 @media only screen and (max-width: 650px) {
-  #age_calculator, #date_converter {
+  #age_calculator, #date_converter, #date_event {
     align-items: center;
     flex-direction: column;
     transition: max-height 500ms ease-out;

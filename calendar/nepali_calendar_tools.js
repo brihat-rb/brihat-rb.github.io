@@ -307,9 +307,9 @@ function convert_ad_to_bs(ad_year, ad_month, ad_date) {
     return res_bs_year + " " + BS_MONTHS[res_bs_month - 1] + " " + res_bs_date;
 }
 
-let select_list_ids = ["_", "_birthdate_", "_asof_"];
+let select_list_ids = ["_", "_birthdate_", "_asof_", "_event_"];
 
-for(let elem = 0; elem < 3; elem++) {
+for(let elem = 0; elem < select_list_ids.length; elem++) {
   for(let year = 1975; year <= 2100; year++) {
       let select = document.getElementById("select" + select_list_ids[elem] + "year");
       let option = document.createElement("option");
@@ -498,3 +498,7 @@ document.getElementById("select_asof_date").value = bs_today[2];
 
 document.getElementById("ad_date").value = new Date().toISOString().substring(0,10);
 document.getElementById('date2').value = new Date().toISOString().substr(0,10);
+
+document.getElementById("select_event_year").value = bs_today[0];
+document.getElementById("select_event_month").value = get_bs_month(bs_today[1]);
+document.getElementById("select_event_date").value = bs_today[2];
