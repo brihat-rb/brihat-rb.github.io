@@ -60,7 +60,7 @@
     <div class="main_div" id="date_event">
       <div id="bs_to_ad">
         <div class="input">BS:
-          <select id="select_event_year" disabled></select>
+          <select id="select_event_year"></select>
           <select id="select_event_month"></select>
           <select id="select_event_date"></select>
           <button id="button_event" onclick="get_event();">GET EVENT</button>
@@ -173,13 +173,19 @@
         let bs_month = document.getElementById("select_event_month").value;
         let bs_date = document.getElementById("select_event_date").value;
 
-        if (bs_year != 2077) {
+        if (bs_year < 2070 || bs_year > 2077) {
           alert("Event not available for year '" + bs_year + "' BS");
         }
 
         var nepal_event_req = new XMLHttpRequest();
         // json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/' + bs_year + '.json';
-        json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/' + bs_year + '_detailed.json';
+        if (bs_year == 2076 || bs_year == 2077) {
+          json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/' + bs_year + '_detailed.json';
+        }
+        else {
+          json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/' + bs_year + '.json';
+        }
+
         nepal_event_req.open('GET', json_url, true);
         nepal_event_req.onload = function() {
           let events = JSON.parse(this.response);
@@ -191,8 +197,13 @@
           nepali_date += NEPALI_DAYS[new Date(convert_bs_to_ad(bs_year, bs_month, bs_date)).getDay()] + ' </u></b></div><br />';
 
           let info_content = nepali_date;
-          info_content += '<div id="tithi">' + events.data[bs_month - 1][bs_date - 1].lunar_month;
-          info_content += " (" + events.data[bs_month - 1][bs_date - 1].pakshya + ") ";
+          info_content += '<div id="tithi">';
+          if (events.data[bs_month - 1][bs_date - 1].hasOwnProperty("lunar_month")) {
+            info_content += events.data[bs_month - 1][bs_date - 1].lunar_month;
+          }
+          if (events.data[bs_month - 1][bs_date - 1].hasOwnProperty("pakshya")) {
+            info_content += " (" + events.data[bs_month - 1][bs_date - 1].pakshya + ") ";
+          }
           info_content += events.data[bs_month - 1][bs_date - 1].tithi + '</div>';
           if (events.data[bs_month - 1][bs_date - 1].event_one)
             info_content += '<div id="info1">' + events.data[bs_month - 1][bs_date - 1].event_one + '</div>';

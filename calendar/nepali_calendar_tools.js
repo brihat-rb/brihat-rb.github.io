@@ -311,6 +311,11 @@ let select_list_ids = ["_", "_birthdate_", "_asof_", "_event_"];
 
 for(let elem = 0; elem < select_list_ids.length; elem++) {
   for(let year = 1975; year <= 2100; year++) {
+      if (select_list_ids[elem] == "_event_") {
+          if (year < 2070 || year > 2077) {
+              continue;
+          }
+      }
       let select = document.getElementById("select" + select_list_ids[elem] + "year");
       let option = document.createElement("option");
       select.options.add(option);
