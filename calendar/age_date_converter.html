@@ -198,6 +198,9 @@
 
           let info_content = nepali_date;
           info_content += '<div id="tithi">';
+		  if (events.data[bs_month - 1][bs_date - 1].hasOwnProperty("ns_year")) {
+            info_content += "ने. सं. " + arabic_number_to_nepali(events.data[bs_month - 1][bs_date - 1].ns_year) + " ";
+          }
           if (events.data[bs_month - 1][bs_date - 1].hasOwnProperty("lunar_month")) {
             info_content += events.data[bs_month - 1][bs_date - 1].lunar_month;
           }
