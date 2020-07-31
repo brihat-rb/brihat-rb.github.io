@@ -158,10 +158,10 @@
         info_content += '<div id="tithi">' + events.data[month][date].pakshya + " " + events.data[month][date].tithi + '</div>';
         if (events.data[month][date].event_one)
           info_content += '<div id="info1">' + events.data[month][date].event_one + '</div>';
-        if (events.data[month][date].rotate_left)
-          info_content += '<div id="info2">' + events.data[month][date].rotate_left + '</div>';
-        if (events.data[month][date].rotate_right)
-          info_content += '<div id="info3">' + events.data[month][date].rotate_right + '</div>';
+        if (events.data[month][date].event_two)
+          info_content += '<div id="info2">' + events.data[month][date].event_two + '</div>';
+        if (events.data[month][date].event_three)
+          info_content += '<div id="info3">' + events.data[month][date].event_three + '</div>';
         document.getElementById("today_info").innerHTML = info_content;
       }
       nepal_event_req.send();
@@ -210,10 +210,10 @@
           info_content += events.data[bs_month - 1][bs_date - 1].tithi + '</div>';
           if (events.data[bs_month - 1][bs_date - 1].event_one)
             info_content += '<div id="info1">' + events.data[bs_month - 1][bs_date - 1].event_one + '</div>';
-          if (events.data[bs_month - 1][bs_date - 1].rotate_left)
-            info_content += '<div id="info2">' + events.data[bs_month - 1][bs_date - 1].rotate_left + '</div>';
-          if (events.data[bs_month - 1][bs_date - 1].rotate_right)
-            info_content += '<div id="info3">' + events.data[bs_month - 1][bs_date - 1].rotate_right + '</div>';
+          if (events.data[bs_month - 1][bs_date - 1].event_two)
+            info_content += '<div id="info2">' + events.data[bs_month - 1][bs_date - 1].event_two + '</div>';
+          if (events.data[bs_month - 1][bs_date - 1].event_three)
+            info_content += '<div id="info3">' + events.data[bs_month - 1][bs_date - 1].event_three + '</div>';
           document.getElementById("event_here").innerHTML = info_content;
         }
         nepal_event_req.send();
