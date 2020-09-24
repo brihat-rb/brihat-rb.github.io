@@ -56,6 +56,36 @@ body {
   color: gold;
 }
 
+
+#date_calculator {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  font-family: monospace;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 5px;
+  max-height: 0;
+  transition: max-height 500ms ease-out;
+}
+
+#date_calc_middle {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  font-family: monospace;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 15px;
+  width: 80%;
+  align-items: center;
+}
+
+#date_calc_ad, #date_calc_bs, #operation, #date_offset, #date_calc {
+  white-space: nowrap;
+}
+
 #age_calculator, #date_converter, #date_event {
   display: none;
   justify-content: space-around;
@@ -104,6 +134,20 @@ input[type="date"]:hover {
   border-color: red;
 }
 
+input[type="number"] {
+  text-align: left;
+  border-top-style: hidden;
+  border-left-style: hidden;
+  border-right-style: hidden;
+  border-bottom-style: groove;
+  border-color: lightgray;
+  width: 75px;
+}
+
+input[type="number"]:hover {
+  border-color: red;
+}
+
 button, #button_event {
   background-color: white;
   color: green;
@@ -113,6 +157,10 @@ button, #button_event {
   width: 80px;
   height: 25px;
   margin-top: 10px;
+}
+
+#date_calc {
+  margin-top: 0;
 }
 
 #button_event {
@@ -132,11 +180,11 @@ select {
   height: 25px;
 }
 
-#select_month, #select_birthdate_month, #select_asof_month {
+#select_month, #select_birthdate_month, #select_asof_month, #select_date_calc_month {
   width: 75px;
 }
 
-#select_date, #select_birthdate_date, #select_asof_date {
+#select_date, #select_birthdate_date, #select_asof_date, #select_date_calc_date {
   width: 40px;
 }
 
@@ -192,6 +240,17 @@ select:hover {
   letter-spacing: 1px;
 }
 
+@media only screen and (max-width: 800px) {
+  #date_calc_middle {
+    align-items: center;
+    flex-direction: column;
+    transition: max-height 500ms ease-out;
+  }
+
+  #date_calc_ad, #date_calc_bs, #operation, #date_offset, #date_calc {
+    margin: 5px;
+  }
+}
 
 @media only screen and (max-width: 650px) {
   #age_calculator, #date_converter, #date_event {

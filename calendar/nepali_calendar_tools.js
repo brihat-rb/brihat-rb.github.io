@@ -158,7 +158,12 @@ function is_leap_year(year) {
 
 function verify_bs_date(year, month, date) {
     // verify given nepali date
-    max_date = BS_CALENDAR_DATA[year][month-1]
+    try {
+      max_date = BS_CALENDAR_DATA[year][month-1];
+    }
+    catch(err) {
+      return false;
+    }
     if (date <= max_date) {
       return true;
     }
@@ -166,15 +171,20 @@ function verify_bs_date(year, month, date) {
 }
 
 
-function convert_bs_to_ad(bs_year, bs_month, bs_date) {
+function convert_bs_to_ad(bs_year, bs_month, bs_date, message) {
     // this function converts BS date to AD
     // input: bs_year, bs_month, bs_date - int
     // returns: tuple (ad_year, ad_month, ad_date)
 
     is_valid_date = verify_bs_date(bs_year, bs_month, bs_date)
     if (!is_valid_date) {
-      alert(arabic_number_to_nepali(bs_year) + " " + BS_MONTHS_NEP[bs_month - 1] + " मा " + arabic_number_to_nepali(bs_date) + " दिन छैन");
-      return
+      if (message == "") {
+        alert(arabic_number_to_nepali(bs_year) + " " + BS_MONTHS_NEP[bs_month - 1] + " मा " + arabic_number_to_nepali(bs_date) + " दिन छैन");
+      }
+      else {
+        alert("BS Range Invalid. Valid Range: [1975 - 2100]");
+      }
+      return;
     }
 
 
@@ -307,7 +317,7 @@ function convert_ad_to_bs(ad_year, ad_month, ad_date) {
     return res_bs_year + " " + BS_MONTHS[res_bs_month - 1] + " " + res_bs_date;
 }
 
-let select_list_ids = ["_", "_birthdate_", "_asof_", "_event_"];
+let select_list_ids = ["_", "_birthdate_", "_asof_", "_event_", "_date_calc_"];
 
 for(let elem = 0; elem < select_list_ids.length; elem++) {
   for(let year = 1975; year <= 2100; year++) {
@@ -353,7 +363,7 @@ function to_ad() {
     let bs_year = document.getElementById("select_year").value;
     let bs_month = document.getElementById("select_month").value;
     let bs_date = document.getElementById("select_date").value;
-    let result = convert_bs_to_ad(bs_year, bs_month, bs_date);
+    let result = convert_bs_to_ad(bs_year, bs_month, bs_date, "");
     document.getElementById("ad_result").innerHTML = result + " " + ENGLISH_DAYS[new Date(get_ad_date_string(result)).getDay()];
 }
 
@@ -448,10 +458,10 @@ function date_diff_bs() {
     let asofdate_month = document.getElementById("select_asof_month").value;
     let asofdate_date = document.getElementById("select_asof_date").value;
 
-    let ad_date_string = get_ad_date_string(convert_bs_to_ad(birthdate_year, birthdate_month, birthdate_date));
+    let ad_date_string = get_ad_date_string(convert_bs_to_ad(birthdate_year, birthdate_month, birthdate_date, ""));
     document.getElementById("date1").value = ad_date_string;
 
-    ad_date_string = get_ad_date_string(convert_bs_to_ad(asofdate_year, asofdate_month, asofdate_date));
+    ad_date_string = get_ad_date_string(convert_bs_to_ad(asofdate_year, asofdate_month, asofdate_date, ""));
     document.getElementById("date2").value = ad_date_string;
 
     date_diff();
@@ -482,6 +492,162 @@ function date_diff_ad() {
     date_diff();
 }
 
+function get_nepali_day_from_bs_date(bs_year, bs_month, bs_date) {
+    // returns nepali day in nepali font from given nepali date
+    let ad_date_string = convert_bs_to_ad(bs_year, bs_month, bs_date, "another message");
+    let ad_date_list = ad_date_string.split(" ");
+    let ad_date = new Date(ad_date_list[2] + "-" + (AD_MONTHS.indexOf(ad_date_list[1]) + 1) + "-" + ad_date_list[0]);
+    return NEPALI_DAYS[ad_date.getDay()];
+}
+
+function date_calc() {
+    // date add / subtract from ad/bs utility function 24 sep 2020
+    let n_years = parseInt(document.getElementById("n_years").value);
+    let n_months = parseInt(document.getElementById("n_months").value);
+    let n_days = parseInt(document.getElementById("n_days").value);
+
+    if (n_years == "" || isNaN(n_years)) {
+      n_years = 0;
+    }
+
+    if (n_months == "" || isNaN(n_months)) {
+      n_months = 0;
+    }
+
+    if (n_days == "" || isNaN(n_days)) {
+      n_days = 0;
+    }
+
+    let operation = document.getElementById("operation").value;
+    let result = document.getElementById("date_calc_result");
+    let choice = 0;
+
+    let calc_cal = document.getElementsByName("cal");
+    for (let i = 0; i < calc_cal.length; i++) {
+        if (calc_cal[i].checked) {
+            choice = calc_cal[i].id;
+        }
+    }
+
+    if (choice == 1) {  // Date Calculator for AD
+      if(document.getElementById("calc_ad_date").value == "") {
+          result.innerHTML = "AD Date Empty";
+          return;
+      }
+      let date = new Date(document.getElementById("calc_ad_date").value);
+      if (operation == "minus") { // Back Date Case
+          let new_date = date.setDate(date.getDate() - n_days);
+          new_date = date.setMonth(date.getMonth() - n_months);
+          new_date = date.setFullYear(date.getFullYear() - n_years);
+          new_date = new Date(new_date);
+          result.innerHTML = new_date.getDate() + " " + AD_MONTHS[new_date.getMonth()] + " " + new_date.getFullYear() + " " + ENGLISH_DAYS[new_date.getDay()];
+      }
+
+      if (operation == "plus") { // Future Date Case
+          new_date = date.setDate(date.getDate() + n_days);
+          new_date = date.setMonth(date.getMonth() + n_months);
+          new_date = date.setFullYear(date.getFullYear() + n_years);
+          new_date = new Date(new_date);
+          result.innerHTML = new_date.getDate() + " " + AD_MONTHS[new_date.getMonth()] + " " + new_date.getFullYear() + " " + ENGLISH_DAYS[new_date.getDay()];
+      }
+    }
+
+    if (choice == 2) { // Date calculator for BS
+        let old_years = parseInt(document.getElementById("select_date_calc_year").value);
+        let old_months = parseInt(document.getElementById("select_date_calc_month").value);
+        let old_days = parseInt(document.getElementById("select_date_calc_date").value);
+
+        let new_years = 0;
+        let new_months = 0;
+        let new_days = 0;
+
+        if (operation == "minus") { // Back Date Case
+            if (old_years == 1975 && old_months == 1 && old_days == 1) {
+              result.innerHTML = "Starting BS Date, cannot subtract further";
+              return;
+            }
+
+            new_years = old_years - n_years;
+            new_months = old_months - n_months;
+            new_days = old_days - n_days; //+1 for today
+
+            if (new_months < 1) {
+                new_months += 12;
+                new_years -= 1;
+            }
+
+            if (new_days < 1) {
+                if (new_years < 1975) {
+                    result.innerHTML = "Result out of range [1975 - 2100]";
+                    return
+                }
+                else {
+                    if (new_months == 1) {
+                        try {
+                          new_days += BS_CALENDAR_DATA[new_years-1][11];
+                        }
+                        catch(err) {
+                          console.log("Error", err.message);
+                        }
+                        new_months = 12;
+                        new_years -= 1;
+                    }
+                    else {
+                        new_days += BS_CALENDAR_DATA[new_years][new_months-2];
+                        new_months -= 1;
+                    }
+                }
+            }
+        }
+        else if (operation == "plus") { // Future Date Case
+            new_years = parseInt(old_years) + n_years;
+            new_months = parseInt(old_months) + n_months;
+            new_days = parseInt(old_days) + n_days; // +1 for today
+
+            if (new_years > 2100) {
+                result.innerHTML = "Result out of range [1975 - 2100]";
+                return;
+            }
+
+            if (new_months > 12) {
+                new_months -= 12;
+                new_years += 1;
+            }
+
+            if (new_days > BS_CALENDAR_DATA[new_years][new_months-1]) {
+                if (new_years > 2100) {
+                    result.innerHTML = "Result out of range [1975 - 2100]";
+                    return;
+                }
+                else {
+                    new_days -= BS_CALENDAR_DATA[new_years][new_months-1];
+                    new_months += 1;
+                }
+            }
+
+            if (new_months > 12) {
+                new_months = 1;
+                new_years += 1;
+            }
+        }
+
+        let nepali_day = get_nepali_day_from_bs_date(new_years, new_months, new_days);
+        result.innerHTML = arabic_number_to_nepali(new_years) + " " + BS_MONTHS_NEP[new_months - 1] + " " + arabic_number_to_nepali(new_days) + " " + nepali_day;
+    }
+}
+
+function date_calculator_cal_choice(id) {
+  if (id == 1) {
+    document.getElementById("date_calc_ad").style.display = "flex";
+    document.getElementById("date_calc_bs").style.display = "none";
+  }
+
+  if (id == 2) {
+    document.getElementById("date_calc_bs").style.display = "flex";
+    document.getElementById("date_calc_ad").style.display = "none";
+  }
+}
+
 function arabic_number_to_nepali(number){
     number = number.toString();
     let nepali_number = "";
@@ -507,3 +673,7 @@ document.getElementById('date2').value = new Date().toISOString().substr(0,10);
 document.getElementById("select_event_year").value = bs_today[0];
 document.getElementById("select_event_month").value = get_bs_month(bs_today[1]);
 document.getElementById("select_event_date").value = bs_today[2];
+
+document.getElementById("1").checked = true;
+date_calculator_cal_choice("1");
+document.getElementById("operation").value = "minus";
