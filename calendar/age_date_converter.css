@@ -180,11 +180,11 @@ select {
   height: 25px;
 }
 
-#select_month, #select_birthdate_month, #select_asof_month, #select_date_calc_month {
+#select_month, #select_birthdate_month, #select_asof_month, #select_event_month, #select_date_calc_month {
   width: 75px;
 }
 
-#select_date, #select_birthdate_date, #select_asof_date, #select_date_calc_date {
+#select_date, #select_birthdate_date, #select_asof_date, #select_event_date, #select_date_calc_date {
   width: 40px;
 }
 

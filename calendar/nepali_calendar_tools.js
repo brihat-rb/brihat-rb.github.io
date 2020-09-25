@@ -632,6 +632,10 @@ function date_calc() {
         }
 
         let nepali_day = get_nepali_day_from_bs_date(new_years, new_months, new_days);
+
+        // alternate way without using above function
+        // let nepali_day = NEPALI_DAYS[new Date(convert_bs_to_ad(new_years, new_months, new_days, "")).getDay()];
+
         result.innerHTML = arabic_number_to_nepali(new_years) + " " + BS_MONTHS_NEP[new_months - 1] + " " + arabic_number_to_nepali(new_days) + " " + nepali_day;
     }
 }
