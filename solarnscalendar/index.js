@@ -52,7 +52,7 @@ function jump() {
 
 function fill_lunar_data() {
     // ONLY FOR 2077 BS
-    const lunar_data_url = "https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/2077_lunar_data.json";
+    const lunar_data_url = "https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/solarnscalendar/data/2077_lunar_data.json";
 
     var lunar_data_req = new XMLHttpRequest();
     var LUNAR_EVENTS = "";
