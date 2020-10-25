@@ -1,0 +1,43 @@
+* {
+  user-select: none;
+}
+
+body {
+  width: 80%;
+  margin: 0 auto;
+}
+
+table td:hover {
+    background-color: rgba(0,0,0,.075);
+}
+
+.bs_date {
+  color: green;
+  float: left;
+}
+
+.ad_date {
+  color: chocolate;
+  float: right;
+}
+
+.for_lunar {
+  color: teal;
+  font-size: 11px;
+}
+
+.saturday {
+  color: red;
+}
+
+#footer {
+  color: teal;
+  font-size: 12px;
+  text-align: center;
+  width: 100%;
+}
+
+#footer:hover {
+  font-weight: bold;
+  /* letter-spacing: 1.1px; */
+}
