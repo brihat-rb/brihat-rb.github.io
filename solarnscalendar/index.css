@@ -11,6 +11,10 @@ table td:hover {
     background-color: rgba(0,0,0,.075);
 }
 
+.table td {
+  padding: 7px;
+}
+
 h6 {
   font-size: 15px;
   margin-top: 4px;
@@ -48,19 +52,47 @@ h6 {
   /* letter-spacing: 1.1px; */
 }
 
-@media only screen and (max-width: 660px) {
+@media only screen and (max-width: 768px) {
   body {
     width: 100%;
   }
 }
 
-@media only screen and (max-width: 460px) {
+@media only screen and (max-width: 555px) {
+  .table th {
+    margin: 2px;
+    padding: 15px;
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 490px) {
+  .table th {
+    padding: 10px;
+  }
+
+  td span h4 {
+    font-size: 17px;
+    margin: 0;
+  }
+
+  td span .for_lunar {
+    font-size: 9px;
+  }
+
+  .bs_date, .ad_date {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 425px) {
   body {
     width: 100%;
   }
 
-  th {
-    font-size: 11px;
+  .table th {
+    padding: 10px;
+    font-size: 9px;
   }
 
   .table td {
@@ -70,10 +102,6 @@ h6 {
   td span h4 {
     font-size: 15px;
     margin: 0;
-  }
-
-  td span .for_lunar {
-    font-size: 9px;
   }
 
   .bs_date, .ad_date {

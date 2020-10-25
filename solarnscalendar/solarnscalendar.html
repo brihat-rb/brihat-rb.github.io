@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
     <meta charset="UTF-8">
     <title>Solar Nepal Sambat Calendar</title>
@@ -13,7 +12,7 @@
     <div class="container-md" align="center">
       <div class="card">
         <h3 class="card-header" id="monthAndYear"></h3>
-        <table align="center" class="table table-bordered table-responsive-md mx-auto w-auto" id="calendar">
+        <table class="table table-bordered table-responsive-md mx-auto" id="calendar">
           <thead>
             <tr align="center">
               <th>आइतबाः</th>
@@ -63,6 +62,20 @@
     <script src="NS_AD.js"></script>
     <script src="NS_BS.js"></script>
     <script src="index.js"></script>
+
+    <script>
+    function on_window_resize() {
+      let table = document.getElementById("calendar");
+      if (window.innerWidth > 768) {
+        table.classList.remove("w-auto");
+      }
+      else {
+        table.classList.add("w-auto");
+      }
+    }
+    window.onresize = on_window_resize;
+    on_window_resize()
+    </script>
 
     <!-- Optional JavaScript for bootstrap -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
