@@ -1,6 +1,6 @@
 ### Solar NS Calendar
-##### Go [here](https://brihat-rb.github.io/solarnscalendar/solarnscalendar.html)
-<br />
+##### Go [here](https://brihat-rb.github.io/solarnscalendar/solarnscalendar.html)  
+
 ##### Features:
  - Solar Nepal Sambat Calendar
  - BS Equivalent Date
