@@ -20,7 +20,16 @@
         letter-spacing: 1px;
       }
 
-      ul {
+      #ul1 {
+        position: fixed;
+        bottom: 45px;
+        width: 100%;
+        list-style: none;
+        display: flex;
+        justify-content: space-around;
+      }
+
+      #ul2 {
         position: fixed;
         bottom: 20px;
         width: 100%;
@@ -63,12 +72,20 @@
       }
 
       @media only screen and (max-width: 660px) {
-        ul {
+        #ul1 {
           position: fixed;
-          bottom: 25px;
+          bottom: 70px;
           width: 100%;
           display: flex;
-          flex-direction: column
+          flex-direction: column;
+        }
+
+        #ul2 {
+          position: fixed;
+          bottom: 20px;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
         }
 
         li {
@@ -90,6 +107,14 @@
         #brihatlogo {
           width: 240px;
           height: auto;
+        }
+
+        #ul1 {
+          position: fixed;
+          bottom: 65px;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
         }
 
         li {
@@ -136,14 +161,20 @@
 		  stroke="teal" stroke-width="2" mask="url(#path-1-outside-1)" />
 	  </svg>
 
-    <ul>
+    <ul id="ul1">
       <li><a href="https://brihat-rb.github.io/todoweb/todoweb.html">TodoWeb (JS)</a></li>
       <li><a href="https://brihat-rb.github.io/JSDict/JSDict.html">JSDict</a></li>
       <li><a href="https://brihat-rb.github.io/react-todo">React Todo</a></li>
       <li><a href="https://brihat-rb.github.io/morse/morse.html">Morse Code</a></li>
       <li><a href="https://brihat-rb.github.io/weather/weather.html">Weather</a></li>
-      <li><a href="https://brihat-rb.github.io/calendar/age_date_converter.html">Date Converter</a></li>
       <li><a href="https://brihat-rb.github.io/unit_converter/converter.html">Unit Converter</a></li>
+    </ul>
+
+    <!-- <br /> -->
+
+    <ul id="ul2">
+      <li><a href="https://brihat-rb.github.io/solarnscalendar/solarnscalendar.html">Solar Nepal Sambat Calendar</a></li>
+      <li><a href="https://brihat-rb.github.io/calendar/age_date_converter.html">Date Converter</a></li>
     </ul>
 
     <div id="user_info">
