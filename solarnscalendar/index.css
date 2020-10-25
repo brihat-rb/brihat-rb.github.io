@@ -11,6 +11,12 @@ table td:hover {
     background-color: rgba(0,0,0,.075);
 }
 
+h6 {
+  font-size: 15px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
 .bs_date {
   color: green;
   float: left;
@@ -40,4 +46,37 @@ table td:hover {
 #footer:hover {
   font-weight: bold;
   /* letter-spacing: 1.1px; */
+}
+
+@media only screen and (max-width: 660px) {
+  body {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  body {
+    width: 100%;
+  }
+
+  th {
+    font-size: 11px;
+  }
+
+  .table td {
+    padding: 5px;
+  }
+
+  td span h4 {
+    font-size: 15px;
+    margin: 0;
+  }
+
+  td span .for_lunar {
+    font-size: 9px;
+  }
+
+  .bs_date, .ad_date {
+    font-size: 10px;
+  }
 }
