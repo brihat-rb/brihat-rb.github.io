@@ -23,3 +23,15 @@ For ``BS 2070 - 2075``, Only Lunar Event is shown
 For ``BS 2076 - 2077``, Equivalent Lunar Calendar Info is Shown along with major events of that day
 Will soon integrate ``Solar NS Calendar`` as well
 Further updates will be available for ``2078 BS`` soon
+
+### Python Converter Script
+- ``ad_bs_converter.py``
+
+   Usage:
+   ```
+   $ python ad_bs_converter.py [type] [year] [month] [date]
+
+   valid [type]: to_bs | to_ad
+   valid range [year] [month] [date]: FROM 1918 4 13 TO 2044 4 15 (AD)
+                                      FROM 1975 1 1 TO 2100 12 31 (BS)
+   ```
