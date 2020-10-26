@@ -1,0 +1,145 @@
+* {
+  padding: 0px;
+  margin: 0px;
+  user-select: none;
+}
+
+body {
+  text-align: center;
+}
+
+#datetime {
+  color: teal;
+  font-family: monospace;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#header h2{
+  color: darkgreen;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+#author {
+  color: teal;
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+#author:hover {
+  font-weight: bolder;
+  font-size: 13px;
+}
+
+#ns_ad_converter, #ns_bs_converter {
+  display: flex;
+  justify-content: space-around;
+  max-width: 1024px;
+}
+
+div[id$="_input"] {
+  white-space: nowrap;
+}
+
+select {
+  color: green;
+  border-radius: 3px;
+  border: 1px solid green;
+  width: 70px;
+  height: 25px;
+}
+
+select[id^="select_month_"] {
+  width: 80px;
+}
+
+select[id^="select_date_"] {
+  width: 50px;
+}
+
+button {
+  background-color: white;
+  color: green;
+  border-radius: 2px;
+  border: 1px solid green;
+  transition-duration: 0.2s;
+  width: 80px;
+  height: 25px;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: green;
+  color: white;
+}
+
+input[type="date"] {
+  text-align: center;
+  border-top-style: hidden;
+  border-left-style: hidden;
+  border-right-style: hidden;
+  border-bottom-style: groove;
+  border-color: lightgray;
+  width: 210px;
+}
+
+input[type="date"]:hover {
+  border-color: red;
+}
+
+div[id$="_result"] {
+  padding: 5px;
+  font-weight: bold;
+  font-family: monospace;
+}
+
+#solarnscalendar {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  height: auto;
+  left: 50%;
+  transform: translateX(-50%);
+  color: darkcyan;
+  font-size: 24px;
+  font-family: cursive;
+  text-decoration: none;
+}
+
+#solarnscalendar:hover {
+  color: teal;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 750px) {
+  #header h2 {
+    font-size: 24px;
+  }
+
+  .lg-screen {
+    display: none;
+  }
+
+  #ns_ad_converter, #ns_bs_converter {
+    flex-direction: column;
+  }
+
+  h3 {
+    font-size: 24px;
+  }
+
+  #ns_to_ad, #ad_to_ns, #ns_to_bs, #bs_to_ns {
+    padding: 10px;
+  }
+
+  div[id$="_result"] {
+    padding: 10px;
+  }
+
+  #solarnscalendar {
+    position: static;
+    font-size: 20px;
+  }
+}

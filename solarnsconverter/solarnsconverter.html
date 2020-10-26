@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Solar Nepal Sambat Converter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+
+  <body>
+    <i id="datetime"></i>
+    <div id="header">
+      <h2>Solar Nepal Sambat Converter</h2>
+      <span id="author">brihat (brihatbajracharya@gmail.com)</span>
+    </div>
+
+    <br />
+    <br class="lg-screen" />
+
+    <div id="main" align="center">
+      <h3>Solar NS/AD Date Converter</h3>
+      <div id="ns_ad_converter">
+        <div id="ns_to_ad">
+          <div id="ns_to_ad_input">NS:
+            <select id="select_year_ns_to_ad" onchange="fill_ns_date();"></select>
+            <select id="select_month_ns_to_ad" onchange="fill_ns_date();"></select>
+            <select id="select_date_ns_to_ad"></select>
+            <button id="button_ns_to_ad" onclick="ns_to_ad();">GET AD</button>
+          </div>
+          <div id="ns_to_ad_result">AD here</div>
+        </div>
+
+        <div id="ad_to_ns">
+          <div id="ad_to_ns_input" class="input">AD: <input type="date" id="ad_date_to_ns" />
+            <button id="button_ad_to_ns" onclick="ad_to_ns();">GET NS</button>
+          </div>
+          <div id="ad_to_ns_result">NS here</div>
+        </div>
+      </div>
+
+      <br />
+      <br class="lg-screen" />
+
+      <h3>Solar NS/BS Date Converter</h3>
+      <div id="ns_bs_converter">
+        <div id="ns_to_bs">
+          <div id="ns_to_bs_input">NS:
+            <select id="select_year_ns_to_bs" onchange="fill_ns_date();"></select>
+            <select id="select_month_ns_to_bs" onchange="fill_ns_date();"></select>
+            <select id="select_date_ns_to_bs"></select>
+            <button id="button_ns_to_bs" onclick="ns_to_bs();">GET BS</button>
+          </div>
+          <div id="ns_to_bs_result">BS here</div>
+        </div>
+
+        <div id="bs_to_ns">
+          <div id="bs_to_ns_input">BS:
+            <select id="select_year_bs_to_ns" onchange="fill_bs_date();"></select>
+            <select id="select_month_bs_to_ns" onchange="fill_bs_date();"></select>
+            <select id="select_date_bs_to_ns"></select>
+            <button id="button_ns_to_ad" onclick="bs_to_ns();">GET NS</button>
+          </div>
+          <div id="bs_to_ns_result">NS here</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <a id="solarnscalendar"
+         href="https://brihat-rb.github.io/solarnscalendar/solarnscalendar.html">
+          >> Solar Nepal Sambat Calendar <<
+      </a>
+    </div>
+
+    <!-- Custom Scripts -->
+    <!-- for topmost date display -->
+    <script>
+      function showtime() {
+        let dt = new Date();
+        document.getElementById("datetime").innerHTML = dt.toLocaleTimeString();
+        setTimeout("showtime()", 500);
+      }
+      showtime();
+    </script>
+
+    <script src="https://brihat-rb.github.io/solarnscalendar/NS.js"></script>
+    <script src="https://brihat-rb.github.io/solarnscalendar/NS_AD.js"></script>
+    <script src="https://brihat-rb.github.io/solarnscalendar/NS_BS.js"></script>
+    <script src="./index.js"></script>
+  </body>
+</html>
