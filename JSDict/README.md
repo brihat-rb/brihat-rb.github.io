@@ -1,5 +1,5 @@
-JSDict (Dictionary using JS)
+### JSDict (Dictionary using JS)
 
-JSON Dictionary obtained from: https://github.com/matthewreagan/WebstersEnglishDictionary
+JSON Dictionary obtained from [here](https://github.com/matthewreagan/WebstersEnglishDictionary).
 
-Go to https://brihat-rb.github.io/JSDict/JSDict.html
+Click [here](https://brihat-rb.github.io/JSDict/JSDict.html).
