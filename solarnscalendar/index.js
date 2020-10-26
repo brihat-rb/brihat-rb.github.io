@@ -31,16 +31,16 @@ showCalendar(currentMonth, currentYear);
 
 function previous() {
     // go to previous month
-    currentYear = (currentMonth == 0) ? currentYear - 1 : currentYear;
-    currentMonth = (currentMonth == 0) ? 11 : currentMonth - 1;
-    showCalendar(currentMonth + 1, currentYear);
+    currentYear = (currentMonth == 1) ? currentYear - 1 : currentYear;
+    currentMonth = (currentMonth == 1) ? 12 : currentMonth - 1;
+    showCalendar(currentMonth, currentYear);
 }
 
 function next() {
     // go to next month
-    currentYear = (currentMonth == 11) ? currentYear + 1 : currentYear;
-    currentMonth = (currentMonth + 1) % 12;
-    showCalendar(currentMonth + 1, currentYear);
+    currentYear = (currentMonth == 12) ? currentYear + 1 : currentYear;
+    currentMonth = (currentMonth == 12) ? 1 : currentMonth + 1;
+    showCalendar(currentMonth, currentYear);
 }
 
 function jump() {
@@ -177,6 +177,7 @@ function showCalendar(month, year) {
                 cellText.innerHTML = result;
                 if (date == ns_today_date && year == ns_today_year && month == ns_today_month) {
                     cell.classList.add("text-primary");
+                    cell.classList.add("cell-today");
                     // cell.classList.add("bg-dark");
                 } // color today's date
                 cell.appendChild(cellText);
