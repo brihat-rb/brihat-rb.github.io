@@ -17,7 +17,10 @@ const AD_MONTHS = ["January", "February", "March", "April", "May", "June", "July
 const AD_MONTHS_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 const NEPALI_DIGITS = ['०','१','२','३','४','५','६','७','८','९'];
+
 const NEPALI_DAYS = ["आइतबार", "सोमबार", "मंगलबार", "बुधबार", "बिहिबार", "शुक्रबार", "शनिबार"];
+const ENGLISH_DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const ENGLISH_DAYS_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 /* * CONVERTER FUNCTIONS * */
 function convert_ns_to_ad(ns_year, ns_month, ns_date) {
