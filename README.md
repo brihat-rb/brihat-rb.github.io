@@ -18,4 +18,4 @@
 ##### [Unit Converter](https://brihat-rb.github.io/unit_converter/converter.html)  
 ###### [Text to Morse](https://brihat-rb.github.io/morse/morse.html)  
 
-Any Suggestions to [brihat (dot) rb (at) gmail (dot) com](brihat.rb@gmail.com)
+Any Suggestions to [brihat (dot) rb (at) gmail (dot) com](mailto:brihat.rb@gmail.com)
