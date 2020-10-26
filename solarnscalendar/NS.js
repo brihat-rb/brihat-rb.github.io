@@ -6,6 +6,8 @@ const NS_NEP = ["कछला", "थिंला", "प्वँहेला", "
 const NS_DAYS_IN_MONTH = [30, 30, 30, 30, 30, 29, 31, 31, 31, 31, 31, 31];
 const NS_DAYS_IN_MONTH_LEAP = [30, 30, 30, 30, 30, 30, 31, 31, 31, 31, 31, 31];
 
+const NS_DAYS = ["आइतबाः", "सोमबाः", "मङ्लबाः", "बुधबाः", "बिहिबाः", "सुक्रबाः", "सनिबाः"];
+
 const NS_AD_OFFSET = 880;
 
 function verify_ns_date(year, month, date) {
