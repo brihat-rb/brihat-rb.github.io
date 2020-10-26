@@ -21,7 +21,6 @@ For BS Age Calculator, both dates should be within the range of ``[1975 Baisakh 
 Shows Day Events for the given BS Date
 For ``BS 2070 - 2075``, Only Lunar Event is shown
 For ``BS 2076 - 2077``, Equivalent Lunar Calendar Info is Shown along with major events of that day
-Will soon integrate ``Solar NS Calendar`` as well
 Further updates will be available for ``2078 BS`` soon
 
 ### Python Converter Script

@@ -167,6 +167,8 @@
     <script type="text/javascript" src="./nepali_calendar_tools.js"></script>
     <script type="text/javascript" src="./age_calculator.js"></script>
     <script type="text/javascript" src="./date_calculator.js"></script>
+    <script type="text/javascript" src="https://brihat-rb.github.io/solarnscalendar/NS.js"></script>
+    <script type="text/javascript" src="./solar_ns_calendar_utils.js"></script>
 
     <!-- for topmost date display -->
     <script>
@@ -231,14 +233,15 @@
           let events = JSON.parse(this.response);
 
           let nepali_date = "<br />";
+          let nepali_date_day = new Date(convert_bs_to_ad(bs_year, bs_month, bs_date, "")).getDay();
           nepali_date += '<div id="date"><b><u>' + arabic_number_to_nepali(bs_year) + " ";
           nepali_date += BS_MONTHS_NEP[bs_month-1] + " ";
           nepali_date += arabic_number_to_nepali(bs_date) + ", ";
-          nepali_date += NEPALI_DAYS[new Date(convert_bs_to_ad(bs_year, bs_month, bs_date, "")).getDay()] + ' </u></b></div><br />';
+          nepali_date += NEPALI_DAYS[nepali_date_day] + ' </u></b></div><br />';
 
           let info_content = nepali_date;
           info_content += '<div id="tithi">';
-		  if (events.data[bs_month - 1][bs_date - 1].hasOwnProperty("ns_year")) {
+		      if (events.data[bs_month - 1][bs_date - 1].hasOwnProperty("ns_year")) {
             info_content += "ने. सं. " + arabic_number_to_nepali(events.data[bs_month - 1][bs_date - 1].ns_year) + " ";
           }
           if (events.data[bs_month - 1][bs_date - 1].hasOwnProperty("lunar_month")) {
@@ -248,6 +251,13 @@
             info_content += " (" + events.data[bs_month - 1][bs_date - 1].pakshya + ") ";
           }
           info_content += events.data[bs_month - 1][bs_date - 1].tithi + '</div>';
+
+          let solar_ns_date_list = convert_bs_to_ns(bs_year, bs_month, bs_date).split(" ");
+          let solar_ns_date = "सौ. ने. सं. " + arabic_number_to_nepali(solar_ns_date_list[0]) + " ";
+          solar_ns_date += NS_NEP[solar_ns_date_list[1] - 1] + " " + arabic_number_to_nepali(solar_ns_date_list[2]);
+          // solar_ns_date += ", " + NS_DAYS[nepali_date_day];
+          info_content += "<span id='solar_ns_data'>(" + solar_ns_date + ")</span>";
+
           if (events.data[bs_month - 1][bs_date - 1].event_one)
             info_content += '<div id="info1">' + events.data[bs_month - 1][bs_date - 1].event_one + '</div>';
           if (events.data[bs_month - 1][bs_date - 1].event_two)
