@@ -49,16 +49,29 @@ h6 {
   color: red;
 }
 
-#footer {
+#lunar_details, #footer {
   color: teal;
-  font-size: 12px;
+  font-size: 16px;
   text-align: center;
   width: 100%;
+}
+
+#footer {
+  color: darkblue;
+  font-size: 12px;
 }
 
 #footer:hover {
   font-weight: bold;
   /* letter-spacing: 1.1px; */
+}
+
+.pstart, .pend {
+  color: #7d6608;
+}
+
+.pmid {
+  color: #1b2631;
 }
 
 .form-inline {

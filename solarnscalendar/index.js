@@ -61,14 +61,75 @@ function fill_lunar_data() {
     lunar_data_req.onload = function() {
         LUNAR_EVENTS = JSON.parse(this.response);
         let lunar_span = document.getElementsByClassName('for_lunar');
+        let lunar_month_start = "";
+        let lunar_month_mid = "";
+        let lunar_month_end = "";
+        let lunar_year_start = "";
+        let lunar_year_mid = "";
+        let lunar_year_end = "";
+        let prev_span_element = "";
+        let prev_lunar_month = "";
         for (let i = 0; i < lunar_span.length; i++) {
             let span_element = lunar_span[i];
             let span_id = span_element.id;
             let span_event = "n/a";
             if (LUNAR_EVENTS.hasOwnProperty(span_id)) {
               span_event = LUNAR_EVENTS[span_id][2];
+              if (i == 0) {
+                lunar_month_start = LUNAR_EVENTS[span_id][0];
+                lunar_year_start = LUNAR_EVENTS[span_id][3];
+                span_element.classList.add("pstart");
+              }
+              if (i == 17) {
+                lunar_month_mid = LUNAR_EVENTS[span_id][0];
+                lunar_year_mid = LUNAR_EVENTS[span_id][3];
+              }
+              if (i == lunar_span.length - 1) {
+                lunar_month_end = LUNAR_EVENTS[span_id][0];
+                lunar_year_end = LUNAR_EVENTS[span_id][3];
+              }
+              if (i > 0) {
+                if (prev_lunar_month != LUNAR_EVENTS[span_id][0]) {
+                  if (prev_span_element.classList.contains("pstart")) {
+                    span_element.classList.remove("pstart");
+                    span_element.classList.add("pmid");
+                  }
+                  else if (prev_span_element.classList.contains("pmid")) {
+                    span_element.classList.remove("pmid");
+                    span_element.classList.add("pend");
+                  }
+                }
+                else {
+                  if (prev_span_element.classList.contains("pstart")) {
+                    span_element.classList.add("pstart");
+                  }
+                  else if (prev_span_element.classList.contains("pmid")) {
+                    span_element.classList.add("pmid");
+                  }
+                  else if (prev_span_element.classList.contains("pend")) {
+                    span_element.classList.add("pend");
+                  }
+                }
+              }
+              prev_span_element = span_element;
+              prev_lunar_month = LUNAR_EVENTS[span_id][0];
             }
             span_element.innerHTML = span_event;
+        }
+
+        let pakshya_details = document.getElementById("lunar_details");
+        if (lunar_year_start == lunar_year_mid && lunar_year_mid == lunar_year_end) {
+          pakshya_details.innerHTML = "<span class='pstart'>" + lunar_month_start + "</span>" + " / ";
+          pakshya_details.innerHTML += "<span class='pmid'>" + lunar_month_mid + "</span>" + " / ";
+          pakshya_details.innerHTML += "<span class='pend'>" + lunar_month_end + "</span>";
+          pakshya_details.innerHTML += " " + arabic_number_to_nepali(lunar_year_start);
+        }
+        else {
+          pakshya_details.innerHTML = "<span class='pstart'>" + lunar_month_start + "</span>" + " - ";
+          pakshya_details.innerHTML += "<span class='pmid'>" + lunar_month_mid + "</span>" + " ";
+          pakshya_details.innerHTML += arabic_number_to_nepali(lunar_year_mid) + " <b>/</b> ";
+          pakshya_details.innerHTML += "<span class='pend'>" + lunar_month_end + "</span>" + " ";
+          pakshya_details.innerHTML += arabic_number_to_nepali(lunar_year_end);
         }
     }
     lunar_data_req.onerror = function() {
@@ -122,7 +183,7 @@ function showCalendar(month, year) {
     monthAndYear.innerHTML = ""
     monthAndYear.innerHTML += "<b>" + NS_NEP[month - 1] + " " + arabic_number_to_nepali(year) + "</b>";
     monthAndYear.innerHTML += "<h6><span style='color: green'>" + bs_month_year + "</span>&emsp;|&emsp;<span style='color: chocolate'>" + ad_month_year + "</span></h6>";
-
+    monthAndYear.innerHTML += "<div id='lunar_details'></div>"
     monthAndYear.innerHTML += "<div id='footer'>brihat (brihatbajracharya@gmail.com)</div>"
     // update Go To section as well
     select_year.value = year;
