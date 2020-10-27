@@ -147,7 +147,7 @@ function fill_lunar_data() {
               pakshya_details.innerHTML += "<span class='pmid1'>" + lunar_month_list[1] + "</span>" + " / ";
               pakshya_details.innerHTML += "<span class='pmid2'>" + lunar_month_list[2] + "</span>";
               if (lunar_month_list.length == 4) {
-                pakshya_details.innerHTML += " / " + "<span class='pend'>" + lunar_month_list[2] + "</span>";
+                pakshya_details.innerHTML += " / " + "<span class='pend'>" + lunar_month_list[3] + "</span>";
               }
               pakshya_details.innerHTML += " " + arabic_number_to_nepali(lunar_year_list[0]);
             }

@@ -105,6 +105,11 @@ h6 {
   font-weight: bold;
 }
 
+select {
+  text-align: center;
+  text-align-last: center;
+}
+
 @media only screen and (max-width: 768px) {
   body {
     width: 100%;
