@@ -61,13 +61,25 @@ h6 {
   /* letter-spacing: 1.1px; */
 }
 
+.form-inline {
+  width: 100%;
+}
+
+#previous, #next {
+  flex: 1;
+}
+
+#default {
+  flex: 2;
+}
+
 #solarnsconverter {
   width: 100%;
   height: auto;
   left: 50%;
   transform: translateX(-50%);
   color: darkcyan;
-  font-size: 24px;
+  font-size: 22px;
   text-decoration: none;
 }
 
@@ -83,6 +95,14 @@ h6 {
 
   .cell-today {
     border: teal solid 2px !important;
+  }
+
+  .form-inline {
+    align: center;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
   }
 }
 
