@@ -50,131 +50,155 @@ function jump() {
     showCalendar(currentMonth, currentYear);
 }
 
-function fill_lunar_data() {
-    // ONLY FOR 2077 BS
-    const lunar_data_url = "https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/solarnscalendar/data/2077_lunar_data.json";
+function fill_lunar_data(year1, year2) {
+    const lunar_data_url1 = "https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/solarnscalendar/data/" + year1.toString() + "_lunar_data.json";
 
-    var lunar_data_req = new XMLHttpRequest();
-    var LUNAR_EVENTS = "";
+    var lunar_data_req1 = new XMLHttpRequest();
+    var LUNAR_EVENTS_ONE = "";
 
-    lunar_data_req.open('GET', lunar_data_url, true);
-    lunar_data_req.onload = function() {
-        LUNAR_EVENTS = JSON.parse(this.response);
-        let lunar_span = document.getElementsByClassName('for_lunar');
+    lunar_data_req1.open('GET', lunar_data_url1, false);
+    lunar_data_req1.onload = function() {
+        LUNAR_EVENTS_ONE = JSON.parse(this.response);
+    }
+    lunar_data_req1.onerror = function() {
+        console.log("Error fetching Lunar Data.")
+        LUNAR_EVENTS_ONE = "";
+    }
+    lunar_data_req1.send();
 
-        let prev_span_element = "";
-        let prev_lunar_month = "";
+    if (year1 != year2) {
+      const lunar_data_url2 = "https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/solarnscalendar/data/" + year2.toString() + "_lunar_data.json";
 
-        let lunar_month_list = [];
-        let lunar_year_list = [];
+      var lunar_data_req2 = new XMLHttpRequest();
+      var LUNAR_EVENTS_TWO = "";
 
-        for (let i = 0; i < lunar_span.length; i++) {
-            let span_element = lunar_span[i];
-            let span_id = span_element.id;
-            let span_event = "n/a";
-            if (LUNAR_EVENTS.hasOwnProperty(span_id)) {
-              span_event = LUNAR_EVENTS[span_id][2];
-              if (i == 0) {
-                span_element.classList.add("pstart");
-                lunar_month_list.push(LUNAR_EVENTS[span_id][0]);
-                lunar_year_list.push(LUNAR_EVENTS[span_id][3]);
-              }
-              if (i > 0) {
-                if (prev_lunar_month != LUNAR_EVENTS[span_id][0]) {
-                  lunar_month_list.push(LUNAR_EVENTS[span_id][0]);
-                  if (lunar_year_list.indexOf(LUNAR_EVENTS[span_id][3]) == -1) {
-                    lunar_year_list.push(LUNAR_EVENTS[span_id][3]);
-                  }
+      lunar_data_req2.open('GET', lunar_data_url2, false);
+      lunar_data_req2.onload = function() {
+          LUNAR_EVENTS_TWO = JSON.parse(this.response);
+      }
+      lunar_data_req2.onerror = function() {
+          console.log("Error fetching Lunar Data.")
+          LUNAR_EVENTS_TWO = "";
+      }
+      lunar_data_req2.send();
+    }
 
-                  if (prev_span_element.classList.contains("pstart")) {
-                    span_element.classList.remove("pstart");
-                    span_element.classList.add("pmid1");
-                  }
-                  else if (prev_span_element.classList.contains("pmid1")) {
-                    span_element.classList.remove("pmid1");
-                    span_element.classList.add("pmid2");
-                  }
-                  else if (prev_span_element.classList.contains("pmid2")) {
-                    span_element.classList.remove("pmid2");
-                    span_element.classList.add("pend");
-                  }
-                  else {
-                    span_element.classList.add("pstart");
-                  }
-                }
-                else {
-                  if (prev_span_element.classList.contains("pstart")) {
-                    span_element.classList.add("pstart");
-                  }
-                  else if (prev_span_element.classList.contains("pmid1")) {
-                    span_element.classList.add("pmid1");
-                  }
-                  else if (prev_span_element.classList.contains("pmid2")) {
-                    span_element.classList.add("pmid2");
-                  }
-                  else if (prev_span_element.classList.contains("pend")) {
-                    span_element.classList.add("pend");
-                  }
-                }
-              }
-              prev_lunar_month = LUNAR_EVENTS[span_id][0];
+    let lunar_span = document.getElementsByClassName('for_lunar');
+
+    let prev_span_element = "";
+    let prev_lunar_month = "";
+
+    let lunar_month_list = [];
+    let lunar_year_list = [];
+
+    for (let i = 0; i < lunar_span.length; i++) {
+      let span_element = lunar_span[i];
+      let span_id = span_element.id;
+      let span_id_year = parseInt(span_id.substr(0, 4));
+      let span_event = "n/a";
+      if (span_id_year == year1) {
+        LUNAR_EVENTS = LUNAR_EVENTS_ONE;
+      }
+      else if (span_id_year == year2) {
+        LUNAR_EVENTS = LUNAR_EVENTS_TWO;
+      }
+      if (LUNAR_EVENTS.hasOwnProperty(span_id)) {
+        span_event = LUNAR_EVENTS[span_id][2];
+        if (i == 0) {
+          span_element.classList.add("pstart");
+          lunar_month_list.push(LUNAR_EVENTS[span_id][0]);
+          lunar_year_list.push(LUNAR_EVENTS[span_id][3]);
+        }
+        if (i > 0) {
+          if (prev_lunar_month != LUNAR_EVENTS[span_id][0]) {
+            lunar_month_list.push(LUNAR_EVENTS[span_id][0]);
+            if (lunar_year_list.indexOf(LUNAR_EVENTS[span_id][3]) == -1) {
+              lunar_year_list.push(LUNAR_EVENTS[span_id][3]);
             }
-            prev_span_element = span_element;
-            span_element.innerHTML = span_event;
-        }
 
-        let pakshya_details = document.getElementById("lunar_details");
-        if (lunar_month_list.length == 0 || lunar_year_list.length == 0) {
-          pakshya_details.innerHTML = "";
-        }
-        else {
-          if (lunar_year_list.length == 1) {
-            if (lunar_month_list.length < 3) {
-              if (lunar_month_list.length == 1) {
-                // special case for new year (BS) where prev all lunar pakshya are n/a
-                pakshya_details.innerHTML = "<span class='pstart'>" + lunar_month_list[0] + "</span>";
-                pakshya_details.innerHTML += " " + arabic_number_to_nepali(lunar_year_list[0]);
-              }
-              else {
-                // special case for end of year (BS) where there are only two lunar months (not tested)
-                pakshya_details.innerHTML = "<span class='pstart'>" + lunar_month_list[0] + "</span>" + " / ";
-                pakshya_details.innerHTML += "<span class='pmid1'>" + lunar_month_list[1] + "</span>";
-                pakshya_details.innerHTML += " " + arabic_number_to_nepali(lunar_year_list[0]);
-              }
+            if (prev_span_element.classList.contains("pstart")) {
+              span_element.classList.remove("pstart");
+              span_element.classList.add("pmid1");
+            }
+            else if (prev_span_element.classList.contains("pmid1")) {
+              span_element.classList.remove("pmid1");
+              span_element.classList.add("pmid2");
+            }
+            else if (prev_span_element.classList.contains("pmid2")) {
+              span_element.classList.remove("pmid2");
+              span_element.classList.add("pend");
             }
             else {
-              pakshya_details.innerHTML = "<span class='pstart'>" + lunar_month_list[0] + "</span>" + " / ";
-              pakshya_details.innerHTML += "<span class='pmid1'>" + lunar_month_list[1] + "</span>" + " / ";
-              pakshya_details.innerHTML += "<span class='pmid2'>" + lunar_month_list[2] + "</span>";
-              if (lunar_month_list.length == 4) {
-                pakshya_details.innerHTML += " / " + "<span class='pend'>" + lunar_month_list[3] + "</span>";
-              }
-              pakshya_details.innerHTML += " " + arabic_number_to_nepali(lunar_year_list[0]);
+              span_element.classList.add("pstart");
             }
           }
           else {
-            pakshya_details.innerHTML = "<span class='pstart'>" + lunar_month_list[0] + "</span>" + ", ";
-            pakshya_details.innerHTML += "<span class='pmid1'>" + lunar_month_list[1] + "</span>";
-            if (lunar_month_list.length == 3) {
-              pakshya_details.innerHTML += " " + arabic_number_to_nepali(lunar_year_list[0]) + " <b>/</b> ";
-              pakshya_details.innerHTML += "<span class='pmid2'>" + lunar_month_list[2] + "</span>" + " ";
-              pakshya_details.innerHTML += arabic_number_to_nepali(lunar_year_list[1]);
+            if (prev_span_element.classList.contains("pstart")) {
+              span_element.classList.add("pstart");
             }
-            else if (lunar_month_list.length == 4) {
-              // not tested yet
-              pakshya_details.innerHTML += ", <span class='pmid2'>" + lunar_month_list[2] + "</span>" + " ";
-              pakshya_details.innerHTML += arabic_number_to_nepali(lunar_year_list[0]) + " <b>/</b> ";
-              pakshya_details.innerHTML += "<span class='pend'>" + lunar_month_list[3] + "</span>" + " ";
-              pakshya_details.innerHTML += arabic_number_to_nepali(lunar_year_list[1]);
+            else if (prev_span_element.classList.contains("pmid1")) {
+              span_element.classList.add("pmid1");
+            }
+            else if (prev_span_element.classList.contains("pmid2")) {
+              span_element.classList.add("pmid2");
+            }
+            else if (prev_span_element.classList.contains("pend")) {
+              span_element.classList.add("pend");
             }
           }
         }
+        prev_lunar_month = LUNAR_EVENTS[span_id][0];
+      }
+      prev_span_element = span_element;
+      span_element.innerHTML = span_event;
     }
-    lunar_data_req.onerror = function() {
-        console.log("Error fetching Lunar Data.")
-        LUNAR_EVENTS = "";
+
+    let pakshya_details = document.getElementById("lunar_details");
+    if (lunar_month_list.length == 0 || lunar_year_list.length == 0) {
+      pakshya_details.innerHTML = "";
     }
-    lunar_data_req.send();
+    else {
+      if (lunar_year_list.length == 1) {
+        if (lunar_month_list.length < 3) {
+          if (lunar_month_list.length == 1) {
+            // special case for new year (BS) where prev all lunar pakshya are n/a
+            pakshya_details.innerHTML = "<span class='pstart'>" + lunar_month_list[0] + "</span>";
+            pakshya_details.innerHTML += " " + arabic_number_to_nepali(lunar_year_list[0]);
+          }
+          else {
+            // special case for end of year (BS) where there are only two lunar months (not tested)
+            pakshya_details.innerHTML = "<span class='pstart'>" + lunar_month_list[0] + "</span>" + " / ";
+            pakshya_details.innerHTML += "<span class='pmid1'>" + lunar_month_list[1] + "</span>";
+            pakshya_details.innerHTML += " " + arabic_number_to_nepali(lunar_year_list[0]);
+          }
+        }
+        else {
+          pakshya_details.innerHTML = "<span class='pstart'>" + lunar_month_list[0] + "</span>" + " / ";
+          pakshya_details.innerHTML += "<span class='pmid1'>" + lunar_month_list[1] + "</span>" + " / ";
+          pakshya_details.innerHTML += "<span class='pmid2'>" + lunar_month_list[2] + "</span>";
+          if (lunar_month_list.length == 4) {
+            pakshya_details.innerHTML += " / " + "<span class='pend'>" + lunar_month_list[3] + "</span>";
+          }
+          pakshya_details.innerHTML += " " + arabic_number_to_nepali(lunar_year_list[0]);
+        }
+      }
+      else {
+        pakshya_details.innerHTML = "<span class='pstart'>" + lunar_month_list[0] + "</span>" + ", ";
+        pakshya_details.innerHTML += "<span class='pmid1'>" + lunar_month_list[1] + "</span>";
+        if (lunar_month_list.length == 3) {
+          pakshya_details.innerHTML += " " + arabic_number_to_nepali(lunar_year_list[0]) + " <b>/</b> ";
+          pakshya_details.innerHTML += "<span class='pmid2'>" + lunar_month_list[2] + "</span>" + " ";
+          pakshya_details.innerHTML += arabic_number_to_nepali(lunar_year_list[1]);
+        }
+        else if (lunar_month_list.length == 4) {
+          // not tested yet
+          pakshya_details.innerHTML += ", <span class='pmid2'>" + lunar_month_list[2] + "</span>" + " ";
+          pakshya_details.innerHTML += arabic_number_to_nepali(lunar_year_list[0]) + " <b>/</b> ";
+          pakshya_details.innerHTML += "<span class='pend'>" + lunar_month_list[3] + "</span>" + " ";
+          pakshya_details.innerHTML += arabic_number_to_nepali(lunar_year_list[1]);
+        }
+      }
+    }
 }
 
 function showCalendar(month, year) {
@@ -286,6 +310,6 @@ function showCalendar(month, year) {
         }
         tbl.appendChild(row); // appending each row into calendar body.
     }
-    // finally fill lunar pakshya (ONLY FOR 2077 BS for now)
-    fill_lunar_data();
+    // finally fill lunar pakshya
+    fill_lunar_data(parseInt(bs_year_start), parseInt(bs_year_end));
 }
