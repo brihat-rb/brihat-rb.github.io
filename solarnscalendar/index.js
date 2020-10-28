@@ -52,35 +52,38 @@ function jump() {
 
 function fill_lunar_data(year1, year2) {
     const lunar_data_url1 = "https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/solarnscalendar/data/" + year1.toString() + "_lunar_data.json";
+    var LUNAR_EVENTS = JSON.parse('{}');
+    var LUNAR_EVENTS_ONE = LUNAR_EVENTS;
+    var LUNAR_EVENTS_TWO = LUNAR_EVENTS;
 
-    var lunar_data_req1 = new XMLHttpRequest();
-    var LUNAR_EVENTS_ONE = "";
-
-    lunar_data_req1.open('GET', lunar_data_url1, false);
-    lunar_data_req1.onload = function() {
-        LUNAR_EVENTS_ONE = JSON.parse(this.response);
+    if (year1 >= 2077 && year1 <= 2078) {
+      var lunar_data_req1 = new XMLHttpRequest();
+      lunar_data_req1.open('GET', lunar_data_url1, false);
+      lunar_data_req1.onload = function() {
+          LUNAR_EVENTS_ONE = JSON.parse(this.response);
+      }
+      lunar_data_req1.onerror = function() {
+          console.log("Error fetching Lunar Data.")
+          LUNAR_EVENTS_ONE = LUNAR_EVENTS;
+      }
+      lunar_data_req1.send();
     }
-    lunar_data_req1.onerror = function() {
-        console.log("Error fetching Lunar Data.")
-        LUNAR_EVENTS_ONE = "";
-    }
-    lunar_data_req1.send();
 
     if (year1 != year2) {
-      const lunar_data_url2 = "https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/solarnscalendar/data/" + year2.toString() + "_lunar_data.json";
+      if (year2 >= 2077 && year2 <= 2078) {
+        const lunar_data_url2 = "https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/solarnscalendar/data/" + year2.toString() + "_lunar_data.json";
 
-      var lunar_data_req2 = new XMLHttpRequest();
-      var LUNAR_EVENTS_TWO = "";
-
-      lunar_data_req2.open('GET', lunar_data_url2, false);
-      lunar_data_req2.onload = function() {
-          LUNAR_EVENTS_TWO = JSON.parse(this.response);
+        var lunar_data_req2 = new XMLHttpRequest();
+        lunar_data_req2.open('GET', lunar_data_url2, false);
+        lunar_data_req2.onload = function() {
+            LUNAR_EVENTS_TWO = JSON.parse(this.response);
+        }
+        lunar_data_req2.onerror = function() {
+            console.log("Error fetching Lunar Data.")
+            LUNAR_EVENTS_TWO = LUNAR_EVENTS;
+        }
+        lunar_data_req2.send();
       }
-      lunar_data_req2.onerror = function() {
-          console.log("Error fetching Lunar Data.")
-          LUNAR_EVENTS_TWO = "";
-      }
-      lunar_data_req2.send();
     }
 
     let lunar_span = document.getElementsByClassName('for_lunar');
