@@ -234,9 +234,12 @@ function fill_lunar_data(year1, year2) {
     }
     pakshya_details_ns = pakshya_details.innerHTML;
     pakshya_details.addEventListener('click', function() {
-      console.log(pakshya_details_nep);
+      if (pakshya_details.classList.contains('pakshya-details-nep')) {
+        pakshya_details.classList.remove('pakshya-details-nep');
+      }
       if (pakshya_details.innerHTML == pakshya_details_ns) {
         pakshya_details.innerHTML = pakshya_details_nep;
+        pakshya_details.classList.add("pakshya-details-nep");
       }
       else {
         pakshya_details.innerHTML = pakshya_details_ns;

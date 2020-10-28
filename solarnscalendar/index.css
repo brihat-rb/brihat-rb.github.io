@@ -7,6 +7,12 @@ body {
   margin: 0 auto;
 }
 
+.pakshya-details-nep {
+  font-size: 11px !important;
+  margin-top: 7px !important;
+  margin-bottom: 7px !important;
+}
+
 table {
   border-collapse: separate;
   border-spacing: 1px;
