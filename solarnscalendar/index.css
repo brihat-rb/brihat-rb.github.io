@@ -16,6 +16,7 @@ body {
 table {
   border-collapse: separate;
   border-spacing: 1px;
+  empty-cells: hide;
 }
 
 table td:hover {

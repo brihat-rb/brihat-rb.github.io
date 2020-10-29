@@ -307,15 +307,23 @@ function showCalendar(month, year) {
         for (let j = 0; j < 7; j++) {
             if (i === 0 && j < first_day) {
                 let cell = document.createElement("td");
-                if (j == 6) {
-                  cell.classList.add("saturday");
-                }
+                cell.setAttribute('colspan', first_day);
+                j = first_day - 1;
+                // if (j == 6) {
+                //   cell.classList.add("saturday");
+                // }
                 let cellText = document.createTextNode("");
                 cell.appendChild(cellText);
                 row.appendChild(cell);
             }
             else if (date > get_total_days_in_ns_month(month, year)) {
                 // filling up the table for all days completed
+                let cell = document.createElement("td");
+                cell.setAttribute('colspan', 7-j);
+                let cellText = document.createTextNode("");
+                cell.appendChild(cellText);
+                row.appendChild(cell);
+                date++;
                 break;
             }
 
@@ -355,6 +363,10 @@ function showCalendar(month, year) {
             }
         }
         tbl.appendChild(row); // appending each row into calendar body.
+        if (date > get_total_days_in_ns_month(month, year)) {
+          // no more row needed
+          break;
+        }
     }
     // finally fill lunar pakshya
     fill_lunar_data(parseInt(bs_year_start), parseInt(bs_year_end));
