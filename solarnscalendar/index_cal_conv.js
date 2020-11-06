@@ -45,9 +45,9 @@ function jump() {
 
 function showADCalendar(month, year) {
     // this funciton displays the AD calendar and all the data inside it
-    table_headers.innerHTML = "<th>Sunday</th><th>Monday</th><th>Tuesday</th>";
-    table_headers.innerHTML += "<th>Wednesday</th><th>Thursday</th><th>Friday</th>";
-    table_headers.innerHTML += "<th class='saturday'>Saturday</th>";
+    table_headers.innerHTML = "<th>SUN</th><th>MON</th><th>TUES</th>";
+    table_headers.innerHTML += "<th>WED</th><th>THURS</th><th>FRI</th>";
+    table_headers.innerHTML += "<th class='saturday'>SAT</th>";
 
     let first_day = (new Date(year.toString() + "-" + month.toString() + "-1")).getDay();
     let last_date = 29;

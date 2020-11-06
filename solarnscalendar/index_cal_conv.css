@@ -17,3 +17,15 @@
   color: chocolate;
   float: right;
 }
+
+@media only screen and (max-width: 490px) {
+  .ns_date_left, .ns_date_right, .ad_date_left, .bs_date_right {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .ns_date_left, .ns_date_right, .ad_date_left, .bs_date_right {
+    font-size: 10px;
+  }
+}
