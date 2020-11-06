@@ -43,7 +43,6 @@ select_year.value = ns_today_year;
 let pakshya_details_nep = "";
 let pakshya_details_ns = "";
 
-showCalendar(currentMonth, currentYear);
 
 // BELOW function replaced in index_cal_conv.js
 // function previous() {
@@ -402,6 +401,7 @@ function showCalendar(month, year) {
     // finally fill lunar pakshya
     fill_lunar_data(parseInt(bs_year_start), parseInt(bs_year_end));
     CALENDAR_MODE = 0;
+    localStorage.setItem('CALMODE', CALENDAR_MODE);
     currentMonth = month;
     currentYear = year;
     solarnscalendar_goto.style.display = "flex";

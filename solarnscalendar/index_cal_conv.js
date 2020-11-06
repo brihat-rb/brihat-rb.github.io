@@ -100,8 +100,8 @@ function showADCalendar(month, year) {
     monthAndYear.innerHTML += "<div id='lunar_details'></div>";
     monthAndYear.innerHTML += "<div id='footer'>brihat (brihatbajracharya@gmail.com)</div>";
     // update Go To section as well
-    select_year.value = year;
-    select_month.value = month;
+    select_year.value = ns_year_start;
+    select_month.value = ns_month_start;
 
     // creating all cells
     let date = 1;
@@ -177,8 +177,9 @@ function showADCalendar(month, year) {
     // // finally fill lunar pakshya
     fill_lunar_data(parseInt(bs_year_start), parseInt(bs_year_end));
     CALENDAR_MODE = 1;
-    currentYear = year;
-    currentMonth = month;
+    localStorage.setItem('CALMODE', CALENDAR_MODE);
+    currentYear = parseInt(year);
+    currentMonth = parseInt(month);
     solarnscalendar_goto.style.display = "none";
 }
 
@@ -237,8 +238,8 @@ function showBSCalendar(month, year) {
     monthAndYear.innerHTML += "<div id='lunar_details'></div>";
     monthAndYear.innerHTML += "<div id='footer'>brihat (brihatbajracharya@gmail.com)</div>";
     // update Go To section as well
-    select_year.value = year;
-    select_month.value = month;
+    select_year.value = ns_year_start;
+    select_month.value = ns_month_start;
 
     // creating all cells
     let date = 1;
@@ -314,7 +315,19 @@ function showBSCalendar(month, year) {
     // finally fill lunar pakshya
     fill_lunar_data(parseInt(year), parseInt(year));
     CALENDAR_MODE = 2;
-    currentYear = year;
-    currentMonth = month;
+    localStorage.setItem('CALMODE', CALENDAR_MODE);
+    currentYear = parseInt(year);
+    currentMonth = parseInt(month);
     solarnscalendar_goto.style.display = "none";
+}
+
+let saved_calendar_mode = localStorage.CALMODE;
+if (saved_calendar_mode == 1) {
+  showADCalendar(AD_TODAY_MONTH + 1, AD_TODAY_YEAR);
+}
+else if (saved_calendar_mode == 2) {
+  showBSCalendar(bs_today_month, bs_today_year);
+}
+else {
+  showCalendar(currentMonth, currentYear);
 }
