@@ -17,6 +17,20 @@ const select_year = document.getElementById("year");
 const select_month = document.getElementById("month");
 const monthAndYear = document.getElementById("monthAndYear");
 
+// Some Global variables added for NS-AD-BS Calendar Toggle
+const solarnscalendar_goto = document.getElementById("solarns_date_jumper");
+const table_headers = document.getElementById('table_header_row');
+/*
+CALENDAR_MODE (default: 0)
+0 - NS,   1 - AD,   2 - BS
+*/
+let CALENDAR_MODE = 0;
+let bs_today = convert_ns_to_bs(ns_today_year, ns_today_month, ns_today_date);
+let bs_today_list = bs_today.split(" ");
+let bs_today_year = bs_today_list[0];
+let bs_today_month = bs_today_list[1];
+let bs_today_date = bs_today_list[2];
+
 // create options for select year (1100-1199 NS) and select current year
 for (let ns_year = 1100; ns_year < 1200; ns_year++) {
   let option = document.createElement("option");
@@ -31,19 +45,20 @@ let pakshya_details_ns = "";
 
 showCalendar(currentMonth, currentYear);
 
-function previous() {
-    // go to previous month
-    currentYear = (currentMonth == 1) ? currentYear - 1 : currentYear;
-    currentMonth = (currentMonth == 1) ? 12 : currentMonth - 1;
-    showCalendar(currentMonth, currentYear);
-}
-
-function next() {
-    // go to next month
-    currentYear = (currentMonth == 12) ? currentYear + 1 : currentYear;
-    currentMonth = (currentMonth == 12) ? 1 : currentMonth + 1;
-    showCalendar(currentMonth, currentYear);
-}
+// BELOW function replaced in index_cal_conv.js
+// function previous() {
+//     // go to previous month
+//     currentYear = (currentMonth == 1) ? currentYear - 1 : currentYear;
+//     currentMonth = (currentMonth == 1) ? 12 : currentMonth - 1;
+//     showCalendar(currentMonth, currentYear);
+// }
+//
+// function next() {
+//     // go to next month
+//     currentYear = (currentMonth == 12) ? currentYear + 1 : currentYear;
+//     currentMonth = (currentMonth == 12) ? 1 : currentMonth + 1;
+//     showCalendar(currentMonth, currentYear);
+// }
 
 function jump() {
     // go to specific month of specific year
@@ -207,28 +222,40 @@ function fill_lunar_data(year1, year2) {
         }
       }
       else {
-        pakshya_details.innerHTML = "<span class='pstart'>" + lunar_month_list[0] + "</span>" + ", ";
-        pakshya_details.innerHTML += "<span class='pmid1'>" + lunar_month_list[1] + "</span>";
-        pakshya_details_nep = "<span class='pstart'>" + lunar_month_list_nep[0] + "</span>" + ", ";
-        pakshya_details_nep += "<span class='pmid1'>" + lunar_month_list_nep[1] + "</span>";
-        if (lunar_month_list.length == 3) {
-          pakshya_details.innerHTML += " " + arabic_number_to_nepali(lunar_year_list[0]) + " <b>/</b> ";
-          pakshya_details.innerHTML += "<span class='pmid2'>" + lunar_month_list[2] + "</span>" + " ";
+        if (lunar_month_list.length == 2) {
+          pakshya_details.innerHTML = "<span class='pstart'>" + lunar_month_list[0] + "</span>" + " ";
+          pakshya_details.innerHTML += arabic_number_to_nepali(lunar_year_list[0]) + " / ";
+          pakshya_details.innerHTML += "<span class='pmid1'>" + lunar_month_list[1] + "</span>" + " ";
           pakshya_details.innerHTML += arabic_number_to_nepali(lunar_year_list[1]);
-          pakshya_details_nep += " " + arabic_number_to_nepali(lunar_year_list[0]) + " <b>/</b> ";
-          pakshya_details_nep += "<span class='pmid2'>" + lunar_month_list_nep[2] + "</span>" + " ";
+          pakshya_details_nep = "<span class='pstart'>" + lunar_month_list_nep[0] + "</span>" + " ";
+          pakshya_details_nep += arabic_number_to_nepali(lunar_year_list[0]) + " / ";
+          pakshya_details_nep += "<span class='pmid1'>" + lunar_month_list_nep[1] + "</span>" + " ";
           pakshya_details_nep += arabic_number_to_nepali(lunar_year_list[1]);
         }
-        else if (lunar_month_list.length == 4) {
-          // not tested yet
-          pakshya_details.innerHTML += ", <span class='pmid2'>" + lunar_month_list[2] + "</span>" + " ";
-          pakshya_details.innerHTML += arabic_number_to_nepali(lunar_year_list[0]) + " <b>/</b> ";
-          pakshya_details.innerHTML += "<span class='pend'>" + lunar_month_list[3] + "</span>" + " ";
-          pakshya_details.innerHTML += arabic_number_to_nepali(lunar_year_list[1]);
-          pakshya_details_nep += ", <span class='pmid2'>" + lunar_month_list_nep[2] + "</span>" + " ";
-          pakshya_details_nep += arabic_number_to_nepali(lunar_year_list[0]) + " <b>/</b> ";
-          pakshya_details_nep += "<span class='pend'>" + lunar_month_list_nep[3] + "</span>" + " ";
-          pakshya_details_nep += arabic_number_to_nepali(lunar_year_list[1]);
+        else {
+          pakshya_details.innerHTML = "<span class='pstart'>" + lunar_month_list[0] + "</span>" + ", ";
+          pakshya_details.innerHTML += "<span class='pmid1'>" + lunar_month_list[1] + "</span>";
+          pakshya_details_nep = "<span class='pstart'>" + lunar_month_list_nep[0] + "</span>" + ", ";
+          pakshya_details_nep += "<span class='pmid1'>" + lunar_month_list_nep[1] + "</span>";
+          if (lunar_month_list.length == 3) {
+            pakshya_details.innerHTML += " " + arabic_number_to_nepali(lunar_year_list[0]) + " <b>/</b> ";
+            pakshya_details.innerHTML += "<span class='pmid2'>" + lunar_month_list[2] + "</span>" + " ";
+            pakshya_details.innerHTML += arabic_number_to_nepali(lunar_year_list[1]);
+            pakshya_details_nep += " " + arabic_number_to_nepali(lunar_year_list[0]) + " <b>/</b> ";
+            pakshya_details_nep += "<span class='pmid2'>" + lunar_month_list_nep[2] + "</span>" + " ";
+            pakshya_details_nep += arabic_number_to_nepali(lunar_year_list[1]);
+          }
+          else if (lunar_month_list.length == 4) {
+            // not tested yet
+            pakshya_details.innerHTML += ", <span class='pmid2'>" + lunar_month_list[2] + "</span>" + " ";
+            pakshya_details.innerHTML += arabic_number_to_nepali(lunar_year_list[0]) + " <b>/</b> ";
+            pakshya_details.innerHTML += "<span class='pend'>" + lunar_month_list[3] + "</span>" + " ";
+            pakshya_details.innerHTML += arabic_number_to_nepali(lunar_year_list[1]);
+            pakshya_details_nep += ", <span class='pmid2'>" + lunar_month_list_nep[2] + "</span>" + " ";
+            pakshya_details_nep += arabic_number_to_nepali(lunar_year_list[0]) + " <b>/</b> ";
+            pakshya_details_nep += "<span class='pend'>" + lunar_month_list_nep[3] + "</span>" + " ";
+            pakshya_details_nep += arabic_number_to_nepali(lunar_year_list[1]);
+          }
         }
       }
     }
@@ -249,6 +276,10 @@ function fill_lunar_data(year1, year2) {
 
 function showCalendar(month, year) {
     // this funciton displays the calendar and all the data inside it
+    table_headers.innerHTML = "<th>आइतबाः</th><th>सोमबाः</th><th>मङ्लबाः</th>";
+    table_headers.innerHTML += "<th>बुधबाः</th><th>बिहिबाः</th><th>सुक्रबाः</th>";
+    table_headers.innerHTML += "<th class='saturday'>सनिबाः</th>";
+
     let equivalent_ad_date = convert_ns_to_ad(year, month, 1);
 
     let first_day = (new Date(equivalent_ad_date)).getDay();
@@ -290,7 +321,7 @@ function showCalendar(month, year) {
     // filing data about month and in the page via DOM.
     monthAndYear.innerHTML = ""
     monthAndYear.innerHTML += "<b>" + NS_NEP[month - 1] + " " + arabic_number_to_nepali(year) + "</b>";
-    monthAndYear.innerHTML += "<h6><span style='color: green'>" + bs_month_year + "</span>&emsp;|&emsp;<span style='color: chocolate'>" + ad_month_year + "</span></h6>";
+    monthAndYear.innerHTML += "<h6><span style='color: green' onclick='showBSCalendar(bs_today_month, bs_today_year)'>" + bs_month_year + "</span>&emsp;|&emsp;<span style='color: chocolate' onclick='showADCalendar(AD_TODAY_MONTH + 1, AD_TODAY_YEAR)'>" + ad_month_year + "</span></h6>";
     monthAndYear.innerHTML += "<div id='lunar_details'></div>"
     monthAndYear.innerHTML += "<div id='footer'>brihat (brihatbajracharya@gmail.com)</div>"
     // update Go To section as well
@@ -370,4 +401,8 @@ function showCalendar(month, year) {
     }
     // finally fill lunar pakshya
     fill_lunar_data(parseInt(bs_year_start), parseInt(bs_year_end));
+    CALENDAR_MODE = 0;
+    currentMonth = month;
+    currentYear = year;
+    solarnscalendar_goto.style.display = "flex";
 }

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="./index_cal_conv.css" />
   </head>
 
   <body>
@@ -13,17 +14,7 @@
       <div class="card">
         <h3 class="card-header" id="monthAndYear"></h3>
         <table class="table table-bordered table-responsive-md mx-auto" id="calendar">
-          <thead>
-            <tr align="center">
-              <th>आइतबाः</th>
-              <th>सोमबाः</th>
-              <th>मङ्लबाः</th>
-              <th>बुधबाः</th>
-              <th>बिहिबाः</th>
-              <th>सुक्रबाः</th>
-              <th class="saturday">सनिबाः</th>
-            </tr>
-          </thead>
+          <thead><tr id="table_header_row" align="center"></tr></thead>
           <tbody align="center" id="calendar-body"></tbody>
         </table>
 
@@ -37,7 +28,7 @@
           <a id="solarnsconverter" href="https://brihat-rb.github.io/solarnsconverter/solarnsconverter.html"> &raquo; Solar Nepal Sambat Converter &laquo; </a>
         </div>
 
-        <form class="form-inline">
+        <form id="solarns_date_jumper" class="form-inline">
           <label class="col-sm-2" for="month">Go To: </label>
           <select class="form-control col-sm-5" name="month" id="month" onchange="jump()">
             <option value=1>कछला</option>
@@ -66,6 +57,7 @@
     <script src="NS_AD.js"></script>
     <script src="NS_BS.js"></script>
     <script src="index.js"></script>
+    <script src="index_cal_conv.js"></script>
 
     <script>
     function on_window_resize() {
