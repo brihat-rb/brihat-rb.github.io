@@ -7,6 +7,12 @@ body {
   margin: 0 auto;
 }
 
+.card-header {
+  background: url('logo.svg') 5% center, url('logo.svg') 95% center;
+  background-repeat: no-repeat;
+  background-size: auto 80%;
+}
+
 .pakshya-details-nep {
   font-size: 11px !important;
   margin-top: 7px !important;
@@ -31,6 +37,10 @@ table td:hover {
 .table td {
   padding: 7px;
   transition: 0.2s;
+  background: url('watermark.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: auto 80%;
 }
 
 h6 {
@@ -126,6 +136,32 @@ select {
 @media only screen and (max-width: 768px) {
   body {
     width: 100%;
+  }
+
+  .card-header {
+    background: url("logo.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: auto 80%;
+  }
+
+  #calendar {
+    background: url("watermark.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: auto 50%;
+  }
+
+  .table td {
+    background: none !important;
+  }
+
+  .table td:hover {
+    background: url("watermark.svg") !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    background-size: auto 80% !important;
+    background-color: lightgray !important;
   }
 
   .cell-today {
