@@ -215,7 +215,7 @@
         let bs_month = document.getElementById("select_event_month").value;
         let bs_date = document.getElementById("select_event_date").value;
 
-        if (bs_year < 2070 || bs_year > 2077) {
+        if (bs_year < 2070 || bs_year > 2078) {
           alert("Event not available for year '" + bs_year + "' BS");
         }
 
@@ -223,6 +223,9 @@
         // json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/' + bs_year + '.json';
         if (bs_year == 2076 || bs_year == 2077) {
           json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/' + bs_year + '_detailed.json';
+        }
+        else if (bs_year == 2078) {
+          json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/2078.json';
         }
         else {
           json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/' + bs_year + '.json';
