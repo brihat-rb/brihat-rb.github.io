@@ -290,10 +290,13 @@ function showCalendar(month, year) {
     tbl.innerHTML = "";
 
     // get BS months and years that lie in this month
-    let bs_month_start = convert_ns_to_bs(year, month, 1).split(" ")[1];
-    let bs_month_end = convert_ns_to_bs(year, month, last_date).split(" ")[1];
-    let bs_year_start = convert_ns_to_bs(year, month, 1).split(" ")[0];
-    let bs_year_end = convert_ns_to_bs(year, month, last_date).split(" ")[0];
+    let bs_start_date_list_from_ns = convert_ns_to_bs(year, month, 1).split(" ");
+    let bs_year_start = bs_start_date_list_from_ns[0];
+    let bs_month_start = bs_start_date_list_from_ns[1];
+
+    let bs_end_date_list_from_ns = convert_ns_to_bs(year, month, last_date).split(" ");
+    let bs_year_end = bs_end_date_list_from_ns[0];
+    let bs_month_end = bs_end_date_list_from_ns[1];
 
     let bs_month_year = "";
     if (bs_year_start == bs_year_end) {
@@ -304,10 +307,13 @@ function showCalendar(month, year) {
     }
 
     // get AD months and years that lie in this month
-    let ad_month_start = AD_MONTHS_SHORT[convert_ns_to_ad(year, month, 1).split(" ")[1] - 1];
-    let ad_month_end = AD_MONTHS_SHORT[convert_ns_to_ad(year, month, last_date).split(" ")[1] - 1];
-    let ad_year_start = convert_ns_to_ad(year, month, 1).split(" ")[0];
-    let ad_year_end = convert_ns_to_ad(year, month, last_date).split(" ")[0];
+    let ad_start_date_list_from_ns = convert_ns_to_ad(year, month, 1).split(" ");
+    let ad_year_start = ad_start_date_list_from_ns[0];
+    let ad_month_start = AD_MONTHS_SHORT[ad_start_date_list_from_ns[1] - 1];
+
+    let ad_end_date_list_from_ns = convert_ns_to_ad(year, month, last_date).split(" ");
+    let ad_year_end = ad_end_date_list_from_ns[0];
+    let ad_month_end = AD_MONTHS_SHORT[ad_end_date_list_from_ns[1] - 1];
 
     let ad_month_year = ""
     if (ad_year_start == ad_year_end) {
@@ -362,15 +368,13 @@ function showCalendar(month, year) {
                 if (j == 6) {
                   cell.classList.add("saturday");
                 }
-                let bs = convert_ns_to_bs(year, month, date);
-                let ad = convert_ns_to_ad(year, month, date);
 
-                let bs_list = bs.split(" ");
+                let bs_list = convert_ns_to_bs(year, month, date).split(" ");
                 let bs_year = bs_list[0];
                 let bs_month = bs_list[1];
                 let bs_date = bs_list[2];
 
-                let ad_list = ad.split(" ");
+                let ad_list = convert_ns_to_ad(year, month, date).split(" ");
                 let ad_year = ad_list[0];
                 let ad_month = ad_list[1];
                 let ad_date = ad_list[2];

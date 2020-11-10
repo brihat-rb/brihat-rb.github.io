@@ -45,9 +45,10 @@ function jump() {
 
 function showADCalendar(month, year) {
     // this funciton displays the AD calendar and all the data inside it
-    table_headers.innerHTML = "<th>SUN</th><th>MON</th><th>TUE</th>";
-    table_headers.innerHTML += "<th>WED</th><th>THU</th><th>FRI</th>";
-    table_headers.innerHTML += "<th class='saturday'>SAT</th>";
+    table_headers.innerHTML = "<th>&ensp;SUN&ensp;</th><th>&ensp;MON&ensp;</th>";
+    table_headers.innerHTML += "<th>&ensp;TUE&ensp;</th><th>&ensp;WED&ensp;</th>";
+    table_headers.innerHTML += "<th>&ensp;THU&ensp;</th><th>&ensp;FRI&ensp;</th>";
+    table_headers.innerHTML += "<th class='saturday'>&ensp;SAT&ensp;</th>";
 
     let first_day = (new Date(year.toString() + "-" + month.toString() + "-1")).getDay();
     let last_date = 29;
@@ -64,12 +65,15 @@ function showADCalendar(month, year) {
     tbl.innerHTML = "";
 
     // get NS months and years that lie in this month
-    let ns_date_start = convert_ad_to_ns(year, month, 1).split(" ")[2];
-    let ns_date_end = convert_ad_to_ns(year, month, last_date).split(" ")[2];
-    let ns_month_start = convert_ad_to_ns(year, month, 1).split(" ")[1];
-    let ns_month_end = convert_ad_to_ns(year, month, last_date).split(" ")[1];
-    let ns_year_start = convert_ad_to_ns(year, month, 1).split(" ")[0];
-    let ns_year_end = convert_ad_to_ns(year, month, last_date).split(" ")[0];
+    let ns_start_date_list_from_ad = convert_ad_to_ns(year, month, 1).split(" ");
+    let ns_year_start = ns_start_date_list_from_ad[0];
+    let ns_month_start = ns_start_date_list_from_ad[1];
+    let ns_date_start = ns_start_date_list_from_ad[2];
+
+    let ns_end_date_list_from_ad = convert_ad_to_ns(year, month, last_date).split(" ");
+    let ns_year_end = ns_end_date_list_from_ad[0];
+    let ns_month_end = ns_end_date_list_from_ad[1];
+    let ns_date_end = ns_end_date_list_from_ad[2];
 
     let ns_month_year = "";
     if (ns_year_start == ns_year_end) {
@@ -80,10 +84,13 @@ function showADCalendar(month, year) {
     }
 
     // get BS months and years that lie in this month
-    let bs_month_start = BS_MONTHS_NEP[convert_ns_to_bs(ns_year_start, ns_month_start, ns_date_start).split(" ")[1] - 1];
-    let bs_month_end = BS_MONTHS_NEP[convert_ns_to_bs(ns_year_end, ns_month_end, ns_date_end).split(" ")[1] - 1];
-    let bs_year_start = convert_ns_to_bs(ns_year_start, ns_month_start, ns_date_start).split(" ")[0];
-    let bs_year_end = convert_ns_to_bs(ns_year_end, ns_month_end, ns_date_end).split(" ")[0];
+    let bs_start_date_list_from_ns = convert_ns_to_bs(ns_year_start, ns_month_start, ns_date_start).split(" ");
+    let bs_year_start = bs_start_date_list_from_ns[0];
+    let bs_month_start = BS_MONTHS_NEP[bs_start_date_list_from_ns[1] - 1];
+
+    let bs_end_date_list_from_ns = convert_ns_to_bs(ns_year_end, ns_month_end, ns_date_end).split(" ");
+    let bs_year_end = bs_end_date_list_from_ns[0];
+    let bs_month_end = BS_MONTHS_NEP[bs_end_date_list_from_ns[1] - 1];
 
     let bs_month_year = "";
     if (bs_year_start == bs_year_end) {
@@ -138,14 +145,12 @@ function showADCalendar(month, year) {
                 if (j == 6) {
                   cell.classList.add("saturday");
                 }
-                let ns = convert_ad_to_ns(year, month, date);
-                let ns_list = ns.split(" ");
+                let ns_list = convert_ad_to_ns(year, month, date).split(" ");
                 let ns_year = ns_list[0];
                 let ns_month = ns_list[1];
                 let ns_date = ns_list[2];
 
-                let bs = convert_ns_to_bs(ns_year, ns_month, ns_date);
-                let bs_list = bs.split(" ");
+                let bs_list = convert_ns_to_bs(ns_year, ns_month, ns_date).split(" ");
                 let bs_year = bs_list[0];
                 let bs_month = bs_list[1];
                 let bs_date = bs_list[2];
@@ -189,11 +194,10 @@ function showBSCalendar(month, year) {
     table_headers.innerHTML += "<th>बुधबार</th><th>बिहिबार</th><th>शुक्रबार</th>"
     table_headers.innerHTML += "<th class='saturday'>शनिबार</th>";
 
-    let equivalent_ns_date = convert_bs_to_ns(year, month, 1);
-    let equivalent_ns_date_list = equivalent_ns_date.split(" ");
-    let equivalent_ad_date = convert_ns_to_ad(equivalent_ns_date_list[0], equivalent_ns_date_list[1], equivalent_ns_date_list[2]);
+    let ns_start_date_list_from_bs = convert_bs_to_ns(year, month, 1).split(" ");
+    let ad_start_date_from_ns_from_bs = convert_ns_to_ad(ns_start_date_list_from_bs[0], ns_start_date_list_from_bs[1], ns_start_date_list_from_bs[2]);
 
-    let first_day = (new Date(equivalent_ad_date)).getDay();
+    let first_day = (new Date(ad_start_date_from_ns_from_bs)).getDay();
     let last_date = BS_CALENDAR_DATA[year.toString()][month - 1];
 
     let tbl = document.getElementById("calendar-body"); // body of the calendar
@@ -202,12 +206,14 @@ function showBSCalendar(month, year) {
     tbl.innerHTML = "";
 
     // get NS months and years that lie in this month
-    let ns_date_start = convert_bs_to_ns(year, month, 1).split(" ")[2];
-    let ns_date_end = convert_bs_to_ns(year, month, last_date).split(" ")[2];
-    let ns_month_start = convert_bs_to_ns(year, month, 1).split(" ")[1];
-    let ns_month_end = convert_bs_to_ns(year, month, last_date).split(" ")[1];
-    let ns_year_start = convert_bs_to_ns(year, month, 1).split(" ")[0];
-    let ns_year_end = convert_bs_to_ns(year, month, last_date).split(" ")[0];
+    let ns_year_start = ns_start_date_list_from_bs[0];
+    let ns_month_start = ns_start_date_list_from_bs[1];
+    let ns_date_start = ns_start_date_list_from_bs[2];
+
+    let ns_end_date_list_from_bs = convert_bs_to_ns(year, month, last_date).split(" ");
+    let ns_year_end = ns_end_date_list_from_bs[0];
+    let ns_month_end = ns_end_date_list_from_bs[1];
+    let ns_date_end = ns_end_date_list_from_bs[2];
 
     let ns_month_year = "";
     if (ns_year_start == ns_year_end) {
@@ -218,10 +224,13 @@ function showBSCalendar(month, year) {
     }
 
     // get AD months and years that lie in this month
-    let ad_month_start = AD_MONTHS_SHORT[convert_ns_to_ad(ns_year_start, ns_month_start, ns_date_start).split(" ")[1] - 1];
-    let ad_month_end = AD_MONTHS_SHORT[convert_ns_to_ad(ns_year_end, ns_month_end, ns_date_end).split(" ")[1] - 1];
-    let ad_year_start = convert_ns_to_ad(ns_year_start, ns_month_start, ns_date_start).split(" ")[0];
-    let ad_year_end = convert_ns_to_ad(ns_year_end, ns_month_end, ns_date_end).split(" ")[0];
+    let ad_start_date_list_from_ns_from_bs = ad_start_date_from_ns_from_bs.split(" ");
+    let ad_year_start = ad_start_date_list_from_ns_from_bs[0];
+    let ad_month_start = AD_MONTHS_SHORT[ad_start_date_list_from_ns_from_bs[1] - 1];
+
+    let ad_end_date_list_from_ns_from_bs = convert_ns_to_ad(ns_year_end, ns_month_end, ns_date_end).split(" ");
+    let ad_year_end = ad_end_date_list_from_ns_from_bs[0];
+    let ad_month_end = AD_MONTHS_SHORT[ad_end_date_list_from_ns_from_bs[1] - 1];
 
     let ad_month_year = "";
     if (ad_year_start == ad_year_end) {
