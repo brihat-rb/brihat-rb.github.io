@@ -1,0 +1,48 @@
+.close {
+  position: absolute;
+  right: 1rem;
+}
+
+#modal_author {
+  color: gray;
+  font-size: 11px;
+  font-weight: bold;
+  font-family: cursive;
+}
+
+#modal_body {
+  background: url('watermark.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: auto 80%;
+}
+
+@media only screen and (max-width: 555px) {
+  #modal_title {
+    font-size: 20px;
+  }
+
+  #modal_body {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 490px) {
+  #modal_title {
+    font-size: 18px;
+  }
+
+  #modal_body {
+    font-size: 13px;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  #modal_title {
+    font-size: 16px;
+  }
+
+  #modal_body {
+    font-size: 12px;
+  }
+}

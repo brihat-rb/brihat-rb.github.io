@@ -142,6 +142,9 @@ function showADCalendar(month, year) {
 
             else {
                 let cell = document.createElement("td");
+                cell.setAttribute('onclick', 'tdclick(this.childNodes[0].childNodes[1].id);');
+                cell.setAttribute('data-toggle', 'modal');
+                cell.setAttribute('data-target', '#myModal');
                 if (j == 6) {
                   cell.classList.add("saturday");
                 }
@@ -282,6 +285,9 @@ function showBSCalendar(month, year) {
 
             else {
                 let cell = document.createElement("td");
+                cell.setAttribute('onclick', 'tdclick(this.childNodes[0].childNodes[1].id);');
+                cell.setAttribute('data-toggle', 'modal');
+                cell.setAttribute('data-target', '#myModal');
                 if (j == 6) {
                   cell.classList.add("saturday");
                 }
