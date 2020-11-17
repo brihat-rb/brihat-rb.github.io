@@ -1,4 +1,4 @@
-/* * main file here: https://brihat-rb.github.io/solarnscalendar/NS_BS.js * */
+/* * main file here: https://brihat-rb.github.io/brihat_calendar/NS_BS.js * */
 
 // very important
 const BASE_NS_YEAR_FOR_BS = 1039;

@@ -188,7 +188,7 @@ function showADCalendar(month, year) {
     localStorage.setItem('CALMODE', CALENDAR_MODE);
     currentYear = parseInt(year);
     currentMonth = parseInt(month);
-    solarnscalendar_goto.style.display = "none";
+    brihatcalendar_goto.style.display = "none";
 }
 
 function showBSCalendar(month, year) {
@@ -333,7 +333,7 @@ function showBSCalendar(month, year) {
     localStorage.setItem('CALMODE', CALENDAR_MODE);
     currentYear = parseInt(year);
     currentMonth = parseInt(month);
-    solarnscalendar_goto.style.display = "none";
+    brihatcalendar_goto.style.display = "none";
 }
 
 let saved_calendar_mode = localStorage.CALMODE;

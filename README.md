@@ -10,7 +10,7 @@
 </a>
 
 ## [Weather](https://brihat-rb.github.io/weather/weather.html)  
-## [Solar Nepal Sambat Calendar](https://brihat-rb.github.io/solarnscalendar/solarnscalendar.html)  
+## [Brihat Calendar](https://brihat-rb.github.io/brihat_calendar/brihat_calendar.html)  
 ### [Solar Nepal Sambat Converter](https://brihat-rb.github.io/solarnsconverter/solarnsconverter.html)  
 #### [AD/BS Converter, Age Date Calculator, Events of the Day](https://brihat-rb.github.io/calendar/age_date_converter.html)  
 #### [JSDict](https://brihat-rb.github.io/JSDict/JSDict.html)  
