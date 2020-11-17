@@ -13,6 +13,7 @@ function tdclick(mm) {
   // console.log(mm);
   var title = document.getElementById('modal_title');
   var content = document.getElementById('modal_body');
+  content.innerHTML = "Loading Details ...";
 
   var bs_date_split = mm.split("-");
   var bs_year = bs_date_split[0];
@@ -81,11 +82,8 @@ function tdclick(mm) {
 
   var nepal_event_req = new XMLHttpRequest();
   // json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/' + bs_year + '.json';
-  if (bs_year == 2076 || bs_year == 2077) {
+  if (bs_year >= 2076 && bs_year <= 2078) {
     json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/' + bs_year + '_detailed.json';
-  }
-  else if (bs_year == 2078) {
-    json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/2078.json';
   }
   else {
     json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/' + bs_year + '.json';
