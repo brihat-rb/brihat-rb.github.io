@@ -106,6 +106,14 @@
     </div>
     <div id="event_here"></div>
     <br />
+    <br />
+
+    <div>
+      <a id="brihatcalendar"
+         href="https://brihat-rb.github.io/solarnscalendar/solarnscalendar.html">
+          &raquo; Brihat Calendar &laquo;
+      </a>
+    </div>
 
     <div id="user_info">
       <span id="user_ip"></span>&emsp;
@@ -221,11 +229,8 @@
 
         var nepal_event_req = new XMLHttpRequest();
         // json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/' + bs_year + '.json';
-        if (bs_year == 2076 || bs_year == 2077) {
+        if (bs_year >= 2076 && bs_year <= 2078) {
           json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/' + bs_year + '_detailed.json';
-        }
-        else if (bs_year == 2078) {
-          json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/2078.json';
         }
         else {
           json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/' + bs_year + '.json';
@@ -260,7 +265,7 @@
           solar_ns_date += NS_NEP[solar_ns_date_list[1] - 1] + " " + arabic_number_to_nepali(solar_ns_date_list[2]);
           // solar_ns_date += ", " + NS_DAYS[nepali_date_day];
           info_content += "<span id='solar_ns_data'>(" + solar_ns_date + ")</span>";
-
+          info_content += "<br /><br />";
           if (events.data[bs_month - 1][bs_date - 1].event_one)
             info_content += '<div id="info1">' + events.data[bs_month - 1][bs_date - 1].event_one + '</div>';
           if (events.data[bs_month - 1][bs_date - 1].event_two)
