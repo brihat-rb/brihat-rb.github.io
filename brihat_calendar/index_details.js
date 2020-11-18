@@ -9,13 +9,17 @@ function convert_to_nepali(date_string) {
   return result;
 }
 
-function tdclick(mm) {
-  // console.log(mm);
+function tdclick(id) {
+  // console.log(id);
   var title = document.getElementById('modal_title');
   var content = document.getElementById('modal_body');
   content.innerHTML = "Loading Details ...";
 
-  var bs_date_split = mm.split("-");
+  var lunar_classlist = Array.from(document.getElementById(id).classList);
+  lunar_classlist.splice(lunar_classlist.indexOf("for_lunar"), 1);
+  var lunar_class = lunar_classlist[0];
+
+  var bs_date_split = id.split("-");
   var bs_year = bs_date_split[0];
   var bs_month = bs_date_split[1];
   var bs_date = bs_date_split[2];
@@ -61,19 +65,26 @@ function tdclick(mm) {
     title.innerHTML = "<b>Unknown Error Occured</b>";
   }
 
+  if(nepali_day == 6) {
+    title.classList.add('saturday');
+  }
+  else {
+    title.classList.remove('saturday');
+  }
+
   if (bs_year < 2070 || bs_year > 2078) {
     let default_content = "";
     if (CALENDAR_MODE == 2) {
-      default_content += solar_ns_date + "<br />";
-      default_content += ad_date_list[2] + ad_date_sub + " " + AD_MONTHS[ad_date_list[1] - 1] + " " + ad_date_list[0] + " AD";
+      default_content += "<brihat class='ad_left'>" + ad_date_list[2] + ad_date_sub + " " + AD_MONTHS[ad_date_list[1] - 1] + " " + ad_date_list[0] + " AD</brihat>";
+      default_content += "<br /><brihat class='ns_right'>" + solar_ns_date + "</brihat>";
     }
     else if (CALENDAR_MODE == 1) {
-      default_content += solar_ns_date;
-      default_content += "<br />" + "वि. सं. " + nepali_date;
+      default_content += "<brihat class='ns_left'>" + solar_ns_date + "</brihat>";
+      default_content += "<br />" + "<brihat class='bs_right'>वि. सं. " + nepali_date + "</brihat>";
     }
     else if (CALENDAR_MODE == 0) {
-      default_content += ad_date_list[2] + ad_date_sub + " " + AD_MONTHS[ad_date_list[1] - 1] + " " + ad_date_list[0] + " AD";
-      default_content += "<br />" + "वि. सं. " + nepali_date;
+      default_content += "<brihat class='bs_left'>वि. सं. " + nepali_date + "</brihat><br />";
+      default_content += "<brihat class='ad_choco'>" + ad_date_list[2] + ad_date_sub + " " + AD_MONTHS[ad_date_list[1] - 1] + " " + ad_date_list[0] + " AD</brihat>";
     }
     content.innerHTML = default_content + "<br /><br />";
     content.innerHTML += "<b>Details not available for year '<u>" + arabic_number_to_nepali(bs_year) + "</u>' BS</b>";
@@ -93,7 +104,7 @@ function tdclick(mm) {
   nepal_event_req.onload = function() {
     let events = JSON.parse(this.response);
 
-    let info_content = '<div id="tithi">';
+    let info_content = '<div id="tithi" class="' + lunar_class + '">';
     if (events.data[bs_month - 1][bs_date - 1].hasOwnProperty("ns_year")) {
       info_content += "ने. सं. " + arabic_number_to_nepali(events.data[bs_month - 1][bs_date - 1].ns_year) + " ";
     }
@@ -105,21 +116,22 @@ function tdclick(mm) {
     }
     info_content += events.data[bs_month - 1][bs_date - 1].tithi + '</div>';
 
-    if (CALENDAR_MODE != 0) {
-      info_content += "<span id='solar_ns_data'>(" + solar_ns_date + ")</span>";
-      info_content += "<br />";
-    }
+    // if (CALENDAR_MODE != 0) {
+    //   info_content += "<br />";
+    // }
     info_content += "<br />";
 
     if (CALENDAR_MODE == 2) {
-      info_content += ad_date_list[2] + ad_date_sub + " " + AD_MONTHS[ad_date_list[1] - 1] + " " + ad_date_list[0] + " AD";
+      info_content += "<span class='ad_left'>" + ad_date_list[2] + ad_date_sub + " " + AD_MONTHS[ad_date_list[1] - 1] + " " + ad_date_list[0] + " AD</span>";
+      info_content += "<br /><span class='ns_right'>" + solar_ns_date + "</span>";
     }
     else if (CALENDAR_MODE == 1) {
-      info_content += "वि. सं. " + nepali_date;
+      info_content += "<span class='ns_left'>" + solar_ns_date + "</span><br />";
+      info_content += "<span class='bs_right'>वि. सं. " + nepali_date + "</span>";
     }
     else {
-      info_content += ad_date_list[2] + ad_date_sub + " " + AD_MONTHS[ad_date_list[1] - 1] + " " + ad_date_list[0] + " AD";
-      info_content += "<br />" + "वि. सं. " + nepali_date;
+      info_content += "<span class='bs_left'>" + "वि. सं. " + nepali_date + "</span><br />";
+      info_content += "<span class='ad_choco'>" + ad_date_list[2] + ad_date_sub + " " + AD_MONTHS[ad_date_list[1] - 1] + " " + ad_date_list[0] + " AD</span>";
     }
 
     info_content += "<br /><br />";

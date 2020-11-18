@@ -17,6 +17,14 @@
   background-size: auto 80%;
 }
 
+.ns_left, .ad_left, .bs_left {
+  color: green;
+}
+
+.ns_right, .ad_choco, .bs_right {
+  color: chocolate;
+}
+
 @media only screen and (max-width: 555px) {
   #modal_title {
     font-size: 20px;
