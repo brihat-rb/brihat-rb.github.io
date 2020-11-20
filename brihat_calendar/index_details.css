@@ -25,13 +25,95 @@
   color: chocolate;
 }
 
+#suggestion {
+  color: teal;
+  text-decoration: underline;
+  font-size: 10px;
+}
+
+#suggestion:hover {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#javascript_form {
+  display: flex;
+  margin: 10px;
+  flex-direction: column;
+}
+
+#credit, #credit a {
+  font-size: 8px;
+  color: gray;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+input[type="text"], textarea {
+  text-align: center;
+  border-top-style: hidden;
+  border-left-style: hidden;
+  border-right-style: hidden;
+  border-bottom-style: groove;
+}
+
+input[type="text"]:hover, textarea:hover {
+  border-color: red;
+}
+
+textarea {
+  height: 60px; /* Note this is the same height as the placeholders line-height */
+}
+
+textarea::-moz-placeholder { /* Mozilla Firefox 19+ */
+  line-height: 60px;
+}
+textarea::-webkit-input-placeholder { /* Webkit */
+  line-height: 60px;
+}
+textarea:-ms-input-placeholder { /* IE */
+  line-height: 60px;
+}
+
+input[type="submit"] {
+  background-color: white;
+  color: green;
+  border-radius: 2px;
+  border: 1px solid green;
+  transition-duration: 0.2s;
+  width: 200px;
+  height: 25px;
+  margin-top: 10px;
+  align-self: center;
+}
+
+input[type="submit"]:hover {
+  background-color: green;
+  color: white;
+}
+
+input[type="submit"][disabled] {
+  border: 1px solid darkgray;
+  background-color: white;
+  color: darkgray;
+}
+
+input[type="submit"][disabled]:hover {
+  background-color: darkgray;
+  color: white;
+}
+
 @media only screen and (max-width: 555px) {
   #modal_title {
     font-size: 20px;
   }
 
-  #modal_body {
+  #modal_body, input, textarea {
     font-size: 14px;
+  }
+
+  input[type="submit"] {
+    width: 150px;
   }
 }
 
@@ -42,6 +124,14 @@
 
   #modal_body {
     font-size: 13px;
+  }
+
+  input, textarea {
+    font-size: 12px;
+  }
+
+  input[type="submit"] {
+    width: 125px;
   }
 }
 

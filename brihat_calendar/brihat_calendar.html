@@ -70,6 +70,17 @@
               Loading Details ...
             </div>
 
+            <span id="suggestion" onclick="show_suggest_form()">Suggest an edit</span>
+            <span id="suggestion_info"></span>
+            <form id="javascript_form">
+              <input type="text" name="subject" placeholder="Subject" />
+              <textarea name="text" placeholder="Message"></textarea>
+              <input type="submit" id="js_send" value="SEND SUGGESTION" />
+
+              <!-- not required, but we'd appreciate it if you'd link to us somewhere on your site -->
+              <span id="credit">Powered by <a href="https://postmail.invotes.com" target="_blank">PostMail</a></span>
+            </form>
+
             <!-- Modal footer -->
             <div class="modal-footer">
               <span class="mr-auto" id='modal_author'>brihat (brihatbajracharya@gmail.com)</span>
@@ -89,6 +100,7 @@
     <script src="index.js"></script>
     <script src="index_cal_conv.js"></script>
     <script src="index_details.js"></script>
+    <script src="suggest_edit.js"></script>
 
     <script>
     function on_window_resize() {
