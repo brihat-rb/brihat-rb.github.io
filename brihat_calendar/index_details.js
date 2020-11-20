@@ -19,6 +19,8 @@ function tdclick(id) {
   document.getElementById("js_send").value = 'SEND SUGGESTION';
   document.getElementById("js_send").disabled = false;
   document.getElementById("suggestion_info").innerHTML = "";
+  document.getElementById("suggest_subject").value = "";
+  document.getElementById("suggest_message").value = "";
 
   var lunar_classlist = Array.from(document.getElementById(id).classList);
   lunar_classlist.splice(lunar_classlist.indexOf("for_lunar"), 1);
