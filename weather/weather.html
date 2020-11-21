@@ -79,7 +79,10 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'UA-163547186-2');
+      gtag('config', 'UA-163547186-2', {
+        cookie_domain: 'brihat-rb.github.io',
+        cookie_flags: 'SameSite=None;Secure',
+      });
     </script>
   </body>
   </html>
