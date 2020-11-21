@@ -40,7 +40,18 @@ function jump() {
     // go to specific month of specific year
     currentYear = parseInt(select_year.value);
     currentMonth = parseInt(select_month.value);
-    showCalendar(currentMonth, currentYear);
+    if (CALENDAR_MODE == 0) {
+      showCalendar(currentMonth, currentYear);
+    }
+    else if (CALENDAR_MODE == 1) {
+      showADCalendar(currentMonth, currentYear);
+    }
+    else if (CALENDAR_MODE == 2) {
+      showBSCalendar(currentMonth, currentYear);
+    }
+    else {
+      console.log("error in calendar mode");
+    }
 }
 
 function showADCalendar(month, year) {
@@ -188,7 +199,8 @@ function showADCalendar(month, year) {
     localStorage.setItem('CALMODE', CALENDAR_MODE);
     currentYear = parseInt(year);
     currentMonth = parseInt(month);
-    brihatcalendar_goto.style.display = "none";
+    // brihatcalendar_goto.style.display = "none";
+    update_date_jumper(CALENDAR_MODE);
 }
 
 function showBSCalendar(month, year) {
@@ -333,7 +345,8 @@ function showBSCalendar(month, year) {
     localStorage.setItem('CALMODE', CALENDAR_MODE);
     currentYear = parseInt(year);
     currentMonth = parseInt(month);
-    brihatcalendar_goto.style.display = "none";
+    // brihatcalendar_goto.style.display = "none";
+    update_date_jumper(CALENDAR_MODE);
 }
 
 let saved_calendar_mode = localStorage.CALMODE;
@@ -346,3 +359,5 @@ else if (saved_calendar_mode == 2) {
 else {
   showCalendar(currentMonth, currentYear);
 }
+
+update_date_jumper(parseInt(saved_calendar_mode));

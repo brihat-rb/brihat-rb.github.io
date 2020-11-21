@@ -18,7 +18,7 @@ const select_month = document.getElementById("month");
 const monthAndYear = document.getElementById("monthAndYear");
 
 // Some Global variables added for NS-AD-BS Calendar Toggle
-const brihatcalendar_goto = document.getElementById("solarns_date_jumper");
+const brihatcalendar_goto = document.getElementById("brihat_calendar_date_jumper");
 const table_headers = document.getElementById('table_header_row');
 /*
 CALENDAR_MODE (default: 0)
@@ -31,14 +31,15 @@ let bs_today_year = bs_today_list[0];
 let bs_today_month = bs_today_list[1];
 let bs_today_date = bs_today_list[2];
 
+// Handled by function update_date_jumper() at end of this file
 // create options for select year (1100-1199 NS) and select current year
-for (let ns_year = 1100; ns_year < 1200; ns_year++) {
-  let option = document.createElement("option");
-  select_year.options.add(option);
-  option.text = arabic_number_to_nepali(ns_year);
-  option.value = ns_year;
-}
-select_year.value = ns_today_year;
+// for (let ns_year = 1100; ns_year < 1200; ns_year++) {
+//   let option = document.createElement("option");
+//   select_year.options.add(option);
+//   option.text = arabic_number_to_nepali(ns_year);
+//   option.value = ns_year;
+// }
+// select_year.value = ns_today_year;
 
 let pakshya_details_nep = "";
 let pakshya_details_ns = "";
@@ -58,13 +59,13 @@ let pakshya_details_ns = "";
 //     currentMonth = (currentMonth == 12) ? 1 : currentMonth + 1;
 //     showCalendar(currentMonth, currentYear);
 // }
-
-function jump() {
-    // go to specific month of specific year
-    currentYear = parseInt(select_year.value);
-    currentMonth = parseInt(select_month.value);
-    showCalendar(currentMonth, currentYear);
-}
+//
+// function jump() {
+//     // go to specific month of specific year
+//     currentYear = parseInt(select_year.value);
+//     currentMonth = parseInt(select_month.value);
+//     showCalendar(currentMonth, currentYear);
+// }
 
 function fill_lunar_data(year1, year2) {
     const lunar_data_url1 = "https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/brihat_calendar/data/" + year1.toString() + "_lunar_data.json";
@@ -411,5 +412,62 @@ function showCalendar(month, year) {
     localStorage.setItem('CALMODE', CALENDAR_MODE);
     currentMonth = month;
     currentYear = year;
-    brihatcalendar_goto.style.display = "flex";
+    // brihatcalendar_goto.style.display = "flex";
+    update_date_jumper(CALENDAR_MODE);
+}
+
+function update_date_jumper(cal_mode) {
+  select_year.innerHTML = "";
+  select_month.innerHTML = "";
+  switch(cal_mode) {
+    case 0:
+      for (let ns_year = 1100; ns_year <= 1200; ns_year++) {
+        let option = document.createElement("option");
+        select_year.options.add(option);
+        option.text = arabic_number_to_nepali(ns_year);
+        option.value = ns_year;
+      }
+
+      for (let ns_month = 0; ns_month < 12; ns_month++) {
+        let option = document.createElement("option");
+        select_month.options.add(option);
+        option.text = NS_NEP[ns_month];
+        option.value = ns_month + 1;
+      }
+      break;
+    case 1:
+      for (let ad_year = 1980; ad_year <= 2050; ad_year++) {
+        let option = document.createElement("option");
+        select_year.options.add(option);
+        option.text = ad_year;
+        option.value = ad_year;
+      }
+
+      for (let ad_month = 0; ad_month < 12; ad_month++) {
+        let option = document.createElement("option");
+        select_month.options.add(option);
+        option.text = AD_MONTHS[ad_month];
+        option.value = ad_month + 1;
+      }
+      break;
+    case 2:
+      for (let bs_year = 2000; bs_year <= 2100; bs_year++) {
+        let option = document.createElement("option");
+        select_year.options.add(option);
+        option.text = arabic_number_to_nepali(bs_year);
+        option.value = bs_year;
+      }
+
+      for (let bs_month = 0; bs_month < 12; bs_month++) {
+        let option = document.createElement("option");
+        select_month.options.add(option);
+        option.text = BS_MONTHS_NEP[bs_month];
+        option.value = bs_month + 1;
+      }
+      break;
+    default:
+      document.getElementById("brihat_calendar_date_jumper").style.display = "none";
+  }
+  select_year.value = currentYear;
+  select_month.value = currentMonth;
 }
