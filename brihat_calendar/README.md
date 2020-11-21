@@ -8,3 +8,4 @@
  - Lunar Pakshya Date for 2077 and 2078 BS
  - Toggle between NS, AD and BS Calendar
  - Date Details (Event Information)
+ - Receive suggestions for edit
