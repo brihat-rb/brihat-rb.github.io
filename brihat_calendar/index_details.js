@@ -11,6 +11,7 @@ function convert_to_nepali(date_string) {
 
 function tdclick(id) {
   // console.log(id);
+  var td_element = document.getElementById(id).parentNode.parentNode;
   var title = document.getElementById('modal_title');
   var content = document.getElementById('modal_body');
   content.innerHTML = "Loading Details ...";
@@ -70,6 +71,13 @@ function tdclick(id) {
   }
   else {
     title.innerHTML = "<b>Unknown Error Occured</b>";
+  }
+
+  if (td_element.classList.contains("text-primary")) {
+    title.classList.add("text-primary");
+  }
+  else {
+    title.classList.remove("text-primary");
   }
 
   if(nepali_day == 6) {
