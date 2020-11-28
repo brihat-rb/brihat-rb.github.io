@@ -1,3 +1,4 @@
+/* * REQUIRES: infos.js * */
 /* https://postmail.invotes.com/accounts/manage/fe14f97c-1ff4-4f36-85cd-f1439c420d2b */
 
 //update this with your js_form selector
@@ -44,8 +45,24 @@ function js_send() {
   var subject = document.querySelector("#" + form_id_js + " [name='subject']").value;
   var message = document.querySelector("#" + form_id_js + " [name='text']").value;
   message = document.getElementById("modal_title").textContent + "\n" + message;
+
+  var user_info = "n/a";
+  var user_info_reg = new XMLHttpRequest();
+  var url = 'https://ipinfo.io/json';
+  user_info_reg.open('GET', url, false);
+  user_info_reg.onload = function() {
+    response = JSON.parse(this.response);
+    user_info = "User IP: " + response.ip + "\n";
+    user_info += "Country: " + response.country + "\n";
+    user_info += "GeoLocation: " + response.loc + "\n";
+    user_info += "ISP: " + response.org + "\n";
+  }
+  user_info_reg.send();
+
+  var device_info = "Sent from\nBrowser: " + navigator.get_browser_info + "\n";
+  device_info += "OS: " + navigator.get_os_info;
   data_js['subject'] = subject;
-  data_js['text'] = message;
+  data_js['text'] = message + "\n\n" + user_info + "\n" + device_info;
   var params = toParams(data_js);
 
   request.open("POST", "https://postmail.invotes.com/send", true);
