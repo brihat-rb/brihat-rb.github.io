@@ -47,7 +47,7 @@ function handleTouchMove(evt) {
             // alert("up_swipe");
         } else {
             /* down swipe */
-            location.reload()
+            // location.reload()
         }
     }
     /* reset values */
