@@ -135,6 +135,25 @@ select {
   text-align-last: center;
 }
 
+#g_info, #user_info {
+  display: flex;
+  justify-content: space-between;
+  font-family: monospace;
+  color: maroon;
+  font-size: 13px;
+  /* display: none; */
+}
+
+#g_info div, #user_info div{
+  /* display: none; */
+  opacity: 0.5;
+  margin: 0px 2px 0px 2px;
+}
+
+#g_info div:hover, #user_info div:hover {
+  opacity: 0.75;
+}
+
 @media only screen and (max-width: 768px) {
   body {
     width: 100%;
@@ -188,6 +207,10 @@ select {
 
   .for_lunar {
     font-size: 11px;
+  }
+
+  #user_isp {
+    display: none;
   }
 }
 
