@@ -73,7 +73,7 @@ function fill_lunar_data(year1, year2) {
     var LUNAR_EVENTS_ONE = LUNAR_EVENTS;
     var LUNAR_EVENTS_TWO = LUNAR_EVENTS;
 
-    if (year1 >= 2077 && year1 <= 2078) {
+    if (year1 >= 2076 && year1 <= 2078) {
       var lunar_data_req1 = new XMLHttpRequest();
       lunar_data_req1.open('GET', lunar_data_url1, false);
       lunar_data_req1.onload = function() {
@@ -87,7 +87,7 @@ function fill_lunar_data(year1, year2) {
     }
 
     if (year1 != year2) {
-      if (year2 >= 2077 && year2 <= 2078) {
+      if (year2 >= 2076 && year2 <= 2078) {
         const lunar_data_url2 = "https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/brihat_calendar/data/" + year2.toString() + "_lunar_data.json";
 
         var lunar_data_req2 = new XMLHttpRequest();
