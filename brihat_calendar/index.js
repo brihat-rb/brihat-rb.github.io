@@ -67,8 +67,6 @@ let pakshya_details_ns = "";
 //     showCalendar(currentMonth, currentYear);
 // }
 
-global_lunar_year = null;
-
 function fill_lunar_data(year1, year2) {
     const lunar_data_url1 = "https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/brihat_calendar/data/" + year1.toString() + "_lunar_data.json";
     var LUNAR_EVENTS = JSON.parse('{}');
