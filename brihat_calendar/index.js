@@ -67,6 +67,8 @@ let pakshya_details_ns = "";
 //     showCalendar(currentMonth, currentYear);
 // }
 
+global_lunar_year = null;
+
 function fill_lunar_data(year1, year2) {
     const lunar_data_url1 = "https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/brihat_calendar/data/" + year1.toString() + "_lunar_data.json";
     var LUNAR_EVENTS = JSON.parse('{}');
@@ -111,6 +113,7 @@ function fill_lunar_data(year1, year2) {
     let lunar_month_list = [];
     let lunar_month_list_nep = [];
     let lunar_year_list = [];
+    let lunar_year_list_all = [];
 
     for (let i = 0; i < lunar_span.length; i++) {
       let span_element = lunar_span[i];
@@ -130,14 +133,17 @@ function fill_lunar_data(year1, year2) {
           lunar_month_list.push(LUNAR_EVENTS[span_id][0]);
           lunar_month_list_nep.push(LUNAR_EVENTS[span_id][1]);
           lunar_year_list.push(LUNAR_EVENTS[span_id][3]);
+          lunar_year_list_all.push(LUNAR_EVENTS[span_id][3]);
         }
         if (i > 0) {
           if (prev_lunar_month != LUNAR_EVENTS[span_id][0]) {
             lunar_month_list.push(LUNAR_EVENTS[span_id][0]);
             lunar_month_list_nep.push(LUNAR_EVENTS[span_id][1]);
+            lunar_year_list_all.push(LUNAR_EVENTS[span_id][3]);
             if (lunar_year_list.indexOf(LUNAR_EVENTS[span_id][3]) == -1) {
               lunar_year_list.push(LUNAR_EVENTS[span_id][3]);
             }
+            // lunar_year_list.filter((e, i, a) => a.indexOf(e) === i);
 
             if (prev_span_element.classList.contains("pstart")) {
               span_element.classList.remove("pstart");
@@ -233,28 +239,38 @@ function fill_lunar_data(year1, year2) {
           pakshya_details_nep += arabic_number_to_nepali(lunar_year_list[1]);
         }
         else {
-          pakshya_details.innerHTML = "<span class='pstart'>" + lunar_month_list[0] + "</span>" + ", ";
-          pakshya_details.innerHTML += "<span class='pmid1'>" + lunar_month_list[1] + "</span>";
-          pakshya_details_nep = "<span class='pstart'>" + lunar_month_list_nep[0] + "</span>" + ", ";
-          pakshya_details_nep += "<span class='pmid1'>" + lunar_month_list_nep[1] + "</span>";
-          if (lunar_month_list.length == 3) {
+          pakshya_details.innerHTML = "<span class='pstart'>" + lunar_month_list[0] + "</span>";
+          pakshya_details_nep = "<span class='pstart'>" + lunar_month_list_nep[0] + "</span>";
+          if (lunar_year_list_all[0] != lunar_year_list_all[1]) {
             pakshya_details.innerHTML += " " + arabic_number_to_nepali(lunar_year_list[0]) + " <b>/</b> ";
-            pakshya_details.innerHTML += "<span class='pmid2'>" + lunar_month_list[2] + "</span>" + " ";
-            pakshya_details.innerHTML += arabic_number_to_nepali(lunar_year_list[1]);
+            pakshya_details.innerHTML += "<span class='pmid1'>" + lunar_month_list[1] + "</span>";
+            pakshya_details.innerHTML += ", " + "<span class='pmid2'>" + lunar_month_list[2] + "</span>";
             pakshya_details_nep += " " + arabic_number_to_nepali(lunar_year_list[0]) + " <b>/</b> ";
-            pakshya_details_nep += "<span class='pmid2'>" + lunar_month_list_nep[2] + "</span>" + " ";
-            pakshya_details_nep += arabic_number_to_nepali(lunar_year_list[1]);
+            pakshya_details_nep += "<span class='pmid1'>" + lunar_month_list_nep[1] + "</span>";
+            pakshya_details_nep += ", " + "<span class='pmid2'>" + lunar_month_list_nep[2] + "</span>";
+            if (lunar_month_list.length > 3) {
+              pakshya_details.innerHTML += ", " + "<span class='pend'>" + lunar_month_list[3] + "</span>";
+              pakshya_details_nep += ", " + "<span class='pend'>" + lunar_month_list_nep[3] + "</span>";
+            }
+            pakshya_details.innerHTML += " " + arabic_number_to_nepali(lunar_year_list[1]);
+            pakshya_details_nep += " " + arabic_number_to_nepali(lunar_year_list[1]);
           }
-          else if (lunar_month_list.length == 4) {
-            // not tested yet
-            pakshya_details.innerHTML += ", <span class='pmid2'>" + lunar_month_list[2] + "</span>" + " ";
-            pakshya_details.innerHTML += arabic_number_to_nepali(lunar_year_list[0]) + " <b>/</b> ";
-            pakshya_details.innerHTML += "<span class='pend'>" + lunar_month_list[3] + "</span>" + " ";
-            pakshya_details.innerHTML += arabic_number_to_nepali(lunar_year_list[1]);
-            pakshya_details_nep += ", <span class='pmid2'>" + lunar_month_list_nep[2] + "</span>" + " ";
-            pakshya_details_nep += arabic_number_to_nepali(lunar_year_list[0]) + " <b>/</b> ";
-            pakshya_details_nep += "<span class='pend'>" + lunar_month_list_nep[3] + "</span>" + " ";
-            pakshya_details_nep += arabic_number_to_nepali(lunar_year_list[1]);
+          else {
+            pakshya_details.innerHTML += ", " + "<span class='pmid1'>" + lunar_month_list[1] + "</span>";
+            pakshya_details_nep += ", " + "<span class='pmid1'>" + lunar_month_list_nep[1] + "</span>";
+            if (lunar_year_list_all[1] != lunar_year_list_all[2]) {
+              pakshya_details.innerHTML += " " + arabic_number_to_nepali(lunar_year_list[0]) + " <b>/</b> ";
+              pakshya_details_nep += " " + arabic_number_to_nepali(lunar_year_list[0]) + " <b>/</b> ";
+
+              pakshya_details.innerHTML += "<span class='pmid2'>" + lunar_month_list[2] + "</span>";
+              pakshya_details_nep += "<span class='pmid2'>" + lunar_month_list_nep[2] + "</span>";
+              if (lunar_month_list.length > 3) {
+                pakshya_details.innerHTML += ", " + "<span class='pend'>" + lunar_month_list[3] + "</span>";
+                pakshya_details_nep += "," + "<span class='pend'>" + lunar_month_list_nep[3] + "</span>";
+              }
+              pakshya_details.innerHTML += " " + arabic_number_to_nepali(lunar_year_list[1]);
+              pakshya_details_nep += " " + arabic_number_to_nepali(lunar_year_list[1]);
+            }
           }
         }
       }
