@@ -164,7 +164,7 @@ function showADCalendar(month, year) {
                 let ns_month = ns_list[1];
                 let ns_date = ns_list[2];
 
-                let bs_list = convert_ns_to_bs(ns_year, ns_month, ns_date).split(" ");
+                let bs_list = convert_ad_to_bs(year, month, date).split(" ");
                 let bs_year = bs_list[0];
                 let bs_month = bs_list[1];
                 let bs_date = bs_list[2];
@@ -309,7 +309,7 @@ function showBSCalendar(month, year) {
                 let ns_month = ns_list[1];
                 let ns_date = ns_list[2];
 
-                let ad = convert_ns_to_ad(ns_year, ns_month, ns_date);
+                let ad = convert_bs_to_ad(year, month, date);
                 let ad_list = ad.split(" ");
                 let ad_year = ad_list[0];
                 let ad_month = ad_list[1];

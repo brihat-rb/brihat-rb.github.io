@@ -33,7 +33,8 @@ function tdclick(id) {
   var bs_date = bs_date_split[2];
 
   let ns_date_list = convert_bs_to_ns(bs_year, bs_month, bs_date).split(" ");
-  let ad_date = convert_ns_to_ad(ns_date_list[0], ns_date_list[1], ns_date_list[2]);
+  // let ad_date = convert_ns_to_ad(ns_date_list[0], ns_date_list[1], ns_date_list[2]);
+  let ad_date = convert_bs_to_ad(bs_year, bs_month, bs_date);
   let ad_date_list = ad_date.split(" ");
   let ad_date_sub = "<sup>th</sup>";
   if (ad_date_list[2].split("")[ad_date_list[2].length - 1] == 1) {

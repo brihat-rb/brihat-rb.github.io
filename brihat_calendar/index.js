@@ -294,7 +294,13 @@ function showCalendar(month, year) {
     table_headers.innerHTML += "<th>बुधबाः</th><th>बिहिबाः</th><th>सुक्रबाः</th>";
     table_headers.innerHTML += "<th class='saturday'>सनिबाः</th>";
 
-    let equivalent_ad_date = convert_ns_to_ad(year, month, 1);
+    let equivalent_bs_date = convert_ns_to_bs(year, month, 1);
+    let equivalent_bs_date_list = equivalent_bs_date.split(" ");
+    let equivalent_bs_year = equivalent_bs_date_list[0];
+    let equivalent_bs_month = equivalent_bs_date_list[1];
+    let equivalent_bs_day = equivalent_bs_date_list[2];
+
+    let equivalent_ad_date = convert_bs_to_ad(equivalent_bs_year, equivalent_bs_month, equivalent_bs_day);
 
     let first_day = (new Date(equivalent_ad_date)).getDay();
     let last_date = get_last_date_ns(year, month);
@@ -392,7 +398,7 @@ function showCalendar(month, year) {
                 let bs_month = bs_list[1];
                 let bs_date = bs_list[2];
 
-                let ad_list = convert_ns_to_ad(year, month, date).split(" ");
+                let ad_list = convert_bs_to_ad(bs_year, bs_month, bs_date).split(" ");
                 let ad_year = ad_list[0];
                 let ad_month = ad_list[1];
                 let ad_date = ad_list[2];
