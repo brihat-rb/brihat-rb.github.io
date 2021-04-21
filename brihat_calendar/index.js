@@ -430,8 +430,8 @@ function showCalendar(month, year) {
     fill_lunar_data(parseInt(bs_year_start), parseInt(bs_year_end));
     CALENDAR_MODE = 0;
     localStorage.setItem('CALMODE', CALENDAR_MODE);
-    currentMonth = month;
-    currentYear = year;
+    currentMonth = parseInt(month);
+    currentYear = parseInt(year);
     // brihatcalendar_goto.style.display = "flex";
     update_date_jumper(CALENDAR_MODE);
 }
