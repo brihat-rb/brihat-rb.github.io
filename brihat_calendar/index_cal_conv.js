@@ -210,9 +210,10 @@ function showBSCalendar(month, year) {
     table_headers.innerHTML += "<th class='saturday'>शनिबार</th>";
 
     let ns_start_date_list_from_bs = convert_bs_to_ns(year, month, 1).split(" ");
-    let ad_start_date_from_ns_from_bs = convert_ns_to_ad(ns_start_date_list_from_bs[0], ns_start_date_list_from_bs[1], ns_start_date_list_from_bs[2]);
+    let ad_start_date_from_bs = convert_bs_to_ad(year, month, 1)
+    let ad_start_date_list_from_bs = ad_start_date_from_bs.split(" ");
 
-    let first_day = (new Date(ad_start_date_from_ns_from_bs)).getDay();
+    let first_day = (new Date(ad_start_date_from_bs)).getDay();
     let last_date = BS_CALENDAR_DATA[year.toString()][month - 1];
 
     let tbl = document.getElementById("calendar-body"); // body of the calendar
@@ -239,9 +240,8 @@ function showBSCalendar(month, year) {
     }
 
     // get AD months and years that lie in this month
-    let ad_start_date_list_from_ns_from_bs = ad_start_date_from_ns_from_bs.split(" ");
-    let ad_year_start = ad_start_date_list_from_ns_from_bs[0];
-    let ad_month_start = AD_MONTHS_SHORT[ad_start_date_list_from_ns_from_bs[1] - 1];
+    let ad_year_start = ad_start_date_list_from_bs[0];
+    let ad_month_start = AD_MONTHS_SHORT[ad_start_date_list_from_bs[1] - 1];
 
     let ad_end_date_list_from_ns_from_bs = convert_ns_to_ad(ns_year_end, ns_month_end, ns_date_end).split(" ");
     let ad_year_end = ad_end_date_list_from_ns_from_bs[0];
