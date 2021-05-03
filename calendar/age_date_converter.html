@@ -194,15 +194,17 @@
     </script>
 
     <script>
+      let bs_date_today = get_bs_date_from_date_object(new Date()).split(" ");
+      let year = bs_date_today[0];
+      let month = get_bs_month(bs_date_today[1]) - 1;
+      let date = bs_date_today[2] - 1;
+
+      json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/' + year + '_detailed.json';
+
       var nepal_event_req = new XMLHttpRequest();
-      // json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/2077.json';
-      json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/2077_detailed.json';
       nepal_event_req.open('GET', json_url, true);
       nepal_event_req.onload = function() {
         let events = JSON.parse(this.response);
-        let bs_today = get_bs_date_from_date_object(new Date()).split(" ");
-        let month = get_bs_month(bs_today[1]) - 1;
-        let date = bs_today[2] - 1;
 
         let info_content = "";
         info_content += '<div id="tithi">' + events.data[month][date].pakshya + " " + events.data[month][date].tithi + '</div>';
