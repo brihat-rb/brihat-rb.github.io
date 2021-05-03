@@ -188,7 +188,7 @@ function showADCalendar(month, year) {
             }
         }
         tbl.appendChild(row); // appending each row into calendar body.
-        if (date > get_total_days_in_ns_month(month, year)) {
+        if (date > last_date) {
           // no more row needed
           break;
         }
@@ -334,7 +334,7 @@ function showBSCalendar(month, year) {
             }
         }
         tbl.appendChild(row); // appending each row into calendar body.
-        if (date > get_total_days_in_ns_month(month, year)) {
+        if (date > last_date) {
           // no more row needed
           break;
         }
