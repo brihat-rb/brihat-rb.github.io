@@ -44,12 +44,24 @@ body {
   color: darkcyan;
 }
 
-#iupdate {
+#pollution {
+  font-size: 16px;
+}
+
+#pollution:hover {
+  font-size: 18px;
+}
+
+#iupdate, #pupdate, .pdate_250 {
   font-size: 10px;
   font-weight: normal;
   white-space: nowrap;
   color: gray;
   padding-bottom: 20px;
+}
+
+#pupdate {
+  padding: 0;
 }
 
 .load {
@@ -180,7 +192,7 @@ button:hover {
 
 /* WEATHER FORECAST CSS */
 /* The popup (background) */
-.forecast {
+.forecast, .pollution_info {
   display: none;
   position: fixed;
   z-index: 1;
@@ -196,8 +208,12 @@ button:hover {
   transform: translate(-50%);
 }
 
+.pollution_info {
+  width: 80%;
+}
+
 /* popup content */
-.forecast-content {
+.forecast-content, .pollution-content {
   background-color: #fefefe;
   margin: auto;
   padding: 0 10px 10px 10px;
@@ -208,7 +224,7 @@ button:hover {
 }
 
 /* close Button */
-.close {
+.close, .pollution_close {
   color: #aaaaaa;
   float: right;
   font-size: 26px;
@@ -219,13 +235,15 @@ button:hover {
 }
 
 .close:hover,
-.close:focus {
+.close:focus,
+.pollution_close:hover,
+.pollution_close:focus {
   color: red;
   text-decoration: none;
   cursor: pointer;
 }
 
-#fheader {
+#fheader, #pheader {
   position: sticky;
   top: 0;
   background-color: white;
@@ -233,12 +251,23 @@ button:hover {
   padding-bottom: 5px;
 }
 
-#fcontent {
+#fcontent, #pcontent {
   overflow: auto;
   top: 500px;
 }
 
-.ftime {
+#pcontent {
+  color: darkcyan;
+  font-weight: bold;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+#pcontent span {
+  font-weight: bold;
+}
+
+.ftime, .ptime {
   font-size: 14px;
   font-weight: bold;
   font-family: sans-serif;
@@ -247,7 +276,7 @@ button:hover {
   color: darkcyan;
 }
 
-.fdata {
+.fdata, .pdata {
   font-size: 13px;
   font-weight: bold;
   font-family: sans-serif;
@@ -257,14 +286,14 @@ button:hover {
   padding-left: 15px;
 }
 
-#ftitle {
+#ftitle, #ptitle {
   text-align: center;
   font-family: sans-serif;
   color: green;
   text-transform: uppercase;
 }
 
-#flocation {
+#flocation, #plocation {
   text-align: center;
   font-family: monospace;
   color: darkgray;
@@ -290,6 +319,18 @@ button:hover {
   color: dimgray;
 }
 
+.perror {
+  color: darkcyan;
+  font-family: sans-serif;
+  font-size: 16px;
+}
+
+.perrdesc {
+  color: lightgray;
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
 hr {
   height: 2px;
   width: 100%;
@@ -305,6 +346,10 @@ hr {
 
 .wide_screen {
   display: none;
+}
+
+.pwidth_350 {
+  color: darkcyan;
 }
 
 @media only screen and (min-width: 850px) {
@@ -358,6 +403,12 @@ hr {
   font-weight: bold;
 }
 
+@media only screen and (max-width: 425px) {
+  .pwidth_350 {
+    display: none;
+  }
+}
+
 @media only screen and (max-width: 300px) {
   #narrow {
     display: none;
@@ -402,6 +453,26 @@ hr {
 .fwidth_240 {
   color: darkcyan;
   font-weight: bold;
+}
+
+.ptitle_275 {
+  color: green;
+}
+
+@media only screen and (max-width: 275px) {
+  .ptitle_275 {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 250px) {
+  #pcontent {
+    font-size: 12px;
+  }
+
+  .pdate_250 {
+    display: none;
+  }
 }
 
 @media only screen and (max-width: 200px) {
