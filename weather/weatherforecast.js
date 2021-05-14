@@ -13,12 +13,12 @@ span.onclick = function() {
   popup_box.style.display = "none";
 };
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
+// When the user clicks anywhere outside of the modal within parent, close it
+window.addEventListener('click', function(event) {
   if (event.target == popup_box) {
     popup_box.style.display = "none";
   }
-};
+});
 
 function forecast() {
   let info_message = document.getElementById("wforecast");
