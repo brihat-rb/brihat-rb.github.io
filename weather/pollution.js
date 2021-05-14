@@ -37,7 +37,9 @@ function get_pollution_info() {
       let pollution_content_DOM = '<div id="fheader"><div id="ptitle"><span class="ptitle_275">CURRENT </span>AIR INFO</div><div id="plocation">' + document.getElementById('local_city').innerText + '</div></div>';
       pollution_content_DOM += '<div id="pcontent">';
       let aqi_description = ["N/A", "Good", "Fair", "Moderate", "Poor", "Very Poor"];
-      let p_content = "<br />A<span class='pwidth_350'>ir </span>Q<span class='pwidth_350'>uality </span>I<span class='pwidth_350'>ndex</span>: <span id='air_aqi'>" + resp.list[0].main.aqi + " (" + aqi_description[resp.list[0].main.aqi] + ")</span><br /><br />";
+      let aqi = resp.list[0].main.aqi;
+      let p_content = "<br />A<span class='pwidth_350'>ir </span>Q<span class='pwidth_350'>uality </span>I<span class='pwidth_350'>ndex</span>: ";
+      p_content += "<span id='air_aqi'>" + aqi + " (<span id='aqi_" + aqi + "'>" + aqi_description[aqi] + "</span>)</span><br /><br />";
       p_content += "<span class='pwidth_350'>Сoncentration of </span>CO: <span id='air_co'>" + resp.list[0].components.co + "</span> &mu;g/m<sup>3</sup><br /><br />";
       p_content += "<span class='pwidth_350'>Сoncentration of </span>NH<sub>3</sub>: <span id='air_nh3'>" + resp.list[0].components.nh3 + "</span> &mu;g/m<sup>3</sup><br /><br />";
       p_content += "<span class='pwidth_350'>Сoncentration of </span>NO: <span id='air_no'>" + resp.list[0].components.no + "</span> &mu;g/m<sup>3</sup><br /><br />";

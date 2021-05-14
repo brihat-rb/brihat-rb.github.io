@@ -252,7 +252,7 @@ button:hover {
 }
 
 #fcontent, #pcontent {
-  overflow: auto;
+  overflow: visible;
   top: 500px;
 }
 
@@ -306,13 +306,33 @@ button:hover {
   float: right;
 }
 
+#aqi_1 {
+  color: green;
+}
+
+#aqi_2 {
+  color: lime;
+}
+
+#aqi_3 {
+  color: orange;
+}
+
+#aqi_4 {
+  color: red;
+}
+
+#aqi_5 {
+  color: maroon;
+}
+
 #credit, #credit a {
   text-decoration: none;
   font-size: 10px;
   font-family: sans-serif;
   white-space: nowrap;
   color: lightgray;
-  text-align: right;
+  text-align: center;
 }
 
 #credit:hover, #credit a:hover {
