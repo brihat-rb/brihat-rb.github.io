@@ -1,4 +1,6 @@
 let TIMEZONE = "20700";
+let current_lat = 27.6833;
+let current_lon = 85.4167;
 
 function update_weather() {
   document.getElementById("weather_icon").src = "./loading.svg";
@@ -39,6 +41,8 @@ function get_weather() {
     // Begin accessing JSON data here
     let weather_data = JSON.parse(this.response);
     if(weather_data.cod == 200) {
+      current_lat = weather_data.coord.lat;
+      current_lon = weather_data.coord.lon;
       document.getElementById("info").style = "display: none;";
       document.getElementById("location").innerHTML = weather_data.name + " (" + weather_data.sys.country + ")";
       document.getElementById("weather_icon").src = "https://openweathermap.org/img/wn/" + weather_data.weather[0].icon + "@2x.png";
@@ -130,6 +134,8 @@ function get_weather() {
   // Send request
   request.send();
   localStorage.saved_city = city_name;
+  localStorage.saved_lat = current_lat;
+  localStorage.saved_lon = current_lon;
 }
 
 // for topmost date display
