@@ -208,6 +208,7 @@ function show_weather_notification() {
 }
 
 function notifyMe() {
+  update_weather();
   if (!window.Notification) {
     console.log('This browser does not support notifications.');
   }
