@@ -20,6 +20,8 @@ window.addEventListener('click', function(event) {
   }
 });
 
+const YID = "0fa922084817";
+
 function forecast() {
   let info_message = document.getElementById("wforecast");
   info_message.innerHTML = '<div id="fheader"><div id="ftitle">24 hr forecast</div><div id="flocation">Please Wait</div></div></div><div id="fcontent"><div id="forcasting"><i class="load fa fa-refresh" aria-hidden="true"></i></div></div>';
@@ -27,7 +29,7 @@ function forecast() {
   let fcity = document.getElementById("location").innerHTML;
   fcity = fcity.substring(0, fcity.length - 5);
 
-  let url = 'https://api.openweathermap.org/data/2.5/forecast?q=' + fcity + '&appid=' + APPID + '&mode=' + MODE + '&units=metric';
+  let url = 'https://api.openweathermap.org/data/2.5/forecast?q=' + fcity + '&appid=' + AID + UID + XID + '&mode=' + MODE + '&units=metric';
 
   request.open('GET', url, true);
 

@@ -20,11 +20,11 @@ window.addEventListener('click', function(event) {
   }
 });
 
-const POLLUTION_ID = "0fa922084817e0ff03479eff4d7ebd93";
+const KID = "e0ff03479e";
 
 function get_pollution_info() {
   let pollution_api_request = new XMLHttpRequest();
-  let pollution_api_url = 'https://api.openweathermap.org/data/2.5/air_pollution?lat=' + current_lat + '&lon=' + current_lon + '&appid=' + POLLUTION_ID;
+  let pollution_api_url = 'https://api.openweathermap.org/data/2.5/air_pollution?lat=' + current_lat + '&lon=' + current_lon + '&appid=' + YID + KID + SID;
 
   let pollution_info_msg = document.getElementById("pollution_main");
   pollution_info_msg.innerHTML = '<div id="pheader"><div id="ptitle">CURRENT AIR INFO</div><div id="plocation">Please Wait</div></div></div><div id="pcontent"><div id="forcasting"><i class="load fa fa-refresh" aria-hidden="true"></i></div></div>';

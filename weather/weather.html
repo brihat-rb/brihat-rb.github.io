@@ -10,7 +10,14 @@
   </head>
   <center><noscript>Please enable JavaScript</noscript></center>
   <body>
+    <div id="app_logo">&emsp;&emsp;Weather App</div>
     <div id="datetime"></div>
+    <div id="titlebarbtns">
+      <button id="myinfo"><i class="fa fa-info" aria-hidden="true"></i></button>
+      <button id="minbtn" class="title_buttons" disabled><i class="fa fa-minus"></i></button>
+      <button id="maxbtn" class="title_buttons" disabled><i class="fa fa-plus"></i></button>
+      <button id="closebtn" class="title_buttons" disabled><i class="fa fa-times"></i></button>
+    </div>
     <div id="div_content">
       <div id="wide">
         <center><img id="weather_icon" src="./loading.svg" /></center>
@@ -39,6 +46,29 @@
       <div id="pollution" onclick="get_pollution_info();">Get Air Quality Info</div>
       <div id="iupdate">
         Updated: <span id="last_update"><i class='load fa fa-refresh' aria-hidden='true'></i></span> (<a href="https://openweathermap.org/" style="text-decoration: none">OpenWeather</a>)
+      </div>
+    </div>
+
+    <!-- for about popup -->
+    <div id="myinfo_popup">
+      <!-- Modal content -->
+      <div id="myinfo_content">
+        <span id="myinfo_close">&times;</span>
+        <div id="myinfo_div">
+          <div id="myinfo_app">Brihat Weather App (v1.0)</div>
+          <br />
+          <div id="myinfo_author">
+            <i class="fa fa-copyright" aria-hidden="true" style="transform: rotate(180deg);"></i>
+            <br />
+            Brihat Ratna Bajracharya<br />
+            brihatbajracharya@gmail.com<br />
+            2021
+          </div>
+          <br />
+          <div id="weather_credit">
+            Weather Data from OpenWeather (https://openweathermap.org)<br /><br />
+          </div>
+        </div>
       </div>
     </div>
 
@@ -82,6 +112,7 @@
     <script type="text/javascript" src="./weather.js"></script>
     <script type="text/javascript" src="./weatherforecast.js"></script>
     <script type="text/javascript" src="./pollution.js"></script>
+    <script type="text/javascript" src="./app_info.js"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163547186-2"></script>

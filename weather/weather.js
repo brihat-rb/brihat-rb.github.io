@@ -18,6 +18,8 @@ function update_weather() {
   document.getElementById("city").value = "";
 }
 
+const XID = "fd9e3b47c747";
+
 function get_weather() {
   document.getElementById("weather_icon").src = "./loading.svg";
   let fields = ["location", "weather_main", "temp", "feels_like", "min_temp", "max_temp", "rain", "snow", "pressure", "humidity", "sunrise", "sunset", "wind", "last_update"];
@@ -34,7 +36,7 @@ function get_weather() {
   let request = new XMLHttpRequest();
 
   // Open a new connection, using the GET request on the URL endpoint
-  let url = 'https://api.openweathermap.org/data/2.5/weather?q=' + city_name + '&appid=' + APPID + '&mode=' + MODE + '&units=metric';
+  let url = 'https://api.openweathermap.org/data/2.5/weather?q=' + city_name + '&appid=' + AID + UID + XID + '&mode=' + MODE + '&units=metric';
   request.open('GET', url, true);
 
   request.onload = function() {
@@ -53,7 +55,7 @@ function get_weather() {
       document.getElementById("feels_like").innerHTML = weather_data.main.feels_like;
 
       let frequest = new XMLHttpRequest();
-      let furl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city_name + '&appid=' + APPID + '&mode=' + MODE + '&units=metric';
+      let furl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city_name + '&appid=' + AID + UID + XID + '&mode=' + MODE + '&units=metric';
       frequest.open('GET', furl, true);
       frequest.onload = function() {
         let fresponse = JSON.parse(this.response);
@@ -155,7 +157,8 @@ function showtime() {
 showtime();
 
 const MODE = "json";
-const APPID = "efb37b9787edd737e3dcfd9e3b47c747";
+const AID = "efb37b9787";
+const SID = "ff4d7ebd93";
 
 let saved_city = localStorage.getItem("saved_city");
 if(!saved_city) {
@@ -164,6 +167,9 @@ if(!saved_city) {
 else {
   document.getElementById("city").value = saved_city;
 }
+
+const UID = "edd737e3dc";
+
 get_weather();
 document.getElementById("city").value = "";
 
@@ -181,7 +187,7 @@ function show_weather_notification() {
   let ncity_name = document.getElementById("location").innerHTML;
   ncity_name = ncity_name.substring(0, ncity_name.length - 5);
 
-  let url = 'https://api.openweathermap.org/data/2.5/weather?q=' + ncity_name + '&appid=' + APPID + '&mode=' + MODE + '&units=metric';
+  let url = 'https://api.openweathermap.org/data/2.5/weather?q=' + ncity_name + '&appid=' + AID + UID + XID + '&mode=' + MODE + '&units=metric';
   nrequest.open('GET', url, true);
 
   nrequest.onload = function() {
@@ -210,6 +216,7 @@ function show_weather_notification() {
   }
   nrequest.send();
 }
+
 
 function notifyMe() {
   if (!window.Notification) {

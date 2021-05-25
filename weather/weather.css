@@ -2,6 +2,24 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  user-select: none;
+}
+
+#app_logo {
+  z-index: 1;
+  padding-top: 10px;
+  padding-left: 10px;
+  float: left;
+  -webkit-app-region: drag;
+  width: 150px;
+  height: 37px;
+  font-family: monospace;
+  line-height: 24px;
+  font-size: 14px;
+  font-weight: bold;
+  background: url('app_logo.svg') 10px 10px;
+  background-repeat: no-repeat;
+  background-size: auto 27px;
 }
 
 #datetime {
@@ -14,8 +32,71 @@
   text-align: center;
   width: 100%;
   background-color: white;
-  z-index: 10;
+  z-index: -1;
   user-select: none;
+}
+
+.title_buttons {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-around;
+  /* line-height: 25px; */
+}
+
+#titlebarbtns {
+  visibility: hidden;
+  opacity: 0;
+  z-index: 1;
+  padding-top: 10px;
+  padding-right: 10px;
+  float: right;
+  -webkit-app-region: drag;
+  transition: visibility 0s, opacity 0.5s linear;
+}
+
+#titlebarbtns button {
+  /* font-size: 20px; */
+  font-family: sans-serif;
+  border: none;
+  width: 25px;
+  height:25px;
+  -webkit-app-region: no-drag;
+}
+
+#maxbtn {
+  color: gray;
+}
+
+#maxbtn:hover {
+  background-color: gray;
+  color: white;
+}
+
+#minbtn {
+  color: green;
+}
+
+#minbtn:hover {
+  background-color: green;
+  color: white;
+}
+
+#closebtn {
+  color: red;
+}
+
+#closebtn:hover {
+  background-color: red;
+  color: white;
+}
+
+#myinfo {
+  color: darkcyan;
+}
+
+#myinfo:hover {
+  background-color: darkcyan;
+  color: white;
 }
 
 #local_city {
@@ -208,12 +289,28 @@ button:hover {
   transform: translate(-50%);
 }
 
+#myinfo_popup {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0, 0.4);
+  max-width: 900px;
+  transform: translate(-50%, -50%);
+}
+
 .pollution_info {
   width: 80%;
 }
 
 /* popup content */
-.forecast-content, .pollution-content {
+.forecast-content, .pollution-content, #myinfo_content {
   background-color: #fefefe;
   margin: auto;
   padding: 0 10px 10px 10px;
@@ -223,8 +320,20 @@ button:hover {
   overflow: auto;
 }
 
+#myinfo_content {
+  width: 50%;
+  height: auto;
+  left: 50%;
+  top: 50%;
+  position: fixed;
+  border-radius: 10px;
+  transform: translate(-50%, -50%);
+  min-width: 350px;
+  /* overflow: auto; */
+}
+
 /* close Button */
-.close, .pollution_close {
+.close, .pollution_close, #myinfo_close {
   color: #aaaaaa;
   float: right;
   font-size: 26px;
@@ -237,10 +346,22 @@ button:hover {
 .close:hover,
 .close:focus,
 .pollution_close:hover,
-.pollution_close:focus {
+.pollution_close:focus,
+#myinfo_close:hover,
+#myinfo_close:focus {
   color: red;
   text-decoration: none;
   cursor: pointer;
+}
+
+#myinfo_div {
+  text-align: center;
+  font-family: serif;
+  font-size: 18px;
+  background: url('watermark.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: auto 70%;
 }
 
 #fheader, #pheader {
@@ -249,6 +370,39 @@ button:hover {
   background-color: white;
   padding-top: 10px;
   padding-bottom: 5px;
+}
+
+#myinfo_app {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  padding: 8px 0px 5px 15px;
+  color: darkcyan;
+  font-family: monospace;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+#myinfo_author {
+  color: darkgreen;
+  font-family: sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#weather_credit {
+  color: lightgray;
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+#weather_credit:hover {
+  cursor: pointer;
+  color: darkgray;
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: bold;
 }
 
 #fcontent, #pcontent {
