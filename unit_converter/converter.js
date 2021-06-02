@@ -2,7 +2,7 @@ var array_temperature = ['kelvin', 'celsius', 'fahrenheit'];
 var array_length = ['inch', 'foot', 'yard', 'mile', 'centimeter', 'meter', 'kilometer'];
 var array_area = ['square_inch', 'square_foot', 'anna', 'square_centimeter', 'square_meter'];
 var array_weight = ['ounce', 'pound', 'gram', 'kilogram'];
-var array_volume = ['cubic_foot', 'litre', 'cubic_meter'];
+var array_volume = ['cubic_foot', 'gallon', 'litre', 'cubic_meter'];
 var array_plane_angle = ['degree', 'radian', 'gradian'];
 var array_speed = ['foot_per_second', 'mile_per_hour', 'meter_per_second', 'kilometer_per_hour'];
 var array_other = ['height_inch', 'water_litre'];
@@ -166,16 +166,25 @@ conversion_func_dict = {
 
   'cubic_foot': {
     'cubic_foot': "func_same",
+    'gallon': "func_volume_f2g",
     'litre': "func_volume_f2l",
     'cubic_meter': "func_volume_f2m",
   },
+  'gallon': {
+    'cubic_foot': "func_volume_g2f",
+    'gallon': "func_same",
+    'litre': "func_volume_g2l",
+    'cubic_meter': "func_volume_g2m",
+  },
   'litre': {
     'cubic_foot': "func_volume_l2f",
+    'gallon': "func_volume_l2g",
     'litre': "func_same",
     'cubic_meter': "func_volume_l2m",
   },
   'cubic_meter': {
     'cubic_foot': "func_volume_m2f",
+    'gallon': "func_volume_m2g",
     'litre': "func_volume_m2l",
     'cubic_meter': "func_same",
   },
@@ -708,6 +717,10 @@ function func_weight_k2g(value) {
 //-------------------------------------------------
 // VOLUME CONVERSION
 //-------------------------------------------------
+function func_volume_f2g(value) {
+  return func_volume_f2l(value) * 0.264172;
+}
+
 function func_volume_f2l(value) {
   return value * 28.3168;
 }
@@ -718,8 +731,26 @@ function func_volume_f2m(value) {
 
 //-------------------------------------------------
 
+function func_volume_g2f(value) {
+  return value / func_volume_f2g(1.0);
+}
+
+function func_volume_g2l(value) {
+  return value * 3.785411;
+}
+
+function func_volume_g2m(value) {
+  return func_volume_g2l(value) * func_volume_l2m(1.0);
+}
+
+//-------------------------------------------------
+
 function func_volume_l2f(value) {
   return value / func_volume_f2l(1.0);
+}
+
+function func_volume_l2g(value) {
+  return value * 0.264172;
 }
 
 function func_volume_l2m(value) {
@@ -730,6 +761,10 @@ function func_volume_l2m(value) {
 
 function func_volume_m2f(value) {
   return value * 35.31467;
+}
+
+function func_volume_m2g(value) {
+  return func_volume_m2l(value) * func_volume_l2g(1.0);
 }
 
 function func_volume_m2l(value) {

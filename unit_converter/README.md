@@ -15,7 +15,7 @@
  -- ``Ounce, Pound, Gram, Kilogram``  
 
  - __Volume__
- -- ``Cubic Foot, Liter, Cubic Meter``  
+ -- ``Cubic Foot, Gallon, Liter, Cubic Meter``  
 
  - __Plane Angle__
  -- ``Degree, Radian, Gradian``  
