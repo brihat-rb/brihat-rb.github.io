@@ -25,6 +25,29 @@
   color: chocolate;
 }
 
+.event_type {
+  font-size: 14px;
+  font-weight: bold;
+  font-variant: small-caps;
+  text-decoration: underline;
+  letter-spacing: 1.5px;
+  color: red;
+}
+
+.national_event {
+  color: darkgreen;
+}
+
+.international_event {
+  color: darkblue;
+}
+
+#international_event_eng {
+  color: darkblue;
+  font-size: 12px;
+  font-weight: bold;
+}
+
 #suggestion {
   color: teal;
   text-decoration: underline;

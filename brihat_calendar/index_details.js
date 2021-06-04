@@ -1,5 +1,26 @@
 /* * REQUIRES: index_cal_conv.js * */
 
+// GET NATIONAL AND INTERNATIONAL EVENTS JSON
+var int_event_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/international_events.json';
+var int_event_req = new XMLHttpRequest();
+var ievents = "";
+
+int_event_req.open('GET', int_event_url, false);
+int_event_req.onload = function() {
+  ievents = JSON.parse(this.response);
+}
+int_event_req.send();
+
+var nat_event_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/national_events.json';
+var nat_event_req = new XMLHttpRequest();
+var nevents = "";
+
+nat_event_req.open('GET', nat_event_url, false);
+nat_event_req.onload = function() {
+  nevents = JSON.parse(this.response);
+}
+nat_event_req.send();
+
 function convert_to_nepali(date_string) {
   var date_split = date_string.split("-");
   var result = "";
@@ -60,6 +81,10 @@ function tdclick(id) {
   let solar_ns_date = "सौ. ने. सं. " + arabic_number_to_nepali(solar_ns_date_list[0]) + " ";
   solar_ns_date += NS_NEP[solar_ns_date_list[1] - 1] + " " + arabic_number_to_nepali(solar_ns_date_list[2]);
   // solar_ns_date += ", " + NS_DAYS[nepali_date_day];
+
+  // EVENTS KEYS
+  let int_events_key = ad_date_list[1].toString().padStart(2, '0') + "-" + ad_date_list[2].toString().padStart(2, '0');
+  let nat_events_key = bs_month.toString().padStart(2, '0') + "-" + bs_date.toString().padStart(2, '0');
 
   if (CALENDAR_MODE == 2) {
     title.innerHTML = "<b>" + "वि. सं. " + nepali_date_day + "</b>";
@@ -152,20 +177,31 @@ function tdclick(id) {
 
     info_content += "<br /><br />";
     let has_events = false;
-    if (events.data[bs_month - 1][bs_date - 1].event_one) {
-      info_content += '<div id="info1">' + events.data[bs_month - 1][bs_date - 1].event_one + '</div>';
+    if (events.data[bs_month - 1][bs_date - 1].lunar_event_one) {
+      info_content += '<div id="info1">' + events.data[bs_month - 1][bs_date - 1].lunar_event_one + '</div>';
       has_events = true;
     }
-    if (events.data[bs_month - 1][bs_date - 1].event_two) {
-      info_content += '<div id="info2">' + events.data[bs_month - 1][bs_date - 1].event_two + '</div>';
+    if (events.data[bs_month - 1][bs_date - 1].lunar_event_two) {
+      info_content += '<div id="info2">' + events.data[bs_month - 1][bs_date - 1].lunar_event_two + '</div>';
       has_events = true;
     }
-    if (events.data[bs_month - 1][bs_date - 1].event_three) {
-      info_content += '<div id="info3">' + events.data[bs_month - 1][bs_date - 1].event_three + '</div>';
+    if (events.data[bs_month - 1][bs_date - 1].lunar_event_three) {
+      info_content += '<div id="info3">' + events.data[bs_month - 1][bs_date - 1].lunar_event_three + '</div>';
+      has_events = true;
+    }
+    if(nevents.data[nat_events_key]) {
+      info_content +="<div class='national_event event_type'>national event</div>";
+      info_content +="<div class='national_event'>" + nevents.data[nat_events_key][1] + "</div>";
+      has_events = true;
+    }
+    if(ievents.data[int_events_key]) {
+      info_content +="<div class='international_event event_type'>international event</div>";
+      info_content +="<div class='international_event'>" + ievents.data[int_events_key][1] + "</div>";
+      info_content +="<div id='international_event_eng'>( " + ievents.data[int_events_key][0] + " )</div>";
       has_events = true;
     }
     if (!has_events) {
-      info_content += '<div id="no_info"><b>No events today</b></div>';
+      info_content += '<div id="no_info"><b>This date has no events</b></div>';
     }
     content.innerHTML = info_content;
   }
