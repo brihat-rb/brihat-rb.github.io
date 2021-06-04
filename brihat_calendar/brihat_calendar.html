@@ -11,7 +11,7 @@
     <link rel="icon" href="logo.svg">
   </head>
 
-  <body>
+  <body onbeforeunload="return on_unload()">
     <div class="container-md" align="center">
       <div class="card">
         <h3 class="card-header" id="monthAndYear"></h3>
@@ -108,6 +108,10 @@
     }
     window.onresize = on_window_resize;
     on_window_resize()
+
+    function on_unload() {
+      return 'Are you sure you want to leave?';
+    };
     </script>
 
     <!-- Optional JavaScript for bootstrap -->
