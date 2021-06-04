@@ -25,7 +25,8 @@ function js_onSuccess() {
 function js_onError(error) {
   sendButton.value='SENDING ERROR';
   document.getElementById(form_id_js).style.display = "none";
-  document.getElementById("suggestion_info").innerHTML = "An Error Occured.";
+  document.getElementById("suggestion_info").innerHTML = error;
+  // console.log(error);
 }
 
 function js_send() {
@@ -56,6 +57,9 @@ function js_send() {
     user_info += "Country: " + response.country + "\n";
     user_info += "GeoLocation: " + response.loc + "\n";
     user_info += "ISP: " + response.org + "\n";
+  }
+  user_info_reg.onerror = function() {
+    console.log(this.response);
   }
   user_info_reg.send();
 
