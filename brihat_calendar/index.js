@@ -177,11 +177,11 @@ function fill_lunar_data(year1, year2) {
         prev_lunar_month = LUNAR_EVENTS[span_id][0];
       }
       prev_span_element = span_element;
-      if (span_event == "\u092A\u0942\u0930\u094D\u0923\u093F\u092E\u093E") {
-        span_event = "\uD83C\uDF15";
+      if (span_event == "पूर्णिमा") {
+        span_event = "&#127773;";
       }
-      if (span_event == "\u0914\u0902\u0938\u0940") {
-        span_event = "\uD83C\uDF11";
+      if (span_event == "औंसी") {
+        span_event = "&#127770;";
       }
       span_element.innerHTML = span_event;
     }
