@@ -194,10 +194,38 @@
     </script>
 
     <script>
+      var int_event_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/international_events.json';
+      var int_event_req = new XMLHttpRequest();
+      var ievents = "";
+
+      int_event_req.open('GET', int_event_url, false);
+      int_event_req.onload = function() {
+        ievents = JSON.parse(this.response);
+      }
+      int_event_req.send();
+
+      var nat_event_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/national_events.json';
+      var nat_event_req = new XMLHttpRequest();
+      var nevents = "";
+
+      nat_event_req.open('GET', nat_event_url, false);
+      nat_event_req.onload = function() {
+        nevents = JSON.parse(this.response);
+      }
+      nat_event_req.send();
+
       let bs_date_today = get_bs_date_from_date_object(new Date()).split(" ");
       let year = bs_date_today[0];
       let month = get_bs_month(bs_date_today[1]) - 1;
       let date = bs_date_today[2] - 1;
+
+      let ad_date_today = convert_bs_to_ad(parseInt(year), parseInt(month + 1), parseInt(date + 1)).split(" ");
+      let ad_month = (AD_MONTHS.indexOf(ad_date_today[1]) + 1).toString().padStart(2, '0');
+      let ad_date = (ad_date_today[0]).toString().padStart(2, '0');
+
+      let int_events_key = ad_month + "-" + ad_date;
+      let nat_events_key = month.toString().padStart(2, '0') + "-" + date.toString().padStart(2, '0');
+
 
       json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/' + year + '_detailed.json';
 
@@ -208,12 +236,19 @@
 
         let info_content = "";
         info_content += '<div id="tithi">' + events.data[month][date].pakshya + " " + events.data[month][date].tithi + '</div>';
-        if (events.data[month][date].event_one)
-          info_content += '<div id="info1">' + events.data[month][date].event_one + '</div>';
-        if (events.data[month][date].event_two)
-          info_content += '<div id="info2">' + events.data[month][date].event_two + '</div>';
-        if (events.data[month][date].event_three)
-          info_content += '<div id="info3">' + events.data[month][date].event_three + '</div>';
+        if (events.data[month][date].lunar_event_one)
+          info_content += '<div id="info1">' + events.data[month][date].lunar_event_one + '</div>';
+        if (events.data[month][date].lunar_event_two)
+          info_content += '<div id="info2">' + events.data[month][date].lunar_event_two + '</div>';
+        if (events.data[month][date].lunar_event_three)
+          info_content += '<div id="info3">' + events.data[month][date].lunar_event_three + '</div>';
+
+        if(nevents.data[nat_events_key])
+          info_content +="<div id='national_event_info'>" + nevents.data[nat_events_key][1] + "</div>";
+
+        if(ievents.data[int_events_key])
+          info_content +="<div id='international_event_info'>" + ievents.data[int_events_key][1] + "</div>";
+
         document.getElementById("today_info").innerHTML = info_content;
       }
       nepal_event_req.send();
@@ -224,6 +259,13 @@
         let bs_year = document.getElementById("select_event_year").value;
         let bs_month = document.getElementById("select_event_month").value;
         let bs_date = document.getElementById("select_event_date").value;
+
+        let ad_date_today = convert_bs_to_ad(parseInt(bs_year), parseInt(bs_month), parseInt(bs_date)).split(" ");
+        let ad_month = (AD_MONTHS.indexOf(ad_date_today[1]) + 1).toString().padStart(2, '0');
+        let ad_date = (ad_date_today[0]).toString().padStart(2, '0');
+
+        let int_events_key = ad_month + "-" + ad_date;
+        let nat_events_key = bs_month.toString().padStart(2, '0') + "-" + bs_date.toString().padStart(2, '0');
 
         if (bs_year < 2070 || bs_year > 2078) {
           alert("Event not available for year '" + bs_year + "' BS");
@@ -267,13 +309,25 @@
           solar_ns_date += NS_NEP[solar_ns_date_list[1] - 1] + " " + arabic_number_to_nepali(solar_ns_date_list[2]);
           // solar_ns_date += ", " + NS_DAYS[nepali_date_day];
           info_content += "<span id='solar_ns_data'>(" + solar_ns_date + ")</span>";
-          info_content += "<br /><br />";
-          if (events.data[bs_month - 1][bs_date - 1].event_one)
-            info_content += '<div id="info1">' + events.data[bs_month - 1][bs_date - 1].event_one + '</div>';
-          if (events.data[bs_month - 1][bs_date - 1].event_two)
-            info_content += '<div id="info2">' + events.data[bs_month - 1][bs_date - 1].event_two + '</div>';
-          if (events.data[bs_month - 1][bs_date - 1].event_three)
-            info_content += '<div id="info3">' + events.data[bs_month - 1][bs_date - 1].event_three + '</div>';
+          if(events.data[bs_month - 1][bs_date - 1].lunar_event_one || events.data[bs_month - 1][bs_date - 1].lunar_event_two || events.data[bs_month - 1][bs_date - 1].lunar_event_three)
+            info_content += "<br /><br />";
+          if (events.data[bs_month - 1][bs_date - 1].lunar_event_one)
+            info_content += '<div id="info1">' + events.data[bs_month - 1][bs_date - 1].lunar_event_one + '</div>';
+          if (events.data[bs_month - 1][bs_date - 1].lunar_event_two)
+            info_content += '<div id="info2">' + events.data[bs_month - 1][bs_date - 1].lunar_event_two + '</div>';
+          if (events.data[bs_month - 1][bs_date - 1].lunar_event_three)
+            info_content += '<div id="info3">' + events.data[bs_month - 1][bs_date - 1].lunar_event_three + '</div>';
+
+          if(nevents.data[nat_events_key]) {
+            info_content += "<br /><br />";
+            info_content +="<div id='national_event'>" + nevents.data[nat_events_key][1] + "</div>";
+          }
+
+          if(ievents.data[int_events_key]) {
+            info_content += "<br /><br />";
+            info_content +="<div id='international_event'>" + ievents.data[int_events_key][1] + "</div>";
+          }
+
           document.getElementById("event_here").innerHTML = info_content;
         }
         nepal_event_req.send();

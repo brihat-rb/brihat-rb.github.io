@@ -37,9 +37,17 @@ body {
   justify-content: space-between;
 }
 
-#tithi, #info1, #info2, #info3 {
+#tithi, #info1, #info2, #info3, #international_event_info, #national_event_info {
   flex: 1 1 0px;
   padding: 0px 5px 0px 5px;
+}
+
+#national_event {
+  color: darkgreen;
+}
+
+#international_event {
+  color: darkblue;
 }
 
 #user_info {
