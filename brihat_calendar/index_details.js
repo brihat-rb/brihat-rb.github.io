@@ -175,8 +175,11 @@ function tdclick(id) {
       info_content += "<span class='ad_choco'>" + ad_date_list[2] + ad_date_sub + " " + AD_MONTHS[ad_date_list[1] - 1] + " " + ad_date_list[0] + " AD</span>";
     }
 
-    info_content += "<br /><br />";
     let has_events = false;
+
+    if(events.data[bs_month - 1][bs_date - 1].lunar_event_one || events.data[bs_month - 1][bs_date - 1].lunar_event_one || events.data[bs_month - 1][bs_date - 1].lunar_event_one) {
+      info_content += "<br /><br />";
+    }
     if (events.data[bs_month - 1][bs_date - 1].lunar_event_one) {
       info_content += '<div id="info1">' + events.data[bs_month - 1][bs_date - 1].lunar_event_one + '</div>';
       has_events = true;
@@ -190,18 +193,26 @@ function tdclick(id) {
       has_events = true;
     }
     if(nevents.data[nat_events_key]) {
+      info_content += "<br />";
+      if(!has_events) {
+        info_content += "<br />";
+      }
       info_content +="<div class='national_event event_type'>national event</div>";
       info_content +="<div class='national_event'>" + nevents.data[nat_events_key][1] + "</div>";
       has_events = true;
     }
     if(ievents.data[int_events_key]) {
+      info_content += "<br />";
+      if(!has_events) {
+        info_content += "<br />";
+      }
       info_content +="<div class='international_event event_type'>international event</div>";
       info_content +="<div class='international_event'>" + ievents.data[int_events_key][1] + "</div>";
       info_content +="<div id='international_event_eng'>( " + ievents.data[int_events_key][0] + " )</div>";
       has_events = true;
     }
     if (!has_events) {
-      info_content += '<div id="no_info"><b>This date has no events</b></div>';
+      info_content += '<br /><br /><div id="no_info"><b>This date has no events</b></div>';
     }
     content.innerHTML = info_content;
   }
