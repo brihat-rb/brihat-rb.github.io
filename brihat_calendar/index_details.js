@@ -127,8 +127,33 @@ function tdclick(id) {
       default_content += "<brihat class='bs_left'>वि. सं. " + nepali_date + "</brihat><br />";
       default_content += "<brihat class='ad_choco'>" + ad_date_list[2] + ad_date_sub + " " + AD_MONTHS[ad_date_list[1] - 1] + " " + ad_date_list[0] + " AD</brihat>";
     }
-    content.innerHTML = default_content + "<br /><br />";
-    content.innerHTML += "<b>Details not available for year '<u>" + arabic_number_to_nepali(bs_year) + "</u>' BS</b>";
+
+    // show national and international events as default
+    let default_events = false;
+    if(nevents.data[nat_events_key]) {
+      default_content += "<br />";
+      if(!default_events) {
+        default_content += "<br />";
+      }
+      default_content +="<div class='national_event event_type'>national event</div>";
+      default_content +="<div class='national_event'>" + nevents.data[nat_events_key][1] + "</div>";
+      default_events = true;
+    }
+    if(ievents.data[int_events_key]) {
+      default_content += "<br />";
+      if(!default_events) {
+        default_content += "<br />";
+      }
+      default_content +="<div class='international_event event_type'>international event</div>";
+      default_content +="<div class='international_event'>" + ievents.data[int_events_key][1] + "</div>";
+      default_content +="<div id='international_event_eng'>( " + ievents.data[int_events_key][0] + " )</div>";
+      default_events = true;
+    }
+    if (!default_events) {
+      default_content += '<br /><br /><div id="no_info"><b>This date has no events</b></div>';
+    }
+    content.innerHTML = default_content + "<br />";
+    content.innerHTML += "<b>Lunar details not available for वि. सं. '<u>" + arabic_number_to_nepali(bs_year) + "</u>'</b>";
     return;
   }
 
@@ -156,6 +181,9 @@ function tdclick(id) {
       info_content += " (" + events.data[bs_month - 1][bs_date - 1].pakshya + ") ";
     }
     info_content += events.data[bs_month - 1][bs_date - 1].tithi + '</div>';
+    if (bs_year >= 2070 && bs_year <= 2075) {
+      info_content += "<div style='font-variant: small-caps; font-size=5px; color: darkgray;'>* detail info not available *</div>";
+    }
 
     // if (CALENDAR_MODE != 0) {
     //   info_content += "<br />";
@@ -177,7 +205,7 @@ function tdclick(id) {
 
     let has_events = false;
 
-    if(events.data[bs_month - 1][bs_date - 1].lunar_event_one || events.data[bs_month - 1][bs_date - 1].lunar_event_one || events.data[bs_month - 1][bs_date - 1].lunar_event_one) {
+    if(events.data[bs_month - 1][bs_date - 1].lunar_event_one || events.data[bs_month - 1][bs_date - 1].lunar_event_two || events.data[bs_month - 1][bs_date - 1].lunar_event_three) {
       info_content += "<br /><br />";
     }
     if (events.data[bs_month - 1][bs_date - 1].lunar_event_one) {
