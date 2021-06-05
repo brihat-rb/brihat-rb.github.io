@@ -44,7 +44,7 @@ function show_public_holidays(bs_year_start, bs_year_end, bs_month_start, bs_mon
           var holiday_description = public_holidays[ph_year][public_holidays_key][1];
 
           if(holiday_type == "national") {
-            document.getElementById(complete_date).parentNode.parentNode.style.color = "red";
+            document.getElementById(complete_date).parentNode.parentNode.classList.add('national_holiday');
           }
 
           else if(holiday_type == "specific") {
@@ -52,10 +52,10 @@ function show_public_holidays(bs_year_start, bs_year_end, bs_month_start, bs_mon
 
             // special case if specific holiday occurs on saturday
             if (date_node.classList.contains('saturday')) {
-              date_node.style.color = "red";
+              date_node.classList.add('national_holiday');
             }
             else {
-              date_node.style.color = "orange";
+              date_node.classList.add('specific_holiday');
             }
           }
         }
