@@ -17,32 +17,60 @@ function show_public_holidays(bs_year_start, bs_year_end, bs_month_start, bs_mon
   if(bs_year_end < public_holidays_start_year || bs_year_start > public_holidays_end_year) {
     return;
   }
-  for(var year = bs_year_start; year<=bs_year_end; year++) {
-    for(var month = bs_month_start; (month % 12) <= bs_month_end; month++) {
-      for(var days = 1; days <= BS_CALENDAR_DATA[year][(month % 12) - 1]; days++) {
-        // console.log(year, " ", month, " ", days);
-        var public_holidays_key = month.toString().padStart(2, "0") + "-" + days.toString().padStart(2, '0');
-        var complete_date = year + "-" + public_holidays_key;
-        if(!document.getElementById(complete_date)){
-          continue;
-        }
-        if(public_holidays[year]) {
-          if(public_holidays[year][public_holidays_key]) {
-            var holiday_cause = public_holidays[year][public_holidays_key][0];
-            var holiday_type = public_holidays[year][public_holidays_key][1];
-            var holiday_description = public_holidays[year][public_holidays_key][1];
 
-            if(holiday_type == "national") {
-              document.getElementById(complete_date).parentNode.parentNode.style.color = "red";
+  var start_index = bs_year_start.toString() + "-" + bs_month_start.toString().padStart(2, '0');
+  var end_index = bs_year_end.toString() + "-" + bs_month_end.toString().padStart(2, '0');
+
+  var failsafe = 0;
+  var ph_year = bs_year_start;
+  var ph_month = bs_month_start;
+
+  for(var index = start_index; index <= end_index;) {
+    for(var days = 1; days <= BS_CALENDAR_DATA[ph_year][ph_month - 1]; days++) {
+      // console.log(ph_year, " ", ph_month, " ", days);
+
+      failsafe++;
+      var public_holidays_key = ph_month.toString().padStart(2, "0") + "-" + days.toString().padStart(2, '0');
+      var complete_date = ph_year + "-" + public_holidays_key;
+
+      if(!document.getElementById(complete_date)) {
+        continue;
+      }
+
+      if(public_holidays[ph_year]) {
+        if(public_holidays[ph_year][public_holidays_key]) {
+          var holiday_cause = public_holidays[ph_year][public_holidays_key][0];
+          var holiday_type = public_holidays[ph_year][public_holidays_key][1];
+          var holiday_description = public_holidays[ph_year][public_holidays_key][1];
+
+          if(holiday_type == "national") {
+            document.getElementById(complete_date).parentNode.parentNode.style.color = "red";
+          }
+
+          else if(holiday_type == "specific") {
+            var date_node = document.getElementById(complete_date).parentNode.parentNode;
+
+            // special case if specific holiday occurs on saturday
+            if (date_node.classList.contains('saturday')) {
+              date_node.style.color = "red";
             }
-
-            else if(holiday_type == "specific") {
-              document.getElementById(complete_date).parentNode.parentNode.style.color = "orange";
+            else {
+              date_node.style.color = "orange";
             }
           }
         }
       }
     }
+    if (failsafe > 65) {
+      console.log("Failsafe triggered");
+      break;
+    }
+    ph_month++;
+    if (ph_month > 12) {
+      ph_month = 1;
+      ph_year++;
+    }
+    index = ph_year.toString() + "-" + ph_month.toString().padStart(2, '0');
   }
 }
 
@@ -70,7 +98,14 @@ function add_public_holiday_info(complete_date, has_events) {
     public_holidays_info += "<div id='public_holiday_description'>( " + public_holidays_array[2] + " )</div>";
     public_holidays_info += "</div>";
 
-    document.getElementById('modal_title').classList.add(public_holidays_array[1] + "_holiday");
+    var date_detail_popup_title = document.getElementById('modal_title');
+    date_detail_popup_title.classList.add(public_holidays_array[1] + "_holiday");
+
+    // special case when specific holiday lies on saturday
+    if (date_detail_popup_title.classList.contains('saturday')) {
+      date_detail_popup_title.classList.remove('saturday');
+      date_detail_popup_title.classList.add('saturday');
+    }
   }
 
   return public_holidays_info;
