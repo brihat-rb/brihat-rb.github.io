@@ -200,6 +200,7 @@ function showADCalendar(month, year) {
     currentYear = parseInt(year);
     currentMonth = parseInt(month);
     // brihatcalendar_goto.style.display = "none";
+    show_public_holidays(bs_year_start, bs_year_end, bs_start_date_list_from_ns[1], bs_end_date_list_from_ns[1]);
     update_date_jumper(CALENDAR_MODE);
 }
 
@@ -346,6 +347,7 @@ function showBSCalendar(month, year) {
     currentYear = parseInt(year);
     currentMonth = parseInt(month);
     // brihatcalendar_goto.style.display = "none";
+    show_public_holidays(year, year, month, month);
     update_date_jumper(CALENDAR_MODE);
 }
 

@@ -220,6 +220,13 @@ function tdclick(id) {
       info_content += '<div id="info3">' + events.data[bs_month - 1][bs_date - 1].lunar_event_three + '</div>';
       has_events = true;
     }
+
+    var public_holidays_information = add_public_holiday_info(id, has_events);
+    if (public_holidays_information) {
+      info_content += public_holidays_information
+      has_events = true;
+    }
+
     if(nevents.data[nat_events_key]) {
       info_content += "<br />";
       if(!has_events) {

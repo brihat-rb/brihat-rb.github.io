@@ -440,6 +440,7 @@ function showCalendar(month, year) {
     currentMonth = parseInt(month);
     currentYear = parseInt(year);
     // brihatcalendar_goto.style.display = "flex";
+    show_public_holidays(bs_year_start, bs_year_end, bs_month_start, bs_month_end);
     update_date_jumper(CALENDAR_MODE);
 }
 
