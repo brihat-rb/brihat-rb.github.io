@@ -1,0 +1,17 @@
+[{
+  "relation": ["delegate_permission/common.get_login_creds"],
+  "target": {
+    "namespace": "web",
+    "site": "https://brihat-rb.github.io"
+  }
+ },
+ {
+  "relation": ["delegate_permission/common.get_login_creds"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.brihat.calendar",
+    "sha256_cert_fingerprints": [
+      "C7:EF:E9:1F:08:30:5D:1E:8B:8B:67:F4:50:2F:65:79:86:81:02:B0:3C:B5:7A:41:2D:2F:D7:F8:8D:F4:3D:6D"
+    ]
+  }
+ }]
