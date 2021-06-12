@@ -62,7 +62,7 @@ function show_public_holidays(bs_year_start, bs_year_end, bs_month_start, bs_mon
       }
     }
     if (failsafe > 65) {
-      console.log("Failsafe triggered");
+      console.warning("Failsafe triggered");
       break;
     }
     ph_month++;

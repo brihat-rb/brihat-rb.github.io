@@ -33,6 +33,24 @@ let bs_today_date = bs_today_list[2];
 
 let main_title = document.getElementsByTagName('title')[0];
 
+function add_author_info(month, year) {
+  let first_td = document.getElementById('calendar-body').firstChild.firstChild;
+  let last_td = document.getElementById('calendar-body').lastChild.lastChild;
+  let first_colspan = first_td.getAttribute('colspan');
+  let last_colspan = last_td.getAttribute('colspan');
+  let copyright_notice = "<b>&copy;<br />Brihat Ratna Bajracharya<br />";
+  copyright_notice += month + " " + year;
+  let copyright_element = document.createElement('span');
+  copyright_element.innerHTML = copyright_notice;
+  if (first_colspan > last_colspan && last_colspan < 3) {
+    first_td.appendChild(copyright_element);
+    first_td.classList.add('print');
+  }
+  else {
+    last_td.appendChild(copyright_element);
+    last_td.classList.add('print');
+  }
+}
 // Handled by function update_date_jumper() at end of this file
 // create options for select year (1100-1199 NS) and select current year
 // for (let ns_year = 1100; ns_year < 1200; ns_year++) {
@@ -82,7 +100,7 @@ function fill_lunar_data(year1, year2) {
           LUNAR_EVENTS_ONE = JSON.parse(this.response);
       }
       lunar_data_req1.onerror = function() {
-          console.log("Error fetching Lunar Data.")
+          console.warning("Error fetching Lunar Data.")
           LUNAR_EVENTS_ONE = LUNAR_EVENTS;
       }
       lunar_data_req1.send();
@@ -98,7 +116,7 @@ function fill_lunar_data(year1, year2) {
             LUNAR_EVENTS_TWO = JSON.parse(this.response);
         }
         lunar_data_req2.onerror = function() {
-            console.log("Error fetching Lunar Data.");
+            console.warning("Error fetching Lunar Data.");
             LUNAR_EVENTS_TWO = LUNAR_EVENTS;
         }
         lunar_data_req2.send();
@@ -444,6 +462,7 @@ function showCalendar(month, year) {
     // brihatcalendar_goto.style.display = "flex";
     show_public_holidays(bs_year_start, bs_year_end, bs_month_start, bs_month_end);
     main_title.innerText = NS_NEP[month - 1] + " " + arabic_number_to_nepali(year) + " (Brihat Calendar)";
+    add_author_info(NS_NEP[month - 1], arabic_number_to_nepali(year));
     update_date_jumper(CALENDAR_MODE);
 }
 

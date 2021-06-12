@@ -16,7 +16,7 @@ function show_suggest_form() {
 }
 
 function js_onSuccess() {
-  console.log("Suggestion sent successfully.");
+  console.info("Suggestion sent successfully.");
   sendButton.value='SENT';
   document.getElementById(form_id_js).style.display = "none";
   document.getElementById("suggestion_info").innerHTML = "Suggestion sent successfully.";

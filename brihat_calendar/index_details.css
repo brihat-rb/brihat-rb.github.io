@@ -126,6 +126,10 @@ input[type="submit"][disabled]:hover {
   color: white;
 }
 
+.print span{
+  display: none;
+}
+
 @media only screen and (max-width: 555px) {
   #modal_title {
     font-size: 20px;
@@ -165,5 +169,24 @@ input[type="submit"][disabled]:hover {
 
   #modal_body {
     font-size: 12px;
+  }
+}
+
+@media print {
+  @page {
+    size: 210mm 297mm;
+    margin: 5mm;
+  }
+
+  .print span {
+    display: block;
+  }
+
+  * {
+    font-weight: bold;
+  }
+
+  #prev_today_next, #date_converter_div, #print, #brihat_calendar_date_jumper, #user_info, #g_info {
+    display: none;
   }
 }
