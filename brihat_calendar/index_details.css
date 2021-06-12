@@ -191,7 +191,7 @@ input[type="submit"][disabled]:hover {
     font-weight: bold;
   }
 
-  #prev_today_next, #date_converter_div, #print, #brihat_calendar_date_jumper, #user_info, #g_info {
+  #prev_today_next, #date_converter_div, #print, #brihat_calendar_date_jumper, #user_info, #g_info, #app_open_link {
     display: none;
   }
 }
