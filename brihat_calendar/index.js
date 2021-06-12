@@ -31,6 +31,8 @@ let bs_today_year = bs_today_list[0];
 let bs_today_month = bs_today_list[1];
 let bs_today_date = bs_today_list[2];
 
+let main_title = document.getElementsByTagName('title')[0];
+
 // Handled by function update_date_jumper() at end of this file
 // create options for select year (1100-1199 NS) and select current year
 // for (let ns_year = 1100; ns_year < 1200; ns_year++) {
@@ -441,6 +443,7 @@ function showCalendar(month, year) {
     currentYear = parseInt(year);
     // brihatcalendar_goto.style.display = "flex";
     show_public_holidays(bs_year_start, bs_year_end, bs_month_start, bs_month_end);
+    main_title.innerText = NS_NEP[month - 1] + " " + arabic_number_to_nepali(year) + " (Brihat Calendar)";
     update_date_jumper(CALENDAR_MODE);
 }
 

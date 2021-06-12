@@ -201,6 +201,7 @@ function showADCalendar(month, year) {
     currentMonth = parseInt(month);
     // brihatcalendar_goto.style.display = "none";
     show_public_holidays(bs_year_start, bs_year_end, bs_start_date_list_from_ns[1], bs_end_date_list_from_ns[1]);
+    main_title.innerText = AD_MONTHS[month - 1] + " " + year + " (Brihat Calendar)";
     update_date_jumper(CALENDAR_MODE);
 }
 
@@ -348,18 +349,22 @@ function showBSCalendar(month, year) {
     currentMonth = parseInt(month);
     // brihatcalendar_goto.style.display = "none";
     show_public_holidays(year, year, month, month);
+    main_title.innerText = BS_MONTHS_NEP[month - 1] + " " + arabic_number_to_nepali(year) + " (Brihat Calendar)";
     update_date_jumper(CALENDAR_MODE);
 }
 
-let saved_calendar_mode = localStorage.CALMODE;
-if (saved_calendar_mode == 1) {
-  showADCalendar(AD_TODAY_MONTH + 1, AD_TODAY_YEAR);
-}
-else if (saved_calendar_mode == 2) {
-  showBSCalendar(bs_today_month, bs_today_year);
-}
-else {
-  showCalendar(currentMonth, currentYear);
+function go_to_today() {
+  let saved_calendar_mode = localStorage.CALMODE;
+  if (saved_calendar_mode == 1) {
+    showADCalendar(AD_TODAY_MONTH + 1, AD_TODAY_YEAR);
+  }
+  else if (saved_calendar_mode == 2) {
+    showBSCalendar(bs_today_month, bs_today_year);
+  }
+  else {
+    showCalendar(ns_today_month, ns_today_year);
+  }
+  update_date_jumper(parseInt(saved_calendar_mode));
 }
 
-update_date_jumper(parseInt(saved_calendar_mode));
+go_to_today();
