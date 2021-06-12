@@ -126,8 +126,13 @@ input[type="submit"][disabled]:hover {
   color: white;
 }
 
+.print {
+  vertical-align: middle !important;
+}
+
 .print span{
   display: none;
+  font-size: 13px;
 }
 
 @media only screen and (max-width: 555px) {
