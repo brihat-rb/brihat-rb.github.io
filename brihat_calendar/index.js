@@ -38,7 +38,7 @@ function add_author_info(month, year) {
   let last_td = document.getElementById('calendar-body').lastChild.lastChild;
   let first_colspan = first_td.getAttribute('colspan');
   let last_colspan = last_td.getAttribute('colspan');
-  let copyright_notice = "<b>&copy;<br />Brihat Ratna Bajracharya<br />";
+  let copyright_notice = "&copy;<br /><b>Brihat Ratna Bajracharya</b><br />";
   copyright_notice += month + " " + year;
   let copyright_element = document.createElement('span');
   copyright_element.innerHTML = copyright_notice;

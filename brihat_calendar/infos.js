@@ -48,6 +48,7 @@ navigator.get_os_info = (function() {
   } else if (/Android/.test(userAgent)) {
     // os = 'Android';
     os = userAgent.match(/android\s([0-9\.]*)/i)[0];
+    document.getElementById("app_open_link").style.display = "block";
   } else if (!os && /Linux/.test(platform)) {
     os = userAgent.match(/linux.+?(?=\))/i)[0];
   }
