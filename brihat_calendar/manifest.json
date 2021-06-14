@@ -6,8 +6,9 @@
   "background_color": "#005A00",
   "theme_color": "#ffa500",
   "orientation": "portrait-primary",
+  "description": "A Simple NS-AD-BS Calendar with events information",
   "icons": [{
-    "src": "/favicon.svg",
+    "src": "/brihat/calendar/favicon.svg",
     "type": "image/svg",
     "sizes": "32x32 64x64 128x128 192x192 256x256 512x512"
   }]
