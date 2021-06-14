@@ -1,0 +1,14 @@
+{
+  "name": "Brihat Calendar",
+  "short_name": "Brihat Calendar",
+  "start_url": "./brihat_calendar.html",
+  "display": "standalone",
+  "background_color": "#005A00",
+  "theme_color": "#ffa500",
+  "orientation": "portrait-primary",
+  "icons": [{
+    "src": "/favicon.svg",
+    "type": "image/svg",
+    "sizes": "32x32 64x64 128x128 192x192 256x256 512x512"
+  }]
+}
