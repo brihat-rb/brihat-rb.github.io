@@ -14,6 +14,7 @@ const assets = [
   "/favicon.svg",
   "/logo.svg",
   "/watermark.svg",
+  "/brihat_calendar.png",
   "/index.css",
   "/index_details.css",
   "/index_cal_conv.css",
