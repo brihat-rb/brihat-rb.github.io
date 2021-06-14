@@ -9,7 +9,7 @@
   "description": "A Simple NS-AD-BS Calendar with events information",
   "icons": [{
     "src": "/brihat_calendar/brihat_calendar.png",
-    "type": "image/svg",
+    "type": "image/png",
     "sizes": "32x32 64x64 128x128 192x192 256x256 512x512"
   }]
 }
