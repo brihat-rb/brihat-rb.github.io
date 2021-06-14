@@ -8,7 +8,7 @@
   "orientation": "portrait-primary",
   "description": "A Simple NS-AD-BS Calendar with events information",
   "icons": [{
-    "src": "/brihat/calendar/favicon.svg",
+    "src": "/brihat_calendar/favicon.svg",
     "type": "image/svg",
     "sizes": "32x32 64x64 128x128 192x192 256x256 512x512"
   }]
