@@ -5,11 +5,11 @@
   "display": "standalone",
   "background_color": "#005A00",
   "theme_color": "#ffa500",
-  "orientation": "portrait-primary",
+  "orientation": "landscape-primary",
   "description": "A Simple NS-AD-BS Calendar with events information",
   "icons": [{
     "src": "/brihat_calendar/brihat_calendar.png",
     "type": "image/png",
-    "sizes": "32x32 64x64 128x128 192x192 256x256 512x512"
+    "sizes": "512x512 256x256 192x192 128x128 64x64 32x32"
   }]
 }

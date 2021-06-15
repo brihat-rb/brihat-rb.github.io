@@ -1,4 +1,4 @@
-const staticBrihatCalendar = "brihat-calendar-v1.0";
+const staticBrihatCalendar = "brihat-calendar-v1";
 const assets = [
   "/",
   "/data/2070_lunar_data.json",
