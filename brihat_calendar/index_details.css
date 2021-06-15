@@ -179,7 +179,7 @@ input[type="submit"][disabled]:hover {
 
 @media print {
   @page {
-    size: 210mm 297mm;
+    size: 297mm 210mm;
     margin: 5mm;
   }
 
