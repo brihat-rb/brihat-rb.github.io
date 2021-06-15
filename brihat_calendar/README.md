@@ -9,3 +9,7 @@
  - Toggle between NS, AD and BS Calendar
  - Date Details (Event Information)
  - Receive suggestions for edit
+ - National and International Event Details
+ - Public Holiday Information (2076 - 2078 BS)
+ - Link to App
+ - PWA Install Option
