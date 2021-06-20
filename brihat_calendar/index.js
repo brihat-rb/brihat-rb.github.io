@@ -434,11 +434,11 @@ function showCalendar(month, year) {
                 let bs_date_for_lunar_data = bs_year.toString() + "-" + bs_month.toString().padStart(2, "0") + "-" + bs_date.toString().padStart(2, "0");
                 result += "<span class='for_lunar' align='center' id=" + bs_date_for_lunar_data + "></span><br />";
                 if (bs_date == 1)
-                  result += "<span class='bs_date'>" + BS_MONTHS_NEP_SHORT[bs_month - 1] + " " + arabic_number_to_nepali(bs_date) + "</span>";
+                  result += "<span class='bs_date'><b>" + BS_MONTHS_NEP_SHORT[bs_month - 1] + " " + arabic_number_to_nepali(bs_date) + "</b></span>";
                 else
                   result += "<span class='bs_date'>" + arabic_number_to_nepali(bs_date) + "</span>";
                 if (ad_date == 1)
-                  result += "<span class='ad_date'>" + AD_MONTHS_SHORT[ad_month - 1] + " " + ad_date + "</span>";
+                  result += "<span class='ad_date'><b>" + AD_MONTHS_SHORT[ad_month - 1] + " " + ad_date + "</b></span>";
                 else
                   result += "<span class='ad_date'>" + ad_date + "</span>";
                 let cellText = document.createElement("span");

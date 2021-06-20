@@ -174,11 +174,11 @@ function showADCalendar(month, year) {
                 let bs_date_for_lunar_data = bs_year.toString() + "-" + bs_month.toString().padStart(2, "0") + "-" + bs_date.toString().padStart(2, "0");
                 result += "<span class='for_lunar' align='center' id=" + bs_date_for_lunar_data + "></span><br />";
                 if (ns_date == 1)
-                  result += "<span class='ns_date_left'>" + NS_NEP_SHORT[ns_month - 1] + " " + arabic_number_to_nepali(ns_date) + "</span>";
+                  result += "<span class='ns_date_left'><b>" + NS_NEP_SHORT[ns_month - 1] + " " + arabic_number_to_nepali(ns_date) + "</b></span>";
                 else
                   result += "<span class='ns_date_left'>" + arabic_number_to_nepali(ns_date) + "</span>";
                 if (bs_date == 1)
-                  result += "<span class='bs_date_right'>" + BS_MONTHS_NEP_SHORT[bs_month - 1] + " " + arabic_number_to_nepali(bs_date) + "</span>";
+                  result += "<span class='bs_date_right'><b>" + BS_MONTHS_NEP_SHORT[bs_month - 1] + " " + arabic_number_to_nepali(bs_date) + "</b></span>";
                 else
                   result += "<span class='bs_date_right'>" + arabic_number_to_nepali(bs_date) + "</span>";
                 let cellText = document.createElement("span");
@@ -329,11 +329,11 @@ function showBSCalendar(month, year) {
                 let bs_date_for_lunar_data = year.toString() + "-" + month.toString().padStart(2, "0") + "-" + date.toString().padStart(2, "0");
                 result += "<span class='for_lunar' align='center' id=" + bs_date_for_lunar_data + "></span><br />";
                 if (ad_date == 1)
-                  result += "<span class='ad_date_left'>" + AD_MONTHS_SHORT[ad_month - 1] + " " + ad_date + "</span>";
+                  result += "<span class='ad_date_left'><b>" + AD_MONTHS_SHORT[ad_month - 1] + " " + ad_date + "</b></span>";
                 else
                   result += "<span class='ad_date_left'>" + ad_date + "</span>";
                 if (ns_date == 1)
-                  result += "<span class='ns_date_right'>" + NS_NEP_SHORT[ns_month - 1] + " " + arabic_number_to_nepali(ns_date) + "</span>";
+                  result += "<span class='ns_date_right'><b>" + NS_NEP_SHORT[ns_month - 1] + " " + arabic_number_to_nepali(ns_date) + "</b></span>";
                 else
                   result += "<span class='ns_date_right'>" + arabic_number_to_nepali(ns_date) + "</span>";
                 let cellText = document.createElement("span");
