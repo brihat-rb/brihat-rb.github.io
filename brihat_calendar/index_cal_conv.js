@@ -173,8 +173,14 @@ function showADCalendar(month, year) {
                 let result = "<h4 align='center'><b>" + date + "</b></h4>";
                 let bs_date_for_lunar_data = bs_year.toString() + "-" + bs_month.toString().padStart(2, "0") + "-" + bs_date.toString().padStart(2, "0");
                 result += "<span class='for_lunar' align='center' id=" + bs_date_for_lunar_data + "></span><br />";
-                result += "<span class='ns_date_left'>" + arabic_number_to_nepali(ns_date) + "</span>";
-                result += "<span class='bs_date_right'>" + arabic_number_to_nepali(bs_date) + "</span>";
+                if (ns_date == 1)
+                  result += "<span class='ns_date_left'>" + NS_NEP_SHORT[ns_month - 1] + " " + arabic_number_to_nepali(ns_date) + "</span>";
+                else
+                  result += "<span class='ns_date_left'>" + arabic_number_to_nepali(ns_date) + "</span>";
+                if (bs_date == 1)
+                  result += "<span class='bs_date_right'>" + BS_MONTHS_NEP_SHORT[bs_month - 1] + " " + arabic_number_to_nepali(bs_date) + "</span>";
+                else
+                  result += "<span class='bs_date_right'>" + arabic_number_to_nepali(bs_date) + "</span>";
                 let cellText = document.createElement("span");
                 cellText.innerHTML = result;
                 if (date == today.getDate() && year == today.getFullYear() && (month == today.getMonth() + 1)) {
@@ -322,8 +328,14 @@ function showBSCalendar(month, year) {
                 let result = "<h4 align='center'><b>" + arabic_number_to_nepali(date) + "</b></h4>";
                 let bs_date_for_lunar_data = year.toString() + "-" + month.toString().padStart(2, "0") + "-" + date.toString().padStart(2, "0");
                 result += "<span class='for_lunar' align='center' id=" + bs_date_for_lunar_data + "></span><br />";
-                result += "<span class='ad_date_left'>" + ad_date + "</span>";
-                result += "<span class='ns_date_right'>" + arabic_number_to_nepali(ns_date) + "</span>";
+                if (ad_date == 1)
+                  result += "<span class='ad_date_left'>" + AD_MONTHS_SHORT[ad_month - 1] + " " + ad_date + "</span>";
+                else
+                  result += "<span class='ad_date_left'>" + ad_date + "</span>";
+                if (ns_date == 1)
+                  result += "<span class='ns_date_right'>" + NS_NEP_SHORT[ns_month - 1] + " " + arabic_number_to_nepali(ns_date) + "</span>";
+                else
+                  result += "<span class='ns_date_right'>" + arabic_number_to_nepali(ns_date) + "</span>";
                 let cellText = document.createElement("span");
                 cellText.innerHTML = result;
                 if (date == bs_today_date && year == bs_today_year && month == bs_today_month) {
