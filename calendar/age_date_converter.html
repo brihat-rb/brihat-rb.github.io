@@ -224,7 +224,7 @@
       let ad_date = (ad_date_today[0]).toString().padStart(2, '0');
 
       let int_events_key = ad_month + "-" + ad_date;
-      let nat_events_key = month.toString().padStart(2, '0') + "-" + date.toString().padStart(2, '0');
+      let nat_events_key = (month + 1).toString().padStart(2, '0') + "-" + (date + 1).toString().padStart(2, '0');
 
 
       json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/' + year + '_detailed.json';
