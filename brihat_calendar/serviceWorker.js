@@ -14,6 +14,8 @@ const assets = [
   "./favicon.svg",
   "./logo.svg",
   "./watermark.svg",
+  "./brihat_calendar_url_qr.svg",
+  "./static_logo.svg",
   "./brihat_calendar.png",
   "https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css",
   "./index.css",
