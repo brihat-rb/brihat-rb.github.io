@@ -14,7 +14,7 @@ function previous() {
       showBSCalendar(currentMonth, currentYear);
     }
     else {
-      console.warning("error in calendar mode");
+      console.warn("error in calendar mode");
     }
 }
 
@@ -32,7 +32,7 @@ function next() {
       showBSCalendar(currentMonth, currentYear);
     }
     else {
-      console.warning("error in calendar mode");
+      console.warn("error in calendar mode");
     }
 }
 
@@ -50,7 +50,7 @@ function jump() {
       showBSCalendar(currentMonth, currentYear);
     }
     else {
-      console.warning("error in calendar mode");
+      console.warn("error in calendar mode");
     }
 }
 

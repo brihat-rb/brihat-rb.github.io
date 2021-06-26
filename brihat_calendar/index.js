@@ -100,7 +100,7 @@ function fill_lunar_data(year1, year2) {
           LUNAR_EVENTS_ONE = JSON.parse(this.response);
       }
       lunar_data_req1.onerror = function() {
-          console.warning("Error fetching Lunar Data.")
+          console.warn("Error fetching Lunar Data.")
           LUNAR_EVENTS_ONE = LUNAR_EVENTS;
       }
       lunar_data_req1.send();
@@ -116,7 +116,7 @@ function fill_lunar_data(year1, year2) {
             LUNAR_EVENTS_TWO = JSON.parse(this.response);
         }
         lunar_data_req2.onerror = function() {
-            console.warning("Error fetching Lunar Data.");
+            console.warn("Error fetching Lunar Data.");
             LUNAR_EVENTS_TWO = LUNAR_EVENTS;
         }
         lunar_data_req2.send();
