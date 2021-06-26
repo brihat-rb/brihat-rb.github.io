@@ -135,6 +135,19 @@ input[type="submit"][disabled]:hover {
   font-size: 13px;
 }
 
+.qr {
+  background: url('brihat_calendar_url_qr.svg') !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  background-size: auto 100% !important;
+}
+
+.qr_fallback {
+  background: url('watermark.svg') 20% center, url('brihat_calendar_url_qr.svg') 80% center !important;
+  background-repeat: no-repeat !important;
+  background-size: auto 100% !important;
+}
+
 @media only screen and (max-width: 555px) {
   #modal_title {
     font-size: 20px;
@@ -189,6 +202,12 @@ input[type="submit"][disabled]:hover {
 
   * {
     font-weight: bold;
+  }
+
+  .card-header {
+    background: url('static_logo.svg') 5% center, url('brihat_calendar_url_qr.svg') 95% center !important;
+    background-repeat: no-repeat !important;
+    background-size: auto 90% !important;
   }
 
   #prev_today_next, #date_converter_div, #print, #brihat_calendar_date_jumper, #user_info, #g_info, #app_open_link {

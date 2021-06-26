@@ -45,10 +45,26 @@ function add_author_info(month, year) {
   if (first_colspan > last_colspan && last_colspan < 3) {
     first_td.appendChild(copyright_element);
     first_td.classList.add('print');
+
+    // ADDED QR in .card-header instead
+    // if (last_colspan > 0) {
+    //   last_td.classList.add('qr');
+    // }
+    // else {
+    //   first_td.classList.add('qr_fallback');
+    // }
   }
   else {
     last_td.appendChild(copyright_element);
     last_td.classList.add('print');
+
+    // ADDED QR in .card-header instead
+    // if (first_colspan > 0) {
+    //   first_td.classList.add('qr');
+    // }
+    // else {
+    //   last_td.classList.add('qr_fallback');
+    // }
   }
 }
 // Handled by function update_date_jumper() at end of this file
