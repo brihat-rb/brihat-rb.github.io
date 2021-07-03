@@ -117,7 +117,7 @@ fill_bs_date();
 
 function ns_to_ad() {
   // converts NS to AD and shows the result below
-  let ad_date = convert_ns_to_ad(select_year_nsad.value, select_month_nsad.value, select_date_nsad.value);
+  let ad_date = convert_ns_to_ad(parseInt(select_year_nsad.value), parseInt(select_month_nsad.value), parseInt(select_date_nsad.value));
   let ad_date_list = ad_date.split(" ");
   let ad_date_day = (new Date(ad_date)).getDay();
   let ad_result = ad_date_list[2] + " " + AD_MONTHS[ad_date_list[1] - 1] + " " + ad_date_list[0] + ", " + ENGLISH_DAYS[ad_date_day];
@@ -139,7 +139,7 @@ function ns_to_bs() {
   // converts NS to BS and shows the result below
   let bs_date = convert_ns_to_bs(select_year_nsbs.value, select_month_nsbs.value, select_date_nsbs.value);
   let bs_date_list = bs_date.split(" ");
-  let bs_date_in_ad = convert_ns_to_ad(select_year_nsbs.value, select_month_nsbs.value, select_date_nsbs.value);
+  let bs_date_in_ad = convert_ns_to_ad(parseInt(select_year_nsbs.value), parseInt(select_month_nsbs.value), parseInt(select_date_nsbs.value));
   let bs_date_day = NEPALI_DAYS[(new Date(bs_date_in_ad)).getDay()];
   let bs_result = arabic_number_to_nepali(bs_date_list[0]) + " " + BS_MONTHS_NEP[bs_date_list[1] - 1] + " " + arabic_number_to_nepali(bs_date_list[2]) + ", " + bs_date_day;
   nsbs_result.innerHTML = bs_result;
@@ -149,7 +149,7 @@ function bs_to_ns() {
   // converts BS to NS and shows the result below
   let ns_date = convert_bs_to_ns(select_year_bsns.value, select_month_bsns.value, select_date_bsns.value);
   let ns_date_list = ns_date.split(" ");
-  let ns_date_in_ad = convert_ns_to_ad(ns_date_list[0], ns_date_list[1], ns_date_list[2]);
+  let ns_date_in_ad = convert_bs_to_ad(select_year_bsns.value, select_month_bsns.value, select_date_bsns.value);
   let ns_date_day = NS_DAYS[(new Date(ns_date_in_ad)).getDay()];
   let ns_result = arabic_number_to_nepali(ns_date_list[0]) + " " + NS_NEP[ns_date_list[1] - 1] + " " + arabic_number_to_nepali(ns_date_list[2]) + ", " + ns_date_day;
   bsns_result.innerHTML = ns_result;
