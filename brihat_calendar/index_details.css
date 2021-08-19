@@ -213,4 +213,32 @@ input[type="submit"][disabled]:hover {
   #prev_today_next, #date_converter_div, #print, #brihat_calendar_date_jumper, #user_info, #g_info, #app_open_link {
     display: none;
   }
+
+  .national_holiday span h4 b {
+    background: red;
+     border-radius: 0.9em;
+    -moz-border-radius: 0.9em;
+    -webkit-border-radius: 0.9em;
+    color: #ffffff;
+    display: inline-block;
+    font-weight: bold;
+    line-height: 1.8em;
+    text-align: center;
+    width: 1.8em;
+    /* padding-bottom: 0.2em; */
+  }
+
+  .specific_holiday span h4 b {
+    background: darkturquoise;
+    border-radius: 0.9em;
+    -moz-border-radius: 0.9em;
+    -webkit-border-radius: 0.9em;
+    color: #ffffff;
+    display: inline-block;
+    font-weight: bold;
+    line-height: 1.8em;
+    text-align: center;
+    width: 1.8em;
+    /* padding-bottom: 0.2em; */
+  }
 }
