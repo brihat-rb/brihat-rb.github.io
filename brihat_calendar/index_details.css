@@ -42,8 +42,22 @@
   color: darkblue;
 }
 
+.solar_ns_event {
+  color: darkorange;
+}
+
+.other_calendar_event {
+  color: maroon;
+}
+
 #international_event_eng {
   color: darkblue;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+#other_calendar_event_eng {
+  color: maroon;
   font-size: 12px;
   font-weight: bold;
 }
