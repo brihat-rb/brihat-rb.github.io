@@ -21,6 +21,26 @@ nat_event_req.onload = function() {
 }
 nat_event_req.send();
 
+var solar_ns_event_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/solar_ns_events.json';
+var solar_ns_event_req = new XMLHttpRequest();
+var snsevents = "";
+
+solar_ns_event_req.open('GET', solar_ns_event_url, false);
+solar_ns_event_req.onload = function() {
+  snsevents = JSON.parse(this.response);
+}
+solar_ns_event_req.send();
+
+var other_calendar_event_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/other_calendar_events.json';
+var other_calendar_event_req = new XMLHttpRequest();
+var other_events = "";
+
+other_calendar_event_req.open('GET', other_calendar_event_url, false);
+other_calendar_event_req.onload = function() {
+  other_events = JSON.parse(this.response);
+}
+other_calendar_event_req.send();
+
 function convert_to_nepali(date_string) {
   var date_split = date_string.split("-");
   var result = "";
@@ -85,6 +105,8 @@ function tdclick(id) {
   // EVENTS KEYS
   let int_events_key = ad_date_list[1].toString().padStart(2, '0') + "-" + ad_date_list[2].toString().padStart(2, '0');
   let nat_events_key = bs_month.toString().padStart(2, '0') + "-" + bs_date.toString().padStart(2, '0');
+  let solar_ns_events_key = solar_ns_date_list[1].toString().padStart(2, '0') + "-" + solar_ns_date_list[2].toString().padStart(2, '0');
+  let other_events_key = int_events_key; // for now
 
   if (CALENDAR_MODE == 2) {
     title.innerHTML = "<b>" + "वि. सं. " + nepali_date_day + "</b>";
@@ -149,6 +171,28 @@ function tdclick(id) {
       default_content +="<div id='international_event_eng'>( " + ievents.data[int_events_key][0] + " )</div>";
       default_events = true;
     }
+
+    // IF REQUIRED TO SHOW SOLAR NS EVENTS AND OTHER EVENTS AS WLL
+    // if(snsevents.data[solar_ns_events_key]) {
+    //   default_content += "<br />";
+    //   if(!default_events) {
+    //     default_content += "<br />";
+    //   }
+    //   default_content +="<div class='solar_ns_event event_type'>solar nepal sambat event</div>";
+    //   default_content +="<div class='solar_ns_event'>" + snsevents.data[solar_ns_events_key][1] + "</div>";
+    //   default_content +="<div id='solar_ns_event_eng'>( " + snsevents.data[solar_ns_events_key][0] + " )</div>";
+    //   default_events = true;
+    // }
+    // if(other_events.data[ad_date_list[0].toString()][other_events_key]) {
+    //   default_content += "<br />";
+    //   if(!default_events) {
+    //     default_content += "<br />";
+    //   }
+    //   default_content +="<div class='other_calendar_event event_type'>other event</div>";
+    //   default_content +="<div class='other_calendar_event'>" + other_events.data[ad_date_list[0].toString()][other_events_key][1] + "</div>";
+    //   default_content +="<div id='other_calendar_event_eng'>( " + other_events.data[ad_date_list[0].toString()][other_events_key][0] + " )</div>";
+    //   default_events = true;
+    // }
     if (!default_events) {
       default_content += '<br /><br /><div id="no_info"><b>This date has no events</b></div>';
     }
@@ -244,6 +288,25 @@ function tdclick(id) {
       info_content +="<div class='international_event event_type'>international event</div>";
       info_content +="<div class='international_event'>" + ievents.data[int_events_key][1] + "</div>";
       info_content +="<div id='international_event_eng'>( " + ievents.data[int_events_key][0] + " )</div>";
+      has_events = true;
+    }
+    if(snsevents.data[solar_ns_events_key]) {
+      info_content += "<br />";
+      if(!has_events) {
+        info_content += "<br />";
+      }
+      info_content +="<div class='solar_ns_event event_type'>solar nepal sambat event</div>";
+      info_content +="<div class='solar_ns_event'>" + snsevents.data[solar_ns_events_key][1] + "</div>";
+      has_events = true;
+    }
+    if(other_events.data[ad_date_list[0].toString()][other_events_key]) {
+      info_content += "<br />";
+      if(!has_events) {
+        info_content += "<br />";
+      }
+      info_content +="<div class='other_calendar_event event_type'>other event</div>";
+      info_content +="<div class='other_calendar_event'>" + other_events.data[ad_date_list[0].toString()][other_events_key][1] + "</div>";
+      info_content +="<div id='other_calendar_event_eng'>( " + other_events.data[ad_date_list[0].toString()][other_events_key][0] + " )</div>";
       has_events = true;
     }
     if (!has_events) {
