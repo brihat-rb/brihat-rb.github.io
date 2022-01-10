@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <title>brihat-rb.github.io</title>
+    <title>Home | Brihat Ratna Bajracharya</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
@@ -162,20 +162,20 @@
 	  </svg>
 
     <ul id="ul1">
-      <li><a href="https://brihat-rb.github.io/todoweb/todoweb.html">TodoWeb (JS)</a></li>
-      <li><a href="https://brihat-rb.github.io/JSDict/JSDict.html">JSDict</a></li>
-      <li><a href="https://brihat-rb.github.io/react-todo">React Todo</a></li>
-      <li><a href="https://brihat-rb.github.io/morse/morse.html">Morse Code</a></li>
-      <li><a href="https://brihat-rb.github.io/weather/weather.html">Weather</a></li>
-      <li><a href="https://brihat-rb.github.io/unit_converter/converter.html">Unit Converter</a></li>
+      <li><a href="https://brihatrb.com.np/todoweb/todoweb.html">TodoWeb (JS)</a></li>
+      <li><a href="https://brihatrb.com.np/JSDict/JSDict.html">JSDict</a></li>
+      <li><a href="https://brihatrb.com.np/react-todo">React Todo</a></li>
+      <li><a href="https://brihatrb.com.np/morse/morse.html">Morse Code</a></li>
+      <li><a href="https://weather.brihatrb.com.np/">Weather</a></li>
+      <li><a href="https://brihatrb.com.np/unit_converter/converter.html">Unit Converter</a></li>
     </ul>
 
     <!-- <br /> -->
 
     <ul id="ul2">
-      <li><a href="https://brihat-rb.github.io/brihat_calendar/brihat_calendar.html">Brihat Calendar</a></li>
-      <li><a href="https://brihat-rb.github.io/calendar/age_date_converter.html">Date Converter</a></li>
-      <li><a href="https://brihat-rb.github.io/solarnsconverter/solarnsconverter.html">Solar Nepal Sambat Converter</a></li>
+      <li><a href="https://calendar.brihatrb.com.np/">Brihat Calendar</a></li>
+      <li><a href="https://brihatrb.com.np/calendar/age_date_converter.html">Date Converter</a></li>
+      <li><a href="https://brihatrb.com.np/solarnsconverter/solarnsconverter.html">Solar Nepal Sambat Converter</a></li>
     </ul>
 
     <div id="user_info">
@@ -213,7 +213,7 @@
   	  }
   	</script>
 
-    <script>
+    <!-- <script>
       var request = new XMLHttpRequest();
       url = 'https://ipinfo.io/?token=6630ba13ce995d';
       request.open('GET', url, true);
@@ -223,7 +223,19 @@
         document.getElementById("user_geolocation").innerHTML = response["loc"];
       }
       request.send();
+    </script> -->
+
+    <script>
+      function recordData (response) {
+	document.getElementById("user_ip").innerHTML = response["ip"];
+        document.getElementById("user_geolocation").innerHTML = response["loc"];
+      }
     </script>
-    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "620df297d3a248618bafe7c863b2382c"}'></script><!-- End Cloudflare Web Analytics -->
+    
+    <script src="https://ipinfo.io/json?callback=recordData"></script>
+    
+    <!-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "620df297d3a248618bafe7c863b2382c"}'></script>
+    <!-- End Cloudflare Web Analytics -->
   </body>
 </html>
