@@ -19,3 +19,5 @@
 ###### [Text to Morse](https://brihat-rb.github.io/morse/morse.html)  
 
 Any Suggestions to [brihat (dot) rb (at) gmail (dot) com](mailto:brihat.rb@gmail.com)
+
+Updated: 17 JAN 2022

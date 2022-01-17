@@ -305,10 +305,6 @@ button:hover {
   transform: translate(-50%, -50%);
 }
 
-.pollution_info {
-  width: 80%;
-}
-
 /* popup content */
 .forecast-content, .pollution-content, #myinfo_content {
   background-color: #fefefe;

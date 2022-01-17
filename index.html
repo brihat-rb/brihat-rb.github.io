@@ -229,13 +229,13 @@
 
     <script>
       function recordData (response) {
-	document.getElementById("user_ip").innerHTML = response["ip"];
+	      document.getElementById("user_ip").innerHTML = response["ip"];
         document.getElementById("user_geolocation").innerHTML = response["loc"];
       }
     </script>
-    
-    <script src="https://ipinfo.io/json?callback=recordData"></script>
-    
+
+    <script src="https://ipinfo.io/json?callback=recordData&token=6630ba13ce995d"></script>
+
     <!-- Cloudflare Web Analytics -->
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "620df297d3a248618bafe7c863b2382c"}'></script>
     <!-- End Cloudflare Web Analytics -->
