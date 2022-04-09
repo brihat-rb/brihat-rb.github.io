@@ -299,15 +299,22 @@ function tdclick(id) {
       info_content +="<div class='solar_ns_event'>" + snsevents.data[solar_ns_events_key][1] + "</div>";
       has_events = true;
     }
-    if(other_events.data[ad_date_list[0].toString()][other_events_key]) {
-      info_content += "<br />";
-      if(!has_events) {
+    if(ad_date_list[0] >= other_events.other_start && ad_date_list[0] <= other_events.other_end) {
+      if(other_events.data[ad_date_list[0].toString()][other_events_key]) {
+        console.info("Misc Event Found!");
         info_content += "<br />";
+        if(!has_events) {
+          info_content += "<br />";
+        }
+        info_content +="<div class='other_calendar_event event_type'>other event</div>";
+        info_content +="<div class='other_calendar_event'>" + other_events.data[ad_date_list[0].toString()][other_events_key][1] + "</div>";
+        info_content +="<div id='other_calendar_event_eng'>( " + other_events.data[ad_date_list[0].toString()][other_events_key][0] + " )</div>";
+        has_events = true;
+        console.info("Misc Event Displayed!");
       }
-      info_content +="<div class='other_calendar_event event_type'>other event</div>";
-      info_content +="<div class='other_calendar_event'>" + other_events.data[ad_date_list[0].toString()][other_events_key][1] + "</div>";
-      info_content +="<div id='other_calendar_event_eng'>( " + other_events.data[ad_date_list[0].toString()][other_events_key][0] + " )</div>";
-      has_events = true;
+    }
+    else {
+      console.info("No Misc Event Data beyond [", other_events.other_start, "-", other_events.other_end, "] AD");
     }
     if (!has_events) {
       info_content += '<br /><br /><div id="no_info"><b>This date has no events</b></div>';
