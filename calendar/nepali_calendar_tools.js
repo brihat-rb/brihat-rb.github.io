@@ -62,6 +62,31 @@ function arabic_number_to_nepali(number){
     return nepali_number;
 }
 
+function get_bs_date_detail(bs_year, bs_month, bs_date) {
+    var json_url = "";
+    var date_detail = '{}';
+    
+    if (bs_year >= 2076 && bs_year <= 2080) {
+        json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/' + bs_year + '_detailed.json';
+    }
+    else if (bs_year >= 2070 && bs_year <= 2075) {
+        json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/' + bs_year + '.json';
+    }
+    else {
+        return '{}';
+    }
+
+    var nepal_event_req = new XMLHttpRequest();
+    nepal_event_req.open('GET', json_url, false);
+    nepal_event_req.onload = function() {
+        var events = JSON.parse(this.response);
+        date_detail = JSON.stringify(events.data[parseInt(bs_month) - 1][parseInt(bs_date) - 1]);
+    }
+    nepal_event_req.send();
+
+    return date_detail; 
+}
+
 // fill up the fields
 let select_list_ids = ["_", "_birthdate_", "_asof_", "_event_", "_date_calc_"];
 
