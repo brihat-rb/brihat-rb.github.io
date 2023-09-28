@@ -231,10 +231,20 @@
       }
       nat_event_req.send();
 
+      var public_holiday_url = 'https://raw.githubusercontent.com/brihat-rb/brihat_calendar/main/data/public_holidays_in_nepal.json';
+      var public_holiday_req = new XMLHttpRequest();
+      var public_holidays = "";
+
       let bs_date_today = get_bs_date_from_date_object(new Date()).split(" ");
       let year = bs_date_today[0];
       let month = get_bs_month(bs_date_today[1]) - 1;
       let date = bs_date_today[2] - 1;
+
+      public_holiday_req.open('GET', public_holiday_url, false);
+      public_holiday_req.onload = function () {
+        public_holidays = JSON.parse(this.response);
+      }
+      public_holiday_req.send();
 
       let ad_date_today = convert_bs_to_ad(parseInt(year), parseInt(month + 1), parseInt(date + 1)).split(" ");
       let ad_year = ad_date_today[2].toString();
@@ -257,7 +267,10 @@
         let events = JSON.parse(this.response);
 
         let info_content = "";
-        info_content += '<div id="tithi">' + events.data[month][date].pakshya + " " + events.data[month][date].tithi + '</div>';
+        info_content += '<div id="tithi">ने. सं. ' + arabic_number_to_nepali(events.data[month - 1][date - 1].ns_year) + " ";
+        info_content += events.data[month][date].lunar_month + " (" + events.data[month][date].pakshya + ") " + events.data[month][date].tithi;
+        info_content += "<br />" + NEPALI_DAYS[new Date(ad_date_today).getDay()] + '</div>';
+
         if (events.data[month][date].lunar_event_one)
           info_content += '<div id="lunar_infos">' + events.data[month][date].lunar_event_one;
         if (events.data[month][date].lunar_event_two)
@@ -276,6 +289,9 @@
 
         if (oevents.data[ad_year][int_events_key])
           info_content += "<div id='other_event_info'>" + oevents["data"][ad_year][int_events_key][1].replaceAll(" / ", "<br />") + "</div>";
+
+        if (public_holidays[year][nat_events_key])
+          info_content += "<div id='holiday_info' class='" + public_holidays[year][nat_events_key][1] + "'>" + public_holidays[year][nat_events_key][3].replaceAll(" / ", "<br />") + "</div>";
 
         document.getElementById("today_info").innerHTML = info_content;
       }
@@ -318,7 +334,7 @@
 
           let nepali_date = "<br />";
           let nepali_date_day = new Date(convert_bs_to_ad(bs_year, bs_month, bs_date, "")).getDay();
-          nepali_date += '<div id="date"><b><u>' + arabic_number_to_nepali(bs_year) + " ";
+          nepali_date += '<div id="date" class="' + public_holidays[bs_year][nat_events_key][1] + '"><b><u>' + arabic_number_to_nepali(bs_year) + " ";
           nepali_date += BS_MONTHS_NEP[bs_month - 1] + " ";
           nepali_date += arabic_number_to_nepali(bs_date) + ", ";
           nepali_date += NEPALI_DAYS[nepali_date_day] + ' </u></b></div><br />';
@@ -357,28 +373,30 @@
             info_content += '</div>';
 
           if (nevents.data[nat_events_key]) {
-            info_content += "<br /><br />";
-            info_content += "<div id='national_event'>" + nevents.data[nat_events_key][1].replaceAll(" / ", "<br />") + "</div>";
+            // info_content += "<br /><br />";
+            info_content += "<div id='national_event' title='" + nevents.data[nat_events_key][0].replaceAll(" / ", "\n") + "'>" + nevents.data[nat_events_key][1].replaceAll(" / ", "<br />") + "</div>";
           }
 
           if (ievents.data[int_events_key]) {
-            info_content += "<br /><br />";
-            info_content += "<div id='international_event'>" + ievents.data[int_events_key][1].replaceAll(" / ", "<br />") + "</div>";
+            // info_content += "<br /><br />";
+            info_content += "<div id='international_event' title='" + ievents.data[int_events_key][0].replaceAll(" / ", "\n").replaceAll("'s", "") + "'>" + ievents.data[int_events_key][1].replaceAll(" / ", "<br />") + "</div>";
           }
 
           if (oevents.data[ad_year][int_events_key]) {
-            info_content += "<br /><br />";
-            info_content += "<div id='other_event'>" + oevents["data"][ad_year][int_events_key][1].replaceAll(" / ", "<br />") + "</div>";
+            // info_content += "<br /><br />";
+            info_content += "<div id='other_event' title='" + oevents["data"][ad_year][int_events_key][0].replaceAll(" / ", "\n").replaceAll("'s", "") + "'>" + oevents["data"][ad_year][int_events_key][1].replaceAll(" / ", "<br />") + "</div>";
           }
 
           if (snsevents.data[sns_events_key]) {
-            info_content += "<br /><br />";
-            info_content += "<div id='solar_ns_event'>" + snsevents.data[sns_events_key][1].replaceAll(" / ", "<br />") + "</div>";
+            // info_content += "<br /><br />";
+            info_content += "<div id='solar_ns_event' title='" + snsevents.data[sns_events_key][0].replaceAll(" / ", "\n").replaceAll("'s", "") + "'>" + snsevents.data[sns_events_key][1].replaceAll(" / ", "<br />") + "</div>";
+          }
+
+          if (public_holidays[bs_year][nat_events_key]) {
+            info_content += "<div id='holiday_event' class='" + public_holidays[bs_year][nat_events_key][1] + "' title='" + public_holidays[bs_year][nat_events_key][0].replaceAll(" / ", "\n").replaceAll("'s", "") + "'>" + public_holidays[bs_year][nat_events_key][3].replaceAll(" / ", "<br />") + "</div>";
           }
 
           info_content += "</div>";
-          console.log(info_content);
-
           document.getElementById("event_here").innerHTML = info_content;
         }
         nepal_event_req.send();
