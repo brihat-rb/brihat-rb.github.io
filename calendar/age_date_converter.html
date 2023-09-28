@@ -334,7 +334,12 @@
 
           let nepali_date = "<br />";
           let nepali_date_day = new Date(convert_bs_to_ad(bs_year, bs_month, bs_date, "")).getDay();
-          nepali_date += '<div id="date" class="' + public_holidays[bs_year][nat_events_key][1] + '"><b><u>' + arabic_number_to_nepali(bs_year) + " ";
+          
+          nepali_date += '<div id="date"';
+          if (public_holidays[bs_year][nat_events_key])
+            nepali_date += ' class="' + public_holidays[bs_year][nat_events_key][1] + '"';
+          nepali_date += '><b><u>' + arabic_number_to_nepali(bs_year) + " ";
+          
           nepali_date += BS_MONTHS_NEP[bs_month - 1] + " ";
           nepali_date += arabic_number_to_nepali(bs_date) + ", ";
           nepali_date += NEPALI_DAYS[nepali_date_day] + ' </u></b></div><br />';
