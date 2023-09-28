@@ -37,7 +37,12 @@ body {
   justify-content: space-between;
 }
 
-#tithi, #info1, #info2, #info3, #international_event_info, #national_event_info {
+#all_events {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#tithi, #info1, #info2, #info3, #international_event_info, #national_event_info, #sns_event_info, #other_event_info {
   flex: 1 1 0px;
   padding: 0px 5px 0px 5px;
 }
@@ -48,6 +53,14 @@ body {
 
 #international_event {
   color: darkblue;
+}
+
+#other_event {
+  color: orange;
+}
+
+#solar_ns_event {
+  color: maroon;
 }
 
 #user_info {

@@ -4,7 +4,7 @@
 function ad_string_from_date(date) {
     // return ad date string in form of 'date month(str) year'
     let date_string = date.toLocaleDateString().split("/");
-    return date_string[1] + " " + AD_MONTHS[date_string[0]-1] + " " + date_string[2];
+    return date_string[0] + " " + AD_MONTHS[parseInt(date_string[1]) - 1] + " " + date_string[2];
 }
 
 function get_bs_month(month) {
@@ -24,23 +24,23 @@ function get_nep_bs_date_from_date_object(date) {
 }
 
 function date_string_nep(bs_date_eng) {
-  let bs_date_eng_list = bs_date_eng.split(" ");
-  let result = "";
-  result += arabic_number_to_nepali(bs_date_eng_list[0]) + " ";
-  result += BS_MONTHS_NEP[get_bs_month(bs_date_eng_list[1]) - 1] + " ";
-  result += arabic_number_to_nepali(bs_date_eng_list[2]);
-  return result;
+    let bs_date_eng_list = bs_date_eng.split(" ");
+    let result = "";
+    result += arabic_number_to_nepali(bs_date_eng_list[0]) + " ";
+    result += BS_MONTHS_NEP[get_bs_month(bs_date_eng_list[1]) - 1] + " ";
+    result += arabic_number_to_nepali(bs_date_eng_list[2]);
+    return result;
 }
 
 function get_ad_date_string(ad_date_result) {
     let ad_date_list = ad_date_result.split(" ");
     let ad_month = AD_MONTHS.indexOf(ad_date_list[1]) + 1;
     if (ad_month < 10) {
-      ad_month = "0" + ad_month;
+        ad_month = "0" + ad_month;
     }
 
     if (ad_date_list[0] < 10) {
-      ad_date_list[0] = "0" + ad_date_list[0];
+        ad_date_list[0] = "0" + ad_date_list[0];
     }
     return ad_date_list[2] + "-" + ad_month + "-" + ad_date_list[0];
 }
@@ -53,10 +53,10 @@ function get_nepali_day_from_bs_date(bs_year, bs_month, bs_date) {
     return NEPALI_DAYS[ad_date.getDay()];
 }
 
-function arabic_number_to_nepali(number){
+function arabic_number_to_nepali(number) {
     number = number.toString();
     let nepali_number = "";
-    for(let i = 0; i < number.length; i++) {
+    for (let i = 0; i < number.length; i++) {
         nepali_number += NEPALI_DIGITS[parseInt(number.charAt(i))];
     }
     return nepali_number;
@@ -65,7 +65,7 @@ function arabic_number_to_nepali(number){
 function get_bs_date_detail(bs_year, bs_month, bs_date) {
     var json_url = "";
     var date_detail = '{}';
-    
+
     if (bs_year >= 2076 && bs_year <= 2080) {
         json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/' + bs_year + '_detailed.json';
     }
@@ -78,47 +78,47 @@ function get_bs_date_detail(bs_year, bs_month, bs_date) {
 
     var nepal_event_req = new XMLHttpRequest();
     nepal_event_req.open('GET', json_url, false);
-    nepal_event_req.onload = function() {
+    nepal_event_req.onload = function () {
         var events = JSON.parse(this.response);
         date_detail = JSON.stringify(events.data[parseInt(bs_month) - 1][parseInt(bs_date) - 1]);
     }
     nepal_event_req.send();
 
-    return date_detail; 
+    return date_detail;
 }
 
 // fill up the fields
 let select_list_ids = ["_", "_birthdate_", "_asof_", "_event_", "_date_calc_"];
 
-for(let elem = 0; elem < select_list_ids.length; elem++) {
-  for(let year = 1975; year <= 2100; year++) {
-      if (select_list_ids[elem] == "_event_") {
-          if (year < 2070 || year > 2080) {
-              continue;
-          }
-      }
-      let select = document.getElementById("select" + select_list_ids[elem] + "year");
-      let option = document.createElement("option");
-      select.options.add(option);
-      option.text = arabic_number_to_nepali(year);
-      option.value = year;
-  }
+for (let elem = 0; elem < select_list_ids.length; elem++) {
+    for (let year = 1975; year <= 2100; year++) {
+        if (select_list_ids[elem] == "_event_") {
+            if (year < 2070 || year > 2080) {
+                continue;
+            }
+        }
+        let select = document.getElementById("select" + select_list_ids[elem] + "year");
+        let option = document.createElement("option");
+        select.options.add(option);
+        option.text = arabic_number_to_nepali(year);
+        option.value = year;
+    }
 
-  for(let month = 1; month <= 12; month++) {
-      let select = document.getElementById("select" + select_list_ids[elem] + "month");
-      let option = document.createElement("option");
-      select.options.add(option);
-      option.text = BS_MONTHS_NEP[month-1];
-      option.value = month;
-  }
+    for (let month = 1; month <= 12; month++) {
+        let select = document.getElementById("select" + select_list_ids[elem] + "month");
+        let option = document.createElement("option");
+        select.options.add(option);
+        option.text = BS_MONTHS_NEP[month - 1];
+        option.value = month;
+    }
 
-  for(let date = 1; date <= 32; date++) {
-      let select = document.getElementById("select" + select_list_ids[elem] + "date");
-      let option = document.createElement("option");
-      select.options.add(option);
-      option.text = arabic_number_to_nepali(date);
-      option.value = date;
-  }
+    for (let date = 1; date <= 32; date++) {
+        let select = document.getElementById("select" + select_list_ids[elem] + "date");
+        let option = document.createElement("option");
+        select.options.add(option);
+        option.text = arabic_number_to_nepali(date);
+        option.value = date;
+    }
 }
 
 // main functions
@@ -149,8 +149,8 @@ document.getElementById("select_asof_year").value = bs_today[0];
 document.getElementById("select_asof_month").value = get_bs_month(bs_today[1]);
 document.getElementById("select_asof_date").value = bs_today[2];
 
-document.getElementById("ad_date").value = new Date().toISOString().substring(0,10);
-document.getElementById('date2').value = new Date().toISOString().substr(0,10);
+document.getElementById("ad_date").value = new Date().toISOString().substring(0, 10);
+document.getElementById('date2').value = new Date().toISOString().substr(0, 10);
 
 document.getElementById("select_event_year").value = bs_today[0];
 document.getElementById("select_event_month").value = get_bs_month(bs_today[1]);

@@ -1,73 +1,74 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <title>Date Converter | Age Calculator | Events of the day</title>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./age_date_converter.css" />
-  </head>
 
-  <body>
-    <i id="datetime"></i>
-    <div id="today_info"></div>
+<head>
+  <title>Date Converter | Age Calculator | Events of the day</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./age_date_converter.css" />
+</head>
 
-    <h2 onclick="toggle_content('date_converter')" title="Click to convert date">AD BS Date Converter</h2>
-    <div class="main_div" id="date_converter">
-      <div id="ad_to_bs">
-        <div class="input">AD: <input type="date" id="ad_date" />
-          <button id="button_to_bs" onclick="to_bs();">GET BS</button>
-        </div>
-        <div id="bs_result">BS here</div>
+<body>
+  <i id="datetime"></i>
+  <div id="today_info"></div>
+
+  <h2 onclick="toggle_content('date_converter')" title="Click to convert date">AD BS Date Converter</h2>
+  <div class="main_div" id="date_converter">
+    <div id="ad_to_bs">
+      <div class="input">AD: <input type="date" id="ad_date" />
+        <button id="button_to_bs" onclick="to_bs();">GET BS</button>
       </div>
-      <div id="bs_to_ad">
+      <div id="bs_result">BS here</div>
+    </div>
+    <div id="bs_to_ad">
+      <div class="input">BS:
+        <select id="select_year"></select>
+        <select id="select_month"></select>
+        <select id="select_date"></select>
+        <button id="button_to_ad" onclick="to_ad();">GET AD</button>
+      </div>
+      <div id="ad_result">AD here</div>
+    </div>
+  </div>
+
+  <h2 onclick="toggle_content('date_calculator')" title="Click to calculate date">Date Calculator</h2>
+  <div class="main_div" id="date_calculator">
+    <div id="date_calc_top">
+      <input type="radio" name="cal" id="1" value="From AD" checked onchange="date_calculator_cal_choice(id);" />
+      <label for="1">From AD</label>
+      <input type="radio" name="cal" id="2" value="From BS" onchange="date_calculator_cal_choice(id);" />
+      <label for="2">From BS</label>
+    </div>
+    <div id="date_calc_middle">
+      <div id="date_calc_ad">
+        <div class="input">AD: <input type="date" id="calc_ad_date" />
+        </div>
+      </div>
+      <div id="date_calc_bs">
         <div class="input">BS:
-          <select id="select_year"></select>
-          <select id="select_month"></select>
-          <select id="select_date"></select>
-          <button id="button_to_ad" onclick="to_ad();">GET AD</button>
+          <select id="select_date_calc_year"></select>
+          <select id="select_date_calc_month"></select>
+          <select id="select_date_calc_date"></select>
         </div>
-        <div id="ad_result">AD here</div>
       </div>
+      <select id="operation">
+        <option value="plus"> + </option>
+        <option value="minus" selected> - </option>
+      </select>
+
+      <div id="date_offset">
+        <input type="number" id="n_years" min="0" max="2020" step="1" placeholder="# years"></input>
+        <input type="number" id="n_months" min="0" max="12" step="1" placeholder="# months"></input>
+        <input type="number" id="n_days" min="0" max="32" step="1" placeholder="# days"></input>
+      </div>
+      <button id="date_calc" onclick="date_calc();">Calculate</button>
     </div>
-
-    <h2 onclick="toggle_content('date_calculator')" title="Click to calculate date">Date Calculator</h2>
-    <div class="main_div" id="date_calculator">
-      <div id="date_calc_top">
-        <input type="radio" name="cal" id="1" value="From AD" checked onchange="date_calculator_cal_choice(id);" />
-        <label for="1">From AD</label>
-        <input type="radio" name="cal" id="2" value="From BS" onchange="date_calculator_cal_choice(id);"/>
-        <label for="2">From BS</label>
-      </div>
-      <div id="date_calc_middle">
-        <div id="date_calc_ad">
-          <div class="input">AD: <input type="date" id="calc_ad_date" />
-          </div>
-        </div>
-        <div id="date_calc_bs">
-          <div class="input">BS:
-            <select id="select_date_calc_year"></select>
-            <select id="select_date_calc_month"></select>
-            <select id="select_date_calc_date"></select>
-          </div>
-        </div>
-        <select id="operation">
-          <option value="plus"> + </option>
-          <option value="minus" selected> - </option>
-        </select>
-
-        <div id="date_offset">
-          <input type="number" id="n_years" min="0" max="2020" step="1" placeholder="# years"></input>
-          <input type="number" id="n_months" min="0" max="12" step="1" placeholder="# months"></input>
-          <input type="number" id="n_days" min="0" max="32" step="1" placeholder="# days"></input>
-        </div>
-        <button id="date_calc" onclick="date_calc();">Calculate</button>
-      </div>
-      <div id="date_calc_bottom">
-        <div id="date_calc_result">Date Calculator Result Here</div>
-      </div>
+    <div id="date_calc_bottom">
+      <div id="date_calc_result">Date Calculator Result Here</div>
     </div>
+  </div>
 
-    <h2 onclick="toggle_content('age_calculator')" title="Click to calculate age">Age Calculator</h1>
+  <h2 onclick="toggle_content('age_calculator')" title="Click to calculate age">Age Calculator</h1>
     <div class="main_div" id="age_calculator">
       <div id="age_calculator_ad">
         <div class="age_header">Calculate from AD Date</div>
@@ -109,9 +110,8 @@
     <br />
 
     <div>
-      <a id="brihatcalendar"
-         href="https://calendar.brihatrb.com.np/">
-          &raquo; Brihat Calendar &laquo;
+      <a id="brihatcalendar" href="https://calendar.brihatrb.com.np/">
+        &raquo; Brihat Calendar &laquo;
       </a>
     </div>
 
@@ -123,7 +123,7 @@
     <div id="footer">&spades; <a href="https://brihatrb.com.np/">Brihat</a> &spades;</div>
 
     <script>
-      function recordData (response) {
+      function recordData(response) {
         document.getElementById("user_ip").innerHTML = response["ip"];
         document.getElementById("user_geolocation").innerHTML = response["loc"];
       }
@@ -138,11 +138,11 @@
       }
 
       function hide_other(one_div, div_list) {
-        div_list.forEach(function(div_id) {
+        div_list.forEach(function (div_id) {
           if (div_id != one_div) {
-              let div_container = document.getElementById(div_id);
-              div_container.style.display = "none";
-              div_container.style.maxHeight = null;
+            let div_container = document.getElementById(div_id);
+            div_container.style.display = "none";
+            div_container.style.maxHeight = null;
           }
         });
         document.getElementById("age_result").innerHTML = "";
@@ -171,7 +171,8 @@
     <script type="text/javascript" src="./nepali_calendar_tools.js"></script>
     <script type="text/javascript" src="./age_calculator.js"></script>
     <script type="text/javascript" src="./date_calculator.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/brihat-rb/brihat-rb.github.io/brihat_calendar/NS.js"></script>
+    <script type="text/javascript"
+      src="https://cdn.jsdelivr.net/gh/brihat-rb/brihat-rb.github.io/brihat_calendar/NS.js"></script>
     <script type="text/javascript" src="./solar_ns_calendar_utils.js"></script>
 
     <!-- for topmost date display -->
@@ -190,12 +191,32 @@
     </script>
 
     <script>
+      var other_event_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/other_calendar_events.json';
+      var other_event_req = new XMLHttpRequest();
+      var oevents = "";
+
+      other_event_req.open('GET', other_event_url, false);
+      other_event_req.onload = function () {
+        oevents = JSON.parse(this.response);
+      }
+      other_event_req.send();
+
+      var solar_event_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/solar_ns_events.json';
+      var solar_event_req = new XMLHttpRequest();
+      var snsevents = "";
+
+      solar_event_req.open('GET', solar_event_url, false);
+      solar_event_req.onload = function () {
+        snsevents = JSON.parse(this.response);
+      }
+      solar_event_req.send();
+
       var int_event_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/international_events.json';
       var int_event_req = new XMLHttpRequest();
       var ievents = "";
 
       int_event_req.open('GET', int_event_url, false);
-      int_event_req.onload = function() {
+      int_event_req.onload = function () {
         ievents = JSON.parse(this.response);
       }
       int_event_req.send();
@@ -205,7 +226,7 @@
       var nevents = "";
 
       nat_event_req.open('GET', nat_event_url, false);
-      nat_event_req.onload = function() {
+      nat_event_req.onload = function () {
         nevents = JSON.parse(this.response);
       }
       nat_event_req.send();
@@ -216,34 +237,45 @@
       let date = bs_date_today[2] - 1;
 
       let ad_date_today = convert_bs_to_ad(parseInt(year), parseInt(month + 1), parseInt(date + 1)).split(" ");
+      let ad_year = ad_date_today[2].toString();
       let ad_month = (AD_MONTHS.indexOf(ad_date_today[1]) + 1).toString().padStart(2, '0');
       let ad_date = (ad_date_today[0]).toString().padStart(2, '0');
 
+      let ns_date_today = convert_bs_to_ns(parseInt(year), parseInt(month), parseInt(date)).split(" ");
+      let ns_month = ns_date_today[1].padStart(2, '0');
+      let ns_date = ns_date_today[2].padStart(2, '0');
+
       let int_events_key = ad_month + "-" + ad_date;
       let nat_events_key = (month + 1).toString().padStart(2, '0') + "-" + (date + 1).toString().padStart(2, '0');
-
+      let sns_events_key = ns_month + "-" + ns_date;
 
       json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/' + year + '_detailed.json';
 
       var nepal_event_req = new XMLHttpRequest();
       nepal_event_req.open('GET', json_url, true);
-      nepal_event_req.onload = function() {
+      nepal_event_req.onload = function () {
         let events = JSON.parse(this.response);
 
         let info_content = "";
         info_content += '<div id="tithi">' + events.data[month][date].pakshya + " " + events.data[month][date].tithi + '</div>';
         if (events.data[month][date].lunar_event_one)
-          info_content += '<div id="info1">' + events.data[month][date].lunar_event_one + '</div>';
+          info_content += '<div id="lunar_infos">' + events.data[month][date].lunar_event_one;
         if (events.data[month][date].lunar_event_two)
-          info_content += '<div id="info2">' + events.data[month][date].lunar_event_two + '</div>';
+          info_content += '<br />' + events.data[month][date].lunar_event_two;
         if (events.data[month][date].lunar_event_three)
-          info_content += '<div id="info3">' + events.data[month][date].lunar_event_three + '</div>';
+          info_content += '<br /">' + events.data[month][date].lunar_event_three + "</div>";
 
-        if(nevents.data[nat_events_key])
-          info_content +="<div id='national_event_info'>" + nevents.data[nat_events_key][1] + "</div>";
+        if (nevents.data[nat_events_key])
+          info_content += "<div id='national_event_info'>" + nevents.data[nat_events_key][1].replaceAll(" / ", "<br />") + "</div>";
 
-        if(ievents.data[int_events_key])
-          info_content +="<div id='international_event_info'>" + ievents.data[int_events_key][1] + "</div>";
+        if (ievents.data[int_events_key])
+          info_content += "<div id='international_event_info'>" + ievents.data[int_events_key][1].replaceAll(" / ", "<br />") + "</div>";
+
+        if (snsevents.data[sns_events_key])
+          info_content += "<div id='sns_event_info'>" + snsevents.data[sns_events_key][1].replaceAll(" / ", "<br />") + "</div>";
+
+        if (oevents.data[ad_year][int_events_key])
+          info_content += "<div id='other_event_info'>" + oevents["data"][ad_year][int_events_key][1].replaceAll(" / ", "<br />") + "</div>";
 
         document.getElementById("today_info").innerHTML = info_content;
       }
@@ -258,17 +290,21 @@
 
         let ad_date_today = convert_bs_to_ad(parseInt(bs_year), parseInt(bs_month), parseInt(bs_date)).split(" ");
         let ad_month = (AD_MONTHS.indexOf(ad_date_today[1]) + 1).toString().padStart(2, '0');
-        let ad_date = (ad_date_today[0]).toString().padStart(2, '0');
+        let ad_date = ad_date_today[0].padStart(2, '0');
+
+        let ns_date_today = convert_bs_to_ns(parseInt(bs_year), parseInt(bs_month), parseInt(bs_date)).split(" ");
+        let ns_month = ns_date_today[1].padStart(2, '0');
+        let ns_date = ns_date_today[2].padStart(2, '0');
 
         let int_events_key = ad_month + "-" + ad_date;
         let nat_events_key = bs_month.toString().padStart(2, '0') + "-" + bs_date.toString().padStart(2, '0');
+        let sns_events_key = ns_month + "-" + ns_date;
 
         if (bs_year < 2070 || bs_year > 2080) {
           alert("Event not available for year '" + bs_year + "' BS");
         }
 
         var nepal_event_req = new XMLHttpRequest();
-        // json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/' + bs_year + '.json';
         if (bs_year >= 2076 && bs_year <= 2080) {
           json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/' + bs_year + '_detailed.json';
         }
@@ -277,19 +313,20 @@
         }
 
         nepal_event_req.open('GET', json_url, true);
-        nepal_event_req.onload = function() {
+        nepal_event_req.onload = function () {
           let events = JSON.parse(this.response);
 
           let nepali_date = "<br />";
           let nepali_date_day = new Date(convert_bs_to_ad(bs_year, bs_month, bs_date, "")).getDay();
           nepali_date += '<div id="date"><b><u>' + arabic_number_to_nepali(bs_year) + " ";
-          nepali_date += BS_MONTHS_NEP[bs_month-1] + " ";
+          nepali_date += BS_MONTHS_NEP[bs_month - 1] + " ";
           nepali_date += arabic_number_to_nepali(bs_date) + ", ";
           nepali_date += NEPALI_DAYS[nepali_date_day] + ' </u></b></div><br />';
 
           let info_content = nepali_date;
-          info_content += '<div id="tithi">';
-		      if (events.data[bs_month - 1][bs_date - 1].hasOwnProperty("ns_year")) {
+          info_content += '<div id="all_events">';
+          info_content += '<div id="date_info"><span id="tithi">';
+          if (events.data[bs_month - 1][bs_date - 1].hasOwnProperty("ns_year")) {
             info_content += "ने. सं. " + arabic_number_to_nepali(events.data[bs_month - 1][bs_date - 1].ns_year) + " ";
           }
           if (events.data[bs_month - 1][bs_date - 1].hasOwnProperty("lunar_month")) {
@@ -298,31 +335,49 @@
           if (events.data[bs_month - 1][bs_date - 1].hasOwnProperty("pakshya")) {
             info_content += " (" + events.data[bs_month - 1][bs_date - 1].pakshya + ") ";
           }
-          info_content += events.data[bs_month - 1][bs_date - 1].tithi + '</div>';
+          info_content += events.data[bs_month - 1][bs_date - 1].tithi + '</span><br />';
 
           let solar_ns_date_list = convert_bs_to_ns(bs_year, bs_month, bs_date).split(" ");
           let solar_ns_date = "सौ. ने. सं. " + arabic_number_to_nepali(solar_ns_date_list[0]) + " ";
           solar_ns_date += NS_NEP[solar_ns_date_list[1] - 1] + " " + arabic_number_to_nepali(solar_ns_date_list[2]);
-          // solar_ns_date += ", " + NS_DAYS[nepali_date_day];
-          info_content += "<span id='solar_ns_data'>(" + solar_ns_date + ")</span>";
-          if(events.data[bs_month - 1][bs_date - 1].lunar_event_one || events.data[bs_month - 1][bs_date - 1].lunar_event_two || events.data[bs_month - 1][bs_date - 1].lunar_event_three)
-            info_content += "<br /><br />";
+          info_content += "<span id='solar_ns_data'>" + solar_ns_date + "</span><br />";
+
+          let ad_full_date = "<span id='ad_data'>" + ad_year + " " + ad_date_today[1] + " " + ad_date + "</span></div>";
+          info_content += ad_full_date;
+
+          if (events.data[bs_month - 1][bs_date - 1].lunar_event_one || events.data[bs_month - 1][bs_date - 1].lunar_event_two || events.data[bs_month - 1][bs_date - 1].lunar_event_three)
+            info_content += '<div id="levents">';
           if (events.data[bs_month - 1][bs_date - 1].lunar_event_one)
             info_content += '<div id="info1">' + events.data[bs_month - 1][bs_date - 1].lunar_event_one + '</div>';
           if (events.data[bs_month - 1][bs_date - 1].lunar_event_two)
             info_content += '<div id="info2">' + events.data[bs_month - 1][bs_date - 1].lunar_event_two + '</div>';
           if (events.data[bs_month - 1][bs_date - 1].lunar_event_three)
             info_content += '<div id="info3">' + events.data[bs_month - 1][bs_date - 1].lunar_event_three + '</div>';
+          if (events.data[bs_month - 1][bs_date - 1].lunar_event_one || events.data[bs_month - 1][bs_date - 1].lunar_event_two || events.data[bs_month - 1][bs_date - 1].lunar_event_three)
+            info_content += '</div>';
 
-          if(nevents.data[nat_events_key]) {
+          if (nevents.data[nat_events_key]) {
             info_content += "<br /><br />";
-            info_content +="<div id='national_event'>" + nevents.data[nat_events_key][1] + "</div>";
+            info_content += "<div id='national_event'>" + nevents.data[nat_events_key][1].replaceAll(" / ", "<br />") + "</div>";
           }
 
-          if(ievents.data[int_events_key]) {
+          if (ievents.data[int_events_key]) {
             info_content += "<br /><br />";
-            info_content +="<div id='international_event'>" + ievents.data[int_events_key][1] + "</div>";
+            info_content += "<div id='international_event'>" + ievents.data[int_events_key][1].replaceAll(" / ", "<br />") + "</div>";
           }
+
+          if (oevents.data[ad_year][int_events_key]) {
+            info_content += "<br /><br />";
+            info_content += "<div id='other_event'>" + oevents["data"][ad_year][int_events_key][1].replaceAll(" / ", "<br />") + "</div>";
+          }
+
+          if (snsevents.data[sns_events_key]) {
+            info_content += "<br /><br />";
+            info_content += "<div id='solar_ns_event'>" + snsevents.data[sns_events_key][1].replaceAll(" / ", "<br />") + "</div>";
+          }
+
+          info_content += "</div>";
+          console.log(info_content);
 
           document.getElementById("event_here").innerHTML = info_content;
         }
@@ -331,5 +386,6 @@
       get_event();
       toggle_content('date_event');
     </script>
-  </body>
+</body>
+
 </html>
