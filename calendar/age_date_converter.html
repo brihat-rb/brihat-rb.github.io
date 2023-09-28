@@ -272,11 +272,11 @@
         info_content += "<br />" + NEPALI_DAYS[new Date(ad_date_today).getDay()] + '</div>';
 
         if (events.data[month][date].lunar_event_one)
-          info_content += '<div id="lunar_infos">' + events.data[month][date].lunar_event_one;
+          info_content += '<div id="lunar_infos">' + events.data[month][date].lunar_event_one.replaceAll(" / ", "<br />");
         if (events.data[month][date].lunar_event_two)
-          info_content += '<br />' + events.data[month][date].lunar_event_two;
+          info_content += '<br />' + events.data[month][date].lunar_event_two.replaceAll(" / ", "<br />");
         if (events.data[month][date].lunar_event_three)
-          info_content += '<br /">' + events.data[month][date].lunar_event_three + "</div>";
+          info_content += '<br /">' + events.data[month][date].lunar_event_three.replaceAll(" / ", "<br />") + "</div>";
 
         if (nevents.data[nat_events_key])
           info_content += "<div id='national_event_info'>" + nevents.data[nat_events_key][1].replaceAll(" / ", "<br />") + "</div>";
@@ -364,11 +364,11 @@
           if (events.data[bs_month - 1][bs_date - 1].lunar_event_one || events.data[bs_month - 1][bs_date - 1].lunar_event_two || events.data[bs_month - 1][bs_date - 1].lunar_event_three)
             info_content += '<div id="levents">';
           if (events.data[bs_month - 1][bs_date - 1].lunar_event_one)
-            info_content += '<div id="info1">' + events.data[bs_month - 1][bs_date - 1].lunar_event_one + '</div>';
+            info_content += '<div id="info1">' + events.data[bs_month - 1][bs_date - 1].lunar_event_one.replaceAll(" / ", "<br />") + '</div>';
           if (events.data[bs_month - 1][bs_date - 1].lunar_event_two)
-            info_content += '<div id="info2">' + events.data[bs_month - 1][bs_date - 1].lunar_event_two + '</div>';
+            info_content += '<div id="info2">' + events.data[bs_month - 1][bs_date - 1].lunar_event_two.replaceAll(" / ", "<br />") + '</div>';
           if (events.data[bs_month - 1][bs_date - 1].lunar_event_three)
-            info_content += '<div id="info3">' + events.data[bs_month - 1][bs_date - 1].lunar_event_three + '</div>';
+            info_content += '<div id="info3">' + events.data[bs_month - 1][bs_date - 1].lunar_event_three.replaceAll(" / ", "<br />") + '</div>';
           if (events.data[bs_month - 1][bs_date - 1].lunar_event_one || events.data[bs_month - 1][bs_date - 1].lunar_event_two || events.data[bs_month - 1][bs_date - 1].lunar_event_three)
             info_content += '</div>';
 

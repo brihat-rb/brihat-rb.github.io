@@ -316,6 +316,16 @@ select:hover {
   }
 }
 
+@media only screen and (max-width: 700px) {
+  #today_info {
+    font-size: 14px;
+  }
+
+  #all_events {
+    font-size: 14px;
+  }
+}
+
 @media only screen and (max-width: 650px) {
   #age_calculator, #date_converter, #date_event {
     align-items: center;
@@ -339,11 +349,53 @@ select:hover {
   .age_header {
     padding-top: 10px;
   }
+
+  #today_info {
+    font-size: 12px;
+  }
+
+  #all_events {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  #date {
+    font-size: medium;
+  }
+
+  br {
+    content: "";
+  }
+
+  br:after{
+    content: " ";
+  }
+  
+  br:before{
+    content: " ";
+  }
+
+  h2 {
+    font-size: 13px;
+  }
+
+  #today_info {
+    font-size: 9px;
+  }
+
+  #all_events {
+    font-size: 9px;
+  }
 }
 
 @media only screen and (max-width: 350px) {
   select {
       -webkit-appearance: none;
+  }
+
+  #today_info {
+    font-size: 11px;
   }
 
   #eng_date {
