@@ -80,9 +80,32 @@ body {
     text-decoration: none;
 }
 
+#mobile_controls {
+    display: none !important;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    font-size: clamp(0.60rem, 2.0vw, 0.75rem);
+    background-color: white;
+    color: gray;
+    text-decoration: none;
+}
+
 #controls>div>a {
     color: gray;
     text-decoration: none;
     cursor: pointer;
     font-weight: bold
+}
+
+@media screen and (max-width: 400px) {
+    #controls {
+        display: none !important;
+    }
+
+    #mobile_controls {
+        display: flex !important;
+    }
 }
