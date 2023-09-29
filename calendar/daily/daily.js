@@ -38,11 +38,12 @@ function get_event(bs_year, bs_month, bs_date) {
 
         var date_id = bs_year.toString() + "-" + bs_month.toString() + "-" + bs_date.toString();
 
-        let nepali_date = '<div id="date"';
-        if (public_holidays[bs_year][nat_events_key])
-            nepali_date += ' class="' + public_holidays[bs_year][nat_events_key][1] + '"';
-        nepali_date += '><span id="' + date_id + '">' + arabic_number_to_nepali(bs_year) + " " + BS_MONTHS_NEP[bs_month - 1];
-        nepali_date += " " + arabic_number_to_nepali(bs_date) + ", " + NEPALI_DAYS[ad_day] + '</span></div><br />';
+        let nepali_date = '<div id="date" class="';
+        nepali_date += public_holidays[bs_year][nat_events_key] ? public_holidays[bs_year][nat_events_key][1] == "national" ? "bg-danger " : "bg-primary " : "bg-dark ";
+        nepali_date += '><span id="' + date_id + '"><mark class="bg-white rounded';
+        nepali_date += public_holidays[bs_year][nat_events_key] ? public_holidays[bs_year][nat_events_key][1] == "national" ? ' text-danger ' : ' text-primary ' : ' text-dark ';
+        nepali_date += 'display-6">' + arabic_number_to_nepali(bs_year) + " " + BS_MONTHS_NEP[bs_month - 1];
+        nepali_date += " " + arabic_number_to_nepali(bs_date) + ", " + NEPALI_DAYS[ad_day] + '</mark></span></div><br />';
 
         let info_content = nepali_date;
 
@@ -72,7 +73,7 @@ function get_event(bs_year, bs_month, bs_date) {
 
         var has_lunar_events = false;
         if (events.data[bs_month - 1][bs_date - 1].lunar_event_one || events.data[bs_month - 1][bs_date - 1].lunar_event_two || events.data[bs_month - 1][bs_date - 1].lunar_event_three) {
-            info_content += '<div id="levents"><div id="ltopic">Lunar Event(s)</div>';
+            info_content += '<div id="levents"><div id="ltopic" class="p-1"><mark class="rounded bg-dark text-white">Lunar Event(s)</mark></div>';
             has_lunar_events = true;
         }
         if (events.data[bs_month - 1][bs_date - 1].lunar_event_one)
@@ -94,10 +95,11 @@ function get_event(bs_year, bs_month, bs_date) {
             var nevents_list_np = nevents.data[nat_events_key][1].split(" / ");
             var count = nevents_list_en.length;
 
-            info_content += "<div id='national_event'><div id='ntopic'>National Event(s)</div>";
+            info_content += "<div id='national_event'><div id='ntopic' class='p-1'><mark class='rounded bg-success text-white'>National Event(s)</mark></div>";
 
             for (var i = 0; i < count; i++) {
-                info_content += nevents_list_np[i] + "<br />(" + nevents_list_en[i] + ")<br /><br />";
+                info_content += nevents_list_np[i] + "<br />(" + nevents_list_en[i] + ")";
+                info_content += i == count - 1 ? "<br />" : "<br /><br />";
             }
             info_content += "</div>";
         }
@@ -112,10 +114,11 @@ function get_event(bs_year, bs_month, bs_date) {
             var ievents_list_np = ievents.data[int_events_key][1].split(" / ");
             var count = ievents_list_en.length;
 
-            info_content += "<div id='international_event'><div id='itopic'>International Event(s)</div>";
+            info_content += "<div id='international_event'><div id='itopic' class='p-1'><mark class='rounded bg-info text-white'>International Event(s)</mark></div>";
 
             for (var i = 0; i < count; i++) {
-                info_content += ievents_list_np[i] + "<br />(" + ievents_list_en[i] + ")<br /><br />";
+                info_content += ievents_list_np[i] + "<br />(" + ievents_list_en[i] + ")";
+                info_content += i == count - 1 ? "<br />" : "<br /><br />";
             }
             info_content += "</div>";
         }
@@ -130,10 +133,11 @@ function get_event(bs_year, bs_month, bs_date) {
             var oevents_list_np = oevents.data[ad_year][int_events_key][1].split(" / ");
             var count = oevents_list_en.length;
 
-            info_content += "<div id='other_event'><div id='otopic'>Other Event(s)</div>";
+            info_content += "<div id='other_event'><div id='otopic' class='p-1'><mark class='rounded bg-danger text-white'>Other Event(s)</mark></div>";
 
             for (var i = 0; i < count; i++) {
-                info_content += oevents_list_np[i] + "<br />(" + oevents_list_en[i] + ")<br /><br />";
+                info_content += oevents_list_np[i] + "<br />(" + oevents_list_en[i] + ")";
+                info_content += i == count - 1 ? "<br />" : "<br /><br />";
             }
             info_content += "</div>";
         }
@@ -148,10 +152,11 @@ function get_event(bs_year, bs_month, bs_date) {
             var sns_events_list_np = snsevents.data[sns_events_key][1].split(" / ");
             var count = sns_events_list_en.length;
 
-            info_content += "<div id='solar_ns_event'><div id='snstopic'>Solar Nepal Sambat Event(s)</div>";
+            info_content += "<div id='solar_ns_event'><div id='snstopic' class='p-1'><mark class='rounded bg-secondary text-white'>Solar Nepal Sambat Event(s)</mark></div>";
 
             for (var i = 0; i < count; i++) {
-                info_content += sns_events_list_np[i] + "<br />(" + sns_events_list_en[i] + ")<br /><br />";
+                info_content += sns_events_list_np[i] + "<br />(" + sns_events_list_en[i] + ")";
+                info_content += i == count - 1 ? "<br />" : "<br /><br />";
             }
             info_content += "</div>";
         }
@@ -167,10 +172,14 @@ function get_event(bs_year, bs_month, bs_date) {
             var public_holidays_list_np = public_holidays[bs_year][nat_events_key][3].split(" / ");
             var count = public_holidays_list_en.length;
 
-            info_content += "<div id='holiday_event' class='" + public_holidays[bs_year][nat_events_key][1] + "'><div id='phtopic'>Holiday Info(s)</div>";
+            info_content += "<div id='holiday_event' class='" + public_holidays[bs_year][nat_events_key][1];
+            info_content += "'><div id='phtopic' class='p-1'><mark class='rounded";
+            info_content += public_holidays[bs_year][nat_events_key][1] == "national" ? " bg-danger " : " bg-primary ";
+            info_content += "text-white'>Holiday Info(s)</mark></div>";
 
             for (var i = 0; i < count; i++) {
-                info_content += public_holidays_list_np[i] + "<br />(" + public_holidays_list_en[i] + ")<br />" + public_holidays_list_info[i] + "<br /><br />";
+                info_content += public_holidays_list_np[i] + "<br />(" + public_holidays_list_en[i] + ")<br />" + public_holidays_list_info[i];
+                info_content += i == count - 1 ? "<br />" : "<br /><br />";
             }
             info_content += "</div>";
         }
@@ -178,6 +187,10 @@ function get_event(bs_year, bs_month, bs_date) {
         info_content += "</div>";
         if (has_holiday_events)
             info_content += "<div>&nbsp;</div>";
+
+        info_content += "<div class='";
+        info_content += has_holiday_events ? public_holidays[bs_year][nat_events_key][1] == "national" ? " bg-danger " : " bg-primary " : "bg-dark";
+        info_content += "'><br /></div><div><br /><br /></div>";
 
         document.getElementById("event_here").innerHTML = info_content;
     }

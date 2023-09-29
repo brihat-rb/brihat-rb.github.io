@@ -2,10 +2,12 @@
     user-select: none;
     line-height: 1.5;
     font-family: Laila;
+    font-size: small;
 }
 
 body {
-    text-align: center;
+    display: grid;
+    align-items: center;
     height: 95vh;
 }
 
@@ -22,15 +24,15 @@ body {
 }
 
 .national {
-    color: crimson;
+    color: rgb(var(--bs-danger-rgb));
 }
 
 .specific {
-    color: darkblue;
+    color: rgb(var(--bs-primary-rgb));
 }
 
-#date {
-    font-size: x-large;
+.display-6 {
+    font-weight: bolder;
 }
 
 #ltopic,
@@ -40,28 +42,28 @@ body {
 #snstopic,
 #phtopic {
     font-variant: small-caps;
-    text-decoration: underline;
+    /* text-decoration: underline; */
     font-weight: bold;
 }
 
 #lunar_event {
-    color: orangered;
+    color: rgb(var(--bs-dark-rgb));
 }
 
 #national_event {
-    color: darkgreen;
+    color: rgb(var(--bs-success-rgb));
 }
 
 #international_event {
-    color: darkcyan;
+    color: rgb(var(--bs-info-rgb));
 }
 
 #other_event {
-    color: brown;
+    color: rgb(var(--bs-danger-rgb));
 }
 
 #solar_ns_event {
-    color: yellow;
+    color: rgb(var(--bs-secondary-rgb));
 }
 
 #public_holiday_box {
@@ -95,6 +97,13 @@ body {
 }
 
 #controls>div>a {
+    color: gray;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold
+}
+
+#mobile_controls>div>a {
     color: gray;
     text-decoration: none;
     cursor: pointer;
