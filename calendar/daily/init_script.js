@@ -16,6 +16,13 @@ var snsevents = "";
 var oevents = "";
 var public_holidays = "";
 
+var lunar_json_loaded = false;
+var other_event_json_loaded = false;
+var public_holidays_json_loaded = false;
+var sunrise_json = false;
+var sunset_json = false;
+var sunrisesunset_json_loaded = false;
+
 nat_event_req.open('GET', nat_event_url, false);
 nat_event_req.onload = function () {
     nevents = JSON.parse(this.response);
@@ -40,6 +47,7 @@ solar_event_req.send();
 other_event_req.open('GET', other_event_url, false);
 other_event_req.onload = function () {
     oevents = JSON.parse(this.response);
+    other_event_json_loaded = true;
     console.info("Other Events: Loaded.");
 }
 other_event_req.send();
@@ -47,6 +55,7 @@ other_event_req.send();
 public_holiday_req.open('GET', public_holiday_url, false);
 public_holiday_req.onload = function () {
     public_holidays = JSON.parse(this.response);
+    public_holidays_json_loaded = true;
     console.info("Public Holidays JSON: Loaded.");
 }
 public_holiday_req.send();
@@ -56,6 +65,36 @@ let ad_year = ad_date_today.getFullYear();
 let ad_month = ad_date_today.getMonth() + 1;
 let ad_date = ad_date_today.getDate();
 let ad_day = ad_date_today.getDay();
+
+var current_ad_year = ad_year;
+
+var sunrise_url = 'https://raw.githubusercontent.com/brihat-rb/brihat_calendar/main/data/sunrise_sunset_json/sunrise_' + ad_year + '.json';
+var sunset_url = 'https://raw.githubusercontent.com/brihat-rb/brihat_calendar/main/data/sunrise_sunset_json/sunset_' + ad_year + '.json';
+
+var sunrise_req = new XMLHttpRequest();
+var sunset_req = new XMLHttpRequest();
+
+var sunrises = "";
+var sunsets = "";
+
+sunrise_req.open('GET', sunrise_url, false);
+sunrise_req.onload = function () {
+    sunrises = JSON.parse(this.response);
+    sunrise_json = true;
+    console.info("Sunrise Times (for", ad_year, "AD): Loaded.");
+}
+sunrise_req.send();
+
+sunset_req.open('GET', sunset_url, false);
+sunset_req.onload = function () {
+    sunsets = JSON.parse(this.response);
+    sunset_json = true;
+    console.info("Sunset Times (for", ad_year, "AD): Loaded.");
+}
+sunset_req.send();
+
+if (sunrise_json && sunset_json)
+    sunrisesunset_json_loaded = true;
 
 let bs_date_today = convert_ad_to_bs(ad_year, ad_month, ad_date).split(" ");
 let bs_year = bs_date_today[0];
@@ -78,7 +117,8 @@ var events = "";
 lunar_event_req.open('GET', lunar_json_url, false);
 lunar_event_req.onload = function () {
     events = JSON.parse(this.response);
-    console.info("Lunar Events (for", bs_year, "BS ): Loaded.");
+    lunar_json_loaded = true;
+    console.info("Lunar Events (for", bs_year, "BS): Loaded.");
 }
 lunar_event_req.send();
 

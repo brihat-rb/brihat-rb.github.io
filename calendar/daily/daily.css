@@ -11,6 +11,10 @@ body {
     height: 95vh;
 }
 
+#date_info {
+    color: darkblue;
+}
+
 #date>span {
     font-weight: bold;
     text-decoration: underline;
@@ -46,8 +50,13 @@ body {
     font-weight: bold;
 }
 
-#lunar_event {
-    color: rgb(var(--bs-dark-rgb));
+#lunar_mark {
+    color: white;
+    background-color: purple;
+}
+
+#lunar_events {
+    color: purple;
 }
 
 #national_event {
@@ -69,6 +78,12 @@ body {
 #public_holiday_box {
     display: flex;
     justify-content: space-around;
+}
+
+#sunrise_sunset_info {
+    display: flex;
+    justify-content: space-around;
+    /* flex-direction: row; */
 }
 
 #controls {
