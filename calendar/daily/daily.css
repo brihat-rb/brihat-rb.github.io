@@ -1,0 +1,88 @@
+* {
+    user-select: none;
+    line-height: 1.5;
+    font-family: Laila;
+}
+
+body {
+    text-align: center;
+}
+
+#date>span {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#all_events {
+    display: flex;
+    font-weight: bold;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+.national {
+    color: crimson;
+}
+
+.specific {
+    color: darkblue;
+}
+
+#date {
+    font-size: x-large;
+}
+
+#ltopic,
+#ntopic,
+#itopic,
+#otopic,
+#snstopic,
+#phtopic {
+    font-variant: small-caps;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+#lunar_event {
+    color: orangered;
+}
+
+#national_event {
+    color: darkgreen;
+}
+
+#international_event {
+    color: darkcyan;
+}
+
+#other_event {
+    color: brown;
+}
+
+#solar_ns_event {
+    color: yellow;
+}
+
+#public_holiday_box {
+    display: flex;
+    justify-content: space-around;
+}
+
+#controls {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    font-size: clamp(0.60rem, 2.0vw, 0.75rem);
+    background-color: white;
+    color: gray;
+    text-decoration: none;
+}
+
+#controls>div>a {
+    color: gray;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold
+}
