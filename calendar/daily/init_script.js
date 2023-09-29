@@ -19,30 +19,35 @@ var public_holidays = "";
 nat_event_req.open('GET', nat_event_url, false);
 nat_event_req.onload = function () {
     nevents = JSON.parse(this.response);
+    console.info("National Events: Loaded.");
 }
 nat_event_req.send();
 
 int_event_req.open('GET', int_event_url, false);
 int_event_req.onload = function () {
     ievents = JSON.parse(this.response);
+    console.info("International Events: Loaded.");
 }
 int_event_req.send();
 
 solar_event_req.open('GET', solar_event_url, false);
 solar_event_req.onload = function () {
     snsevents = JSON.parse(this.response);
+    console.info("Solar Nepal Sambat Events: Loaded.");
 }
 solar_event_req.send();
 
 other_event_req.open('GET', other_event_url, false);
 other_event_req.onload = function () {
     oevents = JSON.parse(this.response);
+    console.info("Other Events: Loaded.");
 }
 other_event_req.send();
 
 public_holiday_req.open('GET', public_holiday_url, false);
 public_holiday_req.onload = function () {
     public_holidays = JSON.parse(this.response);
+    console.info("Public Holidays JSON: Loaded.");
 }
 public_holiday_req.send();
 
@@ -66,6 +71,16 @@ let nat_events_key = bs_month.padStart(2, '0') + "-" + bs_date.padStart(2, '0');
 let sns_events_key = ns_month.padStart(2, '0') + "-" + ns_date.padStart(2, '0');
 
 var lunar_json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/' + bs_year + '_detailed.json';
+
+var lunar_event_req = new XMLHttpRequest();
+var events = "";
+
+lunar_event_req.open('GET', lunar_json_url, false);
+lunar_event_req.onload = function () {
+    events = JSON.parse(this.response);
+    console.info("Lunar Events (for", bs_year, "BS ): Loaded.");
+}
+lunar_event_req.send();
 
 var current_year = bs_year;
 var current_month = bs_month;
