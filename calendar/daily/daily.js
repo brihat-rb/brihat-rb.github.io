@@ -104,10 +104,15 @@ function get_event(bs_year, bs_month, bs_date) {
     nepali_date += 'display-6">' + arabic_number_to_nepali(bs_year) + " " + BS_MONTHS_NEP[bs_month - 1];
     nepali_date += " " + arabic_number_to_nepali(bs_date) + ", " + NEPALI_DAYS[ad_day] + '</mark></span></div><br />';
 
-    let info_content = "<div><br /></div>" + nepali_date + '<div id="all_events"><div id="date_info"><span id="tithi">';
+    let info_content = "<div><br /></div>" + nepali_date + '<div id="all_events"><div id="date_info">';
     var has_lunar_events = false;
 
+    let solar_ns_date_list = convert_bs_to_ns(bs_year, bs_month, bs_date).split(" ");
+    let solar_ns_date = "सौ. ने. सं. " + arabic_number_to_nepali(solar_ns_date_list[0]) + " " + NS_NEP[solar_ns_date_list[1] - 1] + " " + arabic_number_to_nepali(solar_ns_date_list[2]);
+    let ad_full_date = "<span id='ad_data'>" + ad_year + " " + AD_MONTHS[ad_month - 1] + " " + ad_date + "</span><br /></div>";
+
     if (lunar_json_loaded) {
+        info_content += '<span id="solar_nepal_sambat">' + solar_ns_date + "</span><br /><span id='tithi'>";
         if (events.data[bs_month - 1][bs_date - 1].hasOwnProperty("ns_year")) {
             info_content += "ने. सं. " + arabic_number_to_nepali(events.data[bs_month - 1][bs_date - 1].ns_year) + " ";
         }
@@ -117,17 +122,7 @@ function get_event(bs_year, bs_month, bs_date) {
         if (events.data[bs_month - 1][bs_date - 1].hasOwnProperty("pakshya")) {
             info_content += " (" + events.data[bs_month - 1][bs_date - 1].pakshya + ") ";
         }
-        info_content += events.data[bs_month - 1][bs_date - 1].tithi + '</span><br />';
-
-        let solar_ns_date_list = convert_bs_to_ns(bs_year, bs_month, bs_date).split(" ");
-        let solar_ns_date = "सौ. ने. सं. " + arabic_number_to_nepali(solar_ns_date_list[0]) + " ";
-        solar_ns_date += NS_NEP[solar_ns_date_list[1] - 1] + " " + arabic_number_to_nepali(solar_ns_date_list[2]);
-        info_content += "<span id='solar_ns_data'>" + solar_ns_date + "</span><br />";
-
-        let ad_full_date = "<span id='ad_data'>" + ad_year + " " + AD_MONTHS[ad_month - 1] + " " + ad_date + "</span><br /></div>";
-        info_content += ad_full_date;
-
-        info_content += "<div>&nbsp;</div>";
+        info_content += events.data[bs_month - 1][bs_date - 1].tithi + '</span><br />' + ad_full_date + "<div>&nbsp;</div>";
 
         has_lunar_events = false;
         if (events.data[bs_month - 1][bs_date - 1].lunar_event_one || events.data[bs_month - 1][bs_date - 1].lunar_event_two || events.data[bs_month - 1][bs_date - 1].lunar_event_three) {
@@ -144,13 +139,7 @@ function get_event(bs_year, bs_month, bs_date) {
             info_content += '</div></div>';
     }
     else {
-        let solar_ns_date_list = convert_bs_to_ns(bs_year, bs_month, bs_date).split(" ");
-        let solar_ns_date = "सौ. ने. सं. " + arabic_number_to_nepali(solar_ns_date_list[0]) + " ";
-        solar_ns_date += NS_NEP[solar_ns_date_list[1] - 1] + " " + arabic_number_to_nepali(solar_ns_date_list[2]);
-        info_content += "<span id='solar_ns_data'>" + solar_ns_date + "</span><br />";
-
-        let ad_full_date = "<span id='ad_data'>" + ad_year + " " + AD_MONTHS[ad_month - 1] + " " + ad_date + "</span><br /></div>";
-        info_content += ad_full_date;
+        info_content += "<span id='solar_nepal_sambat'>" + solar_ns_date + "</span><br />" + ad_full_date;
         has_lunar_events = true;
     }
     if (has_lunar_events)
@@ -201,7 +190,7 @@ function get_event(bs_year, bs_month, bs_date) {
         var oevents_list_np = oevents.data[ad_year][int_events_key][1].split(" / ");
         var count = oevents_list_en.length;
 
-        info_content += "<div id='other_event'><div id='otopic' class='p-1'><mark class='rounded bg-danger text-white'>Other Event(s)</mark></div>";
+        info_content += "<div id='other_event'><div id='otopic' class='p-1'><mark class='rounded bg-dark text-white'>Other Event(s)</mark></div>";
 
         for (var i = 0; i < count; i++) {
             info_content += oevents_list_np[i] + "<br />(" + oevents_list_en[i] + ")";
@@ -247,8 +236,11 @@ function get_event(bs_year, bs_month, bs_date) {
             info_content += "text-white'>Holiday Info(s)</mark></div><div id='flex_ph'>";
 
             for (var i = 0; i < count; i++) {
-                info_content += "<div>" + public_holidays_list_np[i] + "<br />(" + public_holidays_list_en[i] + ")<br />" + public_holidays_list_info[i] + "</div>";
-                info_content += i == count - 1 ? "" : "<br />";
+                if (public_holidays_list_np[i] && public_holidays_list_en[i] && public_holidays_list_info[i]) {
+                    info_content += "<div>" + public_holidays_list_np[i] + "<br />(" + public_holidays_list_en[i] + ")<br />" + public_holidays_list_info[i] + "</div>";
+                    if (public_holidays_list_np[i + 1] && public_holidays_list_en[i + 1] && public_holidays_list_info[i + 1])
+                        info_content += "<br />";
+                }
             }
             info_content += "</div></div>";
         }

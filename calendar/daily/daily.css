@@ -51,6 +51,16 @@ body {
     font-weight: bold;
 }
 
+#ltopic>mark,
+#ntopic>mark,
+#itopic>mark,
+#otopic>mark,
+#snstopic>mark,
+#phtopic>mark {
+    width: 250px;
+    display: inline-block;
+}
+
 #lunar_mark {
     color: white;
     background-color: purple;
@@ -69,7 +79,7 @@ body {
 }
 
 #other_event {
-    color: rgb(var(--bs-danger-rgb));
+    color: rgb(var(--bs-dark-rgb));
 }
 
 #solar_ns_event {
@@ -127,13 +137,13 @@ body {
 }
 
 @media screen and (min-width: 800px) {
-    #flex_lunar, #flex_national, #flex_international, #flex_ph {
+    #date_info, #flex_lunar, #flex_national, #flex_international, #flex_ph {
         display: flex;
         flex-direction: row;
         justify-content: space-around;
     }
 
-    #flex_lunar>div, #flex_national>div, #flex_international>div, #flex_ph>div {
+    #date_info>span, #flex_lunar>div, #flex_national>div, #flex_international>div, #flex_ph>div {
         flex: 1;
     }
 }
