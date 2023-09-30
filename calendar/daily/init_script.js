@@ -46,6 +46,7 @@ catch (error) {
 int_event_req.open('GET', int_event_url, false);
 int_event_req.onload = function () {
     ievents = JSON.parse(this.response);
+    international_json_loaded = true;
     console.info("International Events: Loaded.");
 }
 int_event_req.onerror = function () {

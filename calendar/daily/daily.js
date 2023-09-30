@@ -131,17 +131,17 @@ function get_event(bs_year, bs_month, bs_date) {
 
         has_lunar_events = false;
         if (events.data[bs_month - 1][bs_date - 1].lunar_event_one || events.data[bs_month - 1][bs_date - 1].lunar_event_two || events.data[bs_month - 1][bs_date - 1].lunar_event_three) {
-            info_content += '<div id="lunar_events"><div id="ltopic" class="p-1"><mark id="lunar_mark" class="rounded text-white">Lunar Event(s)</mark></div>';
+            info_content += '<div id="lunar_events"><div id="ltopic" class="p-1"><mark id="lunar_mark" class="rounded text-white">Lunar Event(s)</mark></div><div id="flex_lunar">';
             has_lunar_events = true;
         }
         if (events.data[bs_month - 1][bs_date - 1].lunar_event_one)
-            info_content += '<div id="info1">' + events.data[bs_month - 1][bs_date - 1].lunar_event_one.replaceAll(" / ", "<br />") + '</div>';
+            info_content += '<div>' + events.data[bs_month - 1][bs_date - 1].lunar_event_one.replaceAll(" / ", "</div><div>") + '</div>';
         if (events.data[bs_month - 1][bs_date - 1].lunar_event_two)
-            info_content += '<div id="info2">' + events.data[bs_month - 1][bs_date - 1].lunar_event_two.replaceAll(" / ", "<br />") + '</div>';
+            info_content += '<div>' + events.data[bs_month - 1][bs_date - 1].lunar_event_two.replaceAll(" / ", "</div><div>") + '</div>';
         if (events.data[bs_month - 1][bs_date - 1].lunar_event_three)
-            info_content += '<div id="info3">' + events.data[bs_month - 1][bs_date - 1].lunar_event_three.replaceAll(" / ", "<br />") + '</div>';
+            info_content += '<div>' + events.data[bs_month - 1][bs_date - 1].lunar_event_three.replaceAll(" / ", "</div><div>") + '</div>';
         if (events.data[bs_month - 1][bs_date - 1].lunar_event_one || events.data[bs_month - 1][bs_date - 1].lunar_event_two || events.data[bs_month - 1][bs_date - 1].lunar_event_three)
-            info_content += '</div>';
+            info_content += '</div></div>';
     }
     else {
         let solar_ns_date_list = convert_bs_to_ns(bs_year, bs_month, bs_date).split(" ");
@@ -163,13 +163,13 @@ function get_event(bs_year, bs_month, bs_date) {
         var nevents_list_np = nevents.data[nat_events_key][1].split(" / ");
         var count = nevents_list_en.length;
 
-        info_content += "<div id='national_event'><div id='ntopic' class='p-1'><mark class='rounded bg-success text-white'>National Event(s)</mark></div>";
+        info_content += "<div id='national_event'><div id='ntopic' class='p-1'><mark class='rounded bg-success text-white'>National Event(s)</mark></div><div id='flex_national'>";
 
         for (var i = 0; i < count; i++) {
-            info_content += nevents_list_np[i] + "<br />(" + nevents_list_en[i] + ")";
-            info_content += i == count - 1 ? "<br />" : "<br /><br />";
+            info_content += "<div>" + nevents_list_np[i] + "<br />(" + nevents_list_en[i] + ")</div>";
+            info_content += i == count - 1 ? "" : "<br />";
         }
-        info_content += "</div>";
+        info_content += "</div></div>";
     }
 
     if (has_national_events)
@@ -182,13 +182,13 @@ function get_event(bs_year, bs_month, bs_date) {
         var ievents_list_np = ievents.data[int_events_key][1].split(" / ");
         var count = ievents_list_en.length;
 
-        info_content += "<div id='international_event'><div id='itopic' class='p-1'><mark class='rounded bg-info text-white'>International Event(s)</mark></div>";
+        info_content += "<div id='international_event'><div id='itopic' class='p-1'><mark class='rounded bg-info text-white'>International Event(s)</mark></div><div id='flex_international'>";
 
         for (var i = 0; i < count; i++) {
-            info_content += ievents_list_np[i] + "<br />(" + ievents_list_en[i] + ")";
-            info_content += i == count - 1 ? "<br />" : "<br /><br />";
+            info_content += "<div>" + ievents_list_np[i] + "<br />(" + ievents_list_en[i] + ")</div>";
+            info_content += i == count - 1 ? "" : "<br />";
         }
-        info_content += "</div>";
+        info_content += "</div></div>";
     }
 
     if (has_international_events)
@@ -244,13 +244,13 @@ function get_event(bs_year, bs_month, bs_date) {
             info_content += "<div id='holiday_event' class='" + public_holidays[bs_year][nat_events_key][1];
             info_content += "'><div id='phtopic' class='p-1'><mark class='rounded";
             info_content += public_holidays[bs_year][nat_events_key][1] == "national" ? " bg-danger " : " bg-primary ";
-            info_content += "text-white'>Holiday Info(s)</mark></div>";
+            info_content += "text-white'>Holiday Info(s)</mark></div><div id='flex_ph'>";
 
             for (var i = 0; i < count; i++) {
-                info_content += public_holidays_list_np[i] + "<br />(" + public_holidays_list_en[i] + ")<br />" + public_holidays_list_info[i];
-                info_content += i == count - 1 ? "<br />" : "<br /><br />";
+                info_content += "<div>" + public_holidays_list_np[i] + "<br />(" + public_holidays_list_en[i] + ")<br />" + public_holidays_list_info[i] + "</div>";
+                info_content += i == count - 1 ? "" : "<br />";
             }
-            info_content += "</div>";
+            info_content += "</div></div>";
         }
 
         // info_content += "</div>";
@@ -281,4 +281,6 @@ function get_event(bs_year, bs_month, bs_date) {
     document.getElementById("event_here").innerHTML = info_content;
 }
 
-get_event(bs_year, bs_month, bs_date);
+// get_event(bs_year, bs_month, bs_date);
+// get_event(2080, 6, 1);
+get_event(2080, 6, 11);

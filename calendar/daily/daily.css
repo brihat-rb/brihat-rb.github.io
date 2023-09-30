@@ -3,6 +3,7 @@
     line-height: 1.5;
     font-family: Laila;
     font-size: clamp(0.9rem, 2.0vw, 1.0rem);
+    scrollbar-width: none;
 }
 
 body {
@@ -123,6 +124,18 @@ body {
     text-decoration: none;
     cursor: pointer;
     font-weight: bold
+}
+
+@media screen and (min-width: 800px) {
+    #flex_lunar, #flex_national, #flex_international, #flex_ph {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    #flex_lunar>div, #flex_national>div, #flex_international>div, #flex_ph>div {
+        flex: 1;
+    }
 }
 
 @media screen and (max-width: 400px) {
