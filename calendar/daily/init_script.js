@@ -17,7 +17,10 @@ var oevents = "";
 var public_holidays = "";
 
 var lunar_json_loaded = false;
+var national_json_loaded = false;
+var international_json_loaded = false;
 var other_event_json_loaded = false;
+var solar_event_json_loaded = false;
 var public_holidays_json_loaded = false;
 var sunrise_json = false;
 var sunset_json = false;
@@ -26,23 +29,51 @@ var sunrisesunset_json_loaded = false;
 nat_event_req.open('GET', nat_event_url, false);
 nat_event_req.onload = function () {
     nevents = JSON.parse(this.response);
+    national_json_loaded = true;
     console.info("National Events: Loaded.");
 }
-nat_event_req.send();
+nat_event_req.onerror = function () {
+    national_json_loaded = false;
+    console.error("National Events: Loading Failed.");
+}
+try {
+    nat_event_req.send();
+}
+catch (error) {
+    national_json_loaded = false;
+}
 
 int_event_req.open('GET', int_event_url, false);
 int_event_req.onload = function () {
     ievents = JSON.parse(this.response);
     console.info("International Events: Loaded.");
 }
-int_event_req.send();
+int_event_req.onerror = function () {
+    international_json_loaded = false;
+    console.error("International Events: Loading Failed.");
+}
+try {
+    int_event_req.send();
+}
+catch (error) {
+    international_json_loaded = false;
+}
 
 solar_event_req.open('GET', solar_event_url, false);
 solar_event_req.onload = function () {
     snsevents = JSON.parse(this.response);
     console.info("Solar Nepal Sambat Events: Loaded.");
 }
-solar_event_req.send();
+solar_event_req.onerror = function () {
+    solar_event_json_loaded = false;
+    console.error("Solar Nepal Sambat Events: Loading Failed.");
+}
+try {
+    solar_event_req.send();
+}
+catch (error) {
+    solar_event_json_loaded = false;
+}
 
 other_event_req.open('GET', other_event_url, false);
 other_event_req.onload = function () {
@@ -50,7 +81,16 @@ other_event_req.onload = function () {
     other_event_json_loaded = true;
     console.info("Other Events: Loaded.");
 }
-other_event_req.send();
+other_event_req.onerror = function () {
+    other_event_json_loaded = false;
+    console.error("Other Events: Loading Failed.");
+}
+try {
+    other_event_req.send();
+}
+catch (error) {
+    other_event_json_loaded = false;
+}
 
 public_holiday_req.open('GET', public_holiday_url, false);
 public_holiday_req.onload = function () {
@@ -58,7 +98,16 @@ public_holiday_req.onload = function () {
     public_holidays_json_loaded = true;
     console.info("Public Holidays JSON: Loaded.");
 }
-public_holiday_req.send();
+public_holiday_req.onerror = function () {
+    public_holidays_json_loaded = false;
+    console.error("Public Holidays JSON: Loading Failed.");
+}
+try {
+    public_holiday_req.send();
+}
+catch (error) {
+    public_holidays_json_loaded = false;
+}
 
 let ad_date_today = new Date()
 let ad_year = ad_date_today.getFullYear();
@@ -83,7 +132,16 @@ sunrise_req.onload = function () {
     sunrise_json = true;
     console.info("Sunrise Times (for", ad_year, "AD): Loaded.");
 }
-sunrise_req.send();
+sunrise_req.onerror = function () {
+    sunrise_json = false;
+    console.error("Lunar Events (for", bs_year, "BS): Loading Failed.");
+}
+try {
+    sunrise_req.send();
+}
+catch (error) {
+    sunrise_json = false;
+}
 
 sunset_req.open('GET', sunset_url, false);
 sunset_req.onload = function () {
@@ -91,7 +149,16 @@ sunset_req.onload = function () {
     sunset_json = true;
     console.info("Sunset Times (for", ad_year, "AD): Loaded.");
 }
-sunset_req.send();
+sunset_req.onerror = function () {
+    sunset_json = false;
+    console.error("Lunar Events (for", bs_year, "BS): Loading Failed.");
+}
+try {
+    sunset_req.send();
+}
+catch (error) {
+    sunset_json = false;
+}
 
 if (sunrise_json && sunset_json)
     sunrisesunset_json_loaded = true;
@@ -120,7 +187,16 @@ lunar_event_req.onload = function () {
     lunar_json_loaded = true;
     console.info("Lunar Events (for", bs_year, "BS): Loaded.");
 }
-lunar_event_req.send();
+lunar_event_req.onerror = function () {
+    lunar_json_loaded = false;
+    console.error("Lunar Events (for", bs_year, "BS): Loading Failed.");
+}
+try {
+    lunar_event_req.send();
+}
+catch (error) {
+    lunar_json_loaded = false;
+}
 
 var current_year = bs_year;
 var current_month = bs_month;

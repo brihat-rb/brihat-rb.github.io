@@ -2,7 +2,7 @@
     user-select: none;
     line-height: 1.5;
     font-family: Laila;
-    font-size: small;
+    font-size: clamp(0.9rem, 2.0vw, 1.0rem);
 }
 
 body {
