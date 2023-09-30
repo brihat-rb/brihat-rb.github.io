@@ -281,6 +281,4 @@ function get_event(bs_year, bs_month, bs_date) {
     document.getElementById("event_here").innerHTML = info_content;
 }
 
-// get_event(bs_year, bs_month, bs_date);
-// get_event(2080, 6, 1);
-get_event(2080, 6, 11);
+get_event(bs_year, bs_month, bs_date);
