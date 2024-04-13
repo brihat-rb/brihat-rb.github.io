@@ -267,7 +267,7 @@
         let events = JSON.parse(this.response);
 
         let info_content = "";
-        info_content += '<div id="tithi">ने. सं. ' + arabic_number_to_nepali(events.data[month - 1][date - 1].ns_year) + " ";
+        info_content += '<div id="tithi">ने. सं. ' + arabic_number_to_nepali(events.data[month][date].ns_year) + " ";
         info_content += events.data[month][date].lunar_month + " (" + events.data[month][date].pakshya + ") " + events.data[month][date].tithi;
         info_content += "<br />" + NEPALI_DAYS[new Date(ad_date_today).getDay()] + '</div>';
 
