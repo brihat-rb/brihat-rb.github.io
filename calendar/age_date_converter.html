@@ -316,12 +316,12 @@
         let nat_events_key = bs_month.toString().padStart(2, '0') + "-" + bs_date.toString().padStart(2, '0');
         let sns_events_key = ns_month + "-" + ns_date;
 
-        if (bs_year < 2070 || bs_year > 2080) {
+        if (bs_year < 2070 || bs_year > 2081) {
           alert("Event not available for year '" + bs_year + "' BS");
         }
 
         var nepal_event_req = new XMLHttpRequest();
-        if (bs_year >= 2076 && bs_year <= 2080) {
+        if (bs_year >= 2076 && bs_year <= 2081) {
           json_url = 'https://raw.githubusercontent.com/brihat-rb/brihat-rb.github.io/master/calendar/data/' + bs_year + '_detailed.json';
         }
         else {
