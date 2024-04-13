@@ -93,7 +93,7 @@ let select_list_ids = ["_", "_birthdate_", "_asof_", "_event_", "_date_calc_"];
 for (let elem = 0; elem < select_list_ids.length; elem++) {
     for (let year = 1975; year <= 2100; year++) {
         if (select_list_ids[elem] == "_event_") {
-            if (year < 2070 || year > 2080) {
+            if (year < 2070 || year > 2081) {
                 continue;
             }
         }
