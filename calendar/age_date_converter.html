@@ -251,7 +251,7 @@
       let ad_month = (AD_MONTHS.indexOf(ad_date_today[1]) + 1).toString().padStart(2, '0');
       let ad_date = (ad_date_today[0]).toString().padStart(2, '0');
 
-      let ns_date_today = convert_bs_to_ns(parseInt(year), parseInt(month), parseInt(date)).split(" ");
+      let ns_date_today = convert_bs_to_ns(parseInt(year), parseInt(month + 1), parseInt(date + 1)).split(" ");
       let ns_month = ns_date_today[1].padStart(2, '0');
       let ns_date = ns_date_today[2].padStart(2, '0');
 
