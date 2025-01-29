@@ -20,38 +20,6 @@
         letter-spacing: 1px;
       }
 
-      #ul1 {
- 	display:none;
-        position: fixed;
-        bottom: 45px;
-        width: 100%;
-        list-style: none;
-        display: flex;
-        justify-content: space-around;
-      }
-
-      #ul2 {
- 	/* display:none; */
-        position: fixed;
-        bottom: 20px;
-        width: 100%;
-        list-style: none;
-        display: flex;
-        justify-content: space-around;
-      }
-
-      a {
-        text-decoration: none;
-        color: darkseagreen;
-        opacity: 0.6;
-        white-space: nowrap;
-      }
-
-      a:hover {
-        color: darkgreen;
-        letter-spacing: 0.5px;
-      }
-
       #user_info {
         width: 100%;
         position: fixed;
@@ -74,26 +42,6 @@
       }
 
       @media only screen and (max-width: 660px) {
-        #ul1 {
-          position: fixed;
-          bottom: 80px;
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-        }
-
-        #ul2 {
-          position: fixed;
-          bottom: 10px;
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-        }
-
-        li {
-          padding: 3px;
-        }
-
         #user_ip {
           float: left;
           padding-left: 10px;
@@ -111,18 +59,6 @@
           height: auto;
         }
 
-        #ul1 {
-          position: fixed;
-          bottom: 75px;
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-        }
-
-        li {
-          padding: 2px;
-        }
-
         #user_info, a {
           font-size: 11px;
         }
@@ -137,6 +73,16 @@
     </style>
 	<link rel="stylesheet" href="./brihat.css" />
   </head>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XRWGKK13M9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-XRWGKK13M9');
+  </script>
 
   <body>
     <i id="datetime"></i>
@@ -163,25 +109,6 @@
 		  stroke="teal" stroke-width="2" mask="url(#path-1-outside-1)" />
 	  </svg>
 
-    <ul id="ul1">
-      <li><a href="https://brihatrb.com.np/calendar/age_date_converter.html">Age Calculator | Date Converter | Event List</a></li>
-      <li><a href="https://brihatrb.com.np/JSDict/JSDict.html">JSDict</a></li>
-      <li><a href="https://brihatrb.com.np/morse/morse.html">Morse Code</a></li>
-      <li><a href="https://brihatrb.com.np/react-todo">React Todo</a></li>
-      <li><a href="https://brihatrb.com.np/todoweb/todoweb.html">TodoWeb (JS) WebStorage</a></li>
-      <li><a href="https://brihatrb.com.np/unit_converter/converter.html">Unit Converter</a></li>
-    </ul>
-
-    <!-- <br /> -->
-
-    <ul id="ul2">
-      <li><a href="https://er-brihat.com.np/">About</a></li>
-      <li><a href="https://calendar.brihatrb.com.np/">Brihat Calendar</a></li>
-      <li><a href="https://events.brihatrb.com.np/">Brihat Events</a></li>
-      <li><a href="https://weather.brihatrb.com.np/">Brihat Weather</a></li>
-      <li><a href="https://brihatrb.com.np/solarnsconverter/solarnsconverter.html">Date Converter</a></li>
-    </ul>
-
     <div id="user_info">
       <span id="user_ip"></span>&emsp;
       <span id="user_geolocation"></span>
@@ -197,12 +124,12 @@
       showtime();
     </script>
 
-  	<script>
+<!--   	<script>
   	  const logo = document.querySelectorAll("#brihatlogo path");
   	  for (let i = 0; i < logo.length; i++) {
   		  console.log('Letter ' + i + ' has length: ' + logo[i].getTotalLength());
   	  }
-  	</script>
+  	</script> -->
 
   	<script>
   	  var paths = document.getElementsByTagName('path');
@@ -212,7 +139,7 @@
     		  color = Math.round(Math.min(Math.max(0, color + (color * (-0.3))), 16777215)).toString(16);
     		  color = '#'+color;
     		  this.style['stroke'] = color;
-    		  console.log("Letter " + this.id + " is color: " + color);
+    		  // console.log("Letter " + this.id + " is color: " + color);
     		}
   	  }
   	</script>
@@ -231,7 +158,7 @@
 
     <script>
       function recordData (response) {
-	      document.getElementById("user_ip").innerHTML = response["ip"];
+	document.getElementById("user_ip").innerHTML = response["ip"];
         document.getElementById("user_geolocation").innerHTML = response["loc"];
       }
     </script>
